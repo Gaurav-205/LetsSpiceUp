@@ -12,7 +12,7 @@ router.use(authenticate);
 router.use(requireAdmin);
 
 // Get admin dashboard stats
-router.get('/stats', async (req: Request, res: Response) => {
+router.get('/stats', async (_req: Request, res: Response) => {
   try {
     const totalUsers = await User.countDocuments();
     const totalPranks = await Prank.countDocuments();
@@ -131,8 +131,10 @@ router.get('/pranks', async (req: Request, res: Response) => {
 // Get user by ID
 router.get('/users/:id', async (req: Request, res: Response) => {
   try {
+    const userId = req.params.id;
+    
     // Validate MongoDB ObjectId format
-    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+    if (!userId || !userId.match(/^[0-9a-fA-F]{24}$/)) {
       return res.status(400).json({
         error: {
           message: 'Invalid user ID format',
@@ -140,7 +142,7 @@ router.get('/users/:id', async (req: Request, res: Response) => {
       });
     }
 
-    const user = await User.findById(req.params.id)
+    const user = await User.findById(userId)
       .select('-password -resetPasswordToken -resetPasswordExpires')
       .lean();
 
@@ -153,7 +155,7 @@ router.get('/users/:id', async (req: Request, res: Response) => {
     }
 
     // Get user's pranks
-    const userPranks = await Prank.find({ userId: req.params.id })
+    const userPranks = await Prank.find({ userId })
       .sort({ createdAt: -1 })
       .lean();
 
@@ -179,7 +181,7 @@ router.delete('/users/:id', async (req: Request, res: Response) => {
     const userId = req.params.id;
 
     // Validate MongoDB ObjectId format
-    if (!userId.match(/^[0-9a-fA-F]{24}$/)) {
+    if (!userId || !userId.match(/^[0-9a-fA-F]{24}$/)) {
       return res.status(400).json({
         error: {
           message: 'Invalid user ID format',
@@ -228,8 +230,10 @@ router.delete('/users/:id', async (req: Request, res: Response) => {
 // Delete prank
 router.delete('/pranks/:id', async (req: Request, res: Response) => {
   try {
+    const prankId = req.params.id;
+    
     // Validate MongoDB ObjectId format
-    if (!req.params.id.match(/^[0-9a-fA-F]{24}$/)) {
+    if (!prankId || !prankId.match(/^[0-9a-fA-F]{24}$/)) {
       return res.status(400).json({
         error: {
           message: 'Invalid prank ID format',
@@ -237,7 +241,7 @@ router.delete('/pranks/:id', async (req: Request, res: Response) => {
       });
     }
 
-    const prank = await Prank.findByIdAndDelete(req.params.id);
+    const prank = await Prank.findByIdAndDelete(prankId);
 
     if (!prank) {
       return res.status(404).json({
@@ -247,7 +251,7 @@ router.delete('/pranks/:id', async (req: Request, res: Response) => {
       });
     }
 
-    logger.info(`Admin deleted prank: ${req.params.id}`);
+    logger.info(`Admin deleted prank: ${prankId}`);
 
     return res.status(200).json({
       message: 'Prank deleted successfully',
