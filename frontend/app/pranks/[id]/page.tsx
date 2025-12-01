@@ -89,7 +89,7 @@ export default function PrankDetailPage() {
               <LoadingSpinner />
             </div>
           ) : error ? (
-            <div className="rounded-lg border backdrop-blur-sm p-8 text-center animate-fade-in" style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', borderColor: 'rgba(239, 68, 68, 0.3)' }}>
+            <div className="rounded-lg border backdrop-blur-sm p-8 text-center " style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', borderColor: 'rgba(239, 68, 68, 0.3)' }}>
               <p className="font-body mb-6" style={{ color: '#FCA5A5' }}>{error}</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
@@ -111,7 +111,7 @@ export default function PrankDetailPage() {
               </div>
             </div>
           ) : prank ? (
-            <div className="rounded-xl backdrop-blur-sm border p-5 sm:p-6 md:p-8 lg:p-10 animate-fade-in" style={{ backgroundColor: 'rgba(10, 10, 10, 0.6)', borderColor: 'rgba(138, 43, 226, 0.3)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)' }}>
+            <div className="rounded-xl backdrop-blur-sm border p-5 sm:p-6 md:p-8 lg:p-10 " style={{ backgroundColor: 'rgba(10, 10, 10, 0.6)', borderColor: 'rgba(138, 43, 226, 0.3)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)' }}>
               <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4 mb-6 sm:mb-8">
                 <div className="flex-1">
                   <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold font-primary mb-2 sm:mb-3" style={{ color: '#FFFFFF', textShadow: '0 0 20px rgba(255, 255, 255, 0.3)' }}>Prank Plan Details</h1>

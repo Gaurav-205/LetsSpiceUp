@@ -36,7 +36,7 @@ export default function ForgotPasswordPage() {
         <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-[#8A2BE2]/3 pointer-events-none" style={{ background: 'radial-gradient(ellipse at center, transparent 0%, rgba(10, 10, 10, 0.6) 70%, rgba(138, 43, 226, 0.05) 100%)' }} />
         
         <div className="max-w-md w-full space-y-8 relative z-10 text-center">
-          <div className="animate-fade-in">
+          <div className="">
             <Link href="/" className="flex justify-center mb-8">
               <h1 className="text-lg sm:text-xl font-bold tracking-tight transition-all duration-300 font-primary neon-glow-lime group-hover:animate-glow-pulse" style={{ color: '#BFFF00', letterSpacing: '0.05em' }}>
                 Prank Wizard
@@ -47,24 +47,24 @@ export default function ForgotPasswordPage() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] tracking-tight font-primary animate-fade-in delay-200">
+            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] tracking-tight font-primary  delay-200">
               <span className="block" style={{ color: '#FFFFFF', textShadow: '0 0 30px rgba(255, 255, 255, 0.3), 0 0 60px rgba(255, 255, 255, 0.1)' }}>
                 Check your
               </span>
-              <span className="block bg-clip-text text-transparent mt-1 sm:mt-2 animate-fade-in delay-400" style={{ backgroundImage: 'linear-gradient(to right, #8A2BE2, #BFFF00, #8A2BE2)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', filter: 'drop-shadow(0 0 20px rgba(191, 255, 0, 0.3))' }}>
+              <span className="block bg-clip-text text-transparent mt-1 sm:mt-2  delay-400" style={{ backgroundImage: 'linear-gradient(to right, #8A2BE2, #BFFF00, #8A2BE2)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', filter: 'drop-shadow(0 0 20px rgba(191, 255, 0, 0.3))' }}>
                 email
               </span>
             </h2>
-            <p className="mt-6 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-medium font-body animate-fade-in delay-600" style={{ color: '#FFFFFF', textShadow: '0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.1)', opacity: 0.95 }}>
+            <p className="mt-6 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-medium font-body  delay-600" style={{ color: '#FFFFFF', textShadow: '0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.1)', opacity: 0.95 }}>
               We've sent a password reset link to <strong style={{ color: '#BFFF00' }}>{email}</strong>
             </p>
-            <p className="mt-4 text-sm font-body animate-fade-in delay-600" style={{ color: '#FFFFFF', opacity: 0.8 }}>
+            <p className="mt-4 text-sm font-body  delay-600" style={{ color: '#FFFFFF', opacity: 0.8 }}>
               Please check your inbox and click the link to reset your password.
             </p>
-            <p className="mt-2 text-xs font-body animate-fade-in delay-600" style={{ color: '#FFFFFF', opacity: 0.6 }}>
+            <p className="mt-2 text-xs font-body  delay-600" style={{ color: '#FFFFFF', opacity: 0.6 }}>
               The link will expire in 1 hour. If you don't see the email, check your spam folder.
             </p>
-            <div className="mt-8 animate-fade-in delay-600">
+            <div className="mt-8  delay-600">
               <Link href="/login">
                 <Button
                   variant="outline"
@@ -96,15 +96,15 @@ export default function ForgotPasswordPage() {
           </Link>
           <div className="space-y-3 sm:space-y-4 mb-6">
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] tracking-tight font-primary">
-              <span className="block animate-fade-in delay-200" style={{ color: '#FFFFFF', textShadow: '0 0 30px rgba(255, 255, 255, 0.3), 0 0 60px rgba(255, 255, 255, 0.1)' }}>
+              <span className="block  delay-200" style={{ color: '#FFFFFF', textShadow: '0 0 30px rgba(255, 255, 255, 0.3), 0 0 60px rgba(255, 255, 255, 0.1)' }}>
                 Forgot your
               </span>
-              <span className="block bg-clip-text text-transparent mt-1 sm:mt-2 animate-fade-in delay-400" style={{ backgroundImage: 'linear-gradient(to right, #8A2BE2, #BFFF00, #8A2BE2)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', filter: 'drop-shadow(0 0 20px rgba(191, 255, 0, 0.3))' }}>
+              <span className="block bg-clip-text text-transparent mt-1 sm:mt-2  delay-400" style={{ backgroundImage: 'linear-gradient(to right, #8A2BE2, #BFFF00, #8A2BE2)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', filter: 'drop-shadow(0 0 20px rgba(191, 255, 0, 0.3))' }}>
                 password?
               </span>
             </h2>
           </div>
-          <p className="text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-medium font-body animate-fade-in delay-600" style={{ color: '#FFFFFF', textShadow: '0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.1)', opacity: 0.95 }}>
+          <p className="text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-medium font-body  delay-600" style={{ color: '#FFFFFF', textShadow: '0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.1)', opacity: 0.95 }}>
             Enter your email address and we'll send you a link to reset your password.
           </p>
         </div>
@@ -133,7 +133,7 @@ export default function ForgotPasswordPage() {
           <div>
             <Button 
               type="submit" 
-              className="w-full px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl transform hover:scale-105 active:scale-95 border-0 font-secondary !bg-[#BFFF00] !text-[#0A0A0A] hover:!bg-[#8A2BE2] hover:!text-[#FFFFFF] animate-fade-in delay-600" 
+              className="w-full px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl transform hover:scale-105 active:scale-95 border-0 font-secondary !bg-[#BFFF00] !text-[#0A0A0A] hover:!bg-[#8A2BE2] hover:!text-[#FFFFFF]  delay-600" 
               isLoading={isLoading} 
               style={{ boxShadow: '0 8px 30px rgba(191, 255, 0, 0.4), 0 0 20px rgba(191, 255, 0, 0.2)' }}
               onMouseEnter={(e) => {

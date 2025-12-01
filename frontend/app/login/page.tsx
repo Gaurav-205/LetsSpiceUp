@@ -94,15 +94,15 @@ function LoginPageContent() {
           </Link>
           <div className="space-y-3 sm:space-y-4 mb-6">
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] tracking-tight font-primary">
-              <span className="block animate-fade-in delay-200" style={{ color: '#FFFFFF', textShadow: '0 0 30px rgba(255, 255, 255, 0.3), 0 0 60px rgba(255, 255, 255, 0.1)' }}>
+              <span className="block" style={{ color: '#FFFFFF', textShadow: '0 0 30px rgba(255, 255, 255, 0.3), 0 0 60px rgba(255, 255, 255, 0.1)' }}>
                 Sign in to
               </span>
-              <span className="block bg-clip-text text-transparent mt-1 sm:mt-2 animate-fade-in delay-400" style={{ backgroundImage: 'linear-gradient(to right, #8A2BE2, #BFFF00, #8A2BE2)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', filter: 'drop-shadow(0 0 20px rgba(191, 255, 0, 0.3))' }}>
+              <span className="block bg-clip-text text-transparent mt-1 sm:mt-2" style={{ backgroundImage: 'linear-gradient(to right, #8A2BE2, #BFFF00, #8A2BE2)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', filter: 'drop-shadow(0 0 20px rgba(191, 255, 0, 0.3))' }}>
                 your account
               </span>
             </h2>
           </div>
-          <p className="text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-medium font-body animate-fade-in delay-600" style={{ color: '#FFFFFF', textShadow: '0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.1)', opacity: 0.95 }}>
+          <p className="text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-medium font-body" style={{ color: '#FFFFFF', textShadow: '0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.1)', opacity: 0.95 }}>
             Or{' '}
             <Link href="/signup" className="font-medium transition-colors duration-300 hover:neon-glow-lime" style={{ color: '#BFFF00' }}>
               create a new account
@@ -152,7 +152,7 @@ function LoginPageContent() {
           <div>
             <Button 
               type="submit" 
-              className="w-full px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl transform hover:scale-105 active:scale-95 border-0 font-secondary !bg-[#BFFF00] !text-[#0A0A0A] hover:!bg-[#8A2BE2] hover:!text-[#FFFFFF] animate-fade-in delay-600" 
+              className="w-full px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl transform hover:scale-105 active:scale-95 border-0 font-secondary !bg-[#BFFF00] !text-[#0A0A0A] hover:!bg-[#8A2BE2] hover:!text-[#FFFFFF]" 
               isLoading={isLoading} 
               style={{ boxShadow: '0 8px 30px rgba(191, 255, 0, 0.4), 0 0 20px rgba(191, 255, 0, 0.2)' }}
               onMouseEnter={(e) => {

@@ -31,21 +31,21 @@ export default function ProfilePage() {
 
         <main className="relative z-10 flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
           <div className="max-w-4xl mx-auto w-full">
-            <div className="animate-fade-in space-y-8">
+            <div className=" space-y-8">
               {/* Hero Heading - Matching landing page style */}
               <div className="text-center space-y-3 sm:space-y-4">
                 <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] tracking-tight font-primary">
-                  <span className="block animate-fade-in delay-200" style={{ color: '#FFFFFF', textShadow: '0 0 30px rgba(255, 255, 255, 0.3), 0 0 60px rgba(255, 255, 255, 0.1)' }}>
+                  <span className="block  delay-200" style={{ color: '#FFFFFF', textShadow: '0 0 30px rgba(255, 255, 255, 0.3), 0 0 60px rgba(255, 255, 255, 0.1)' }}>
                     Your
                   </span>
-                  <span className="block bg-clip-text text-transparent mt-1 sm:mt-2 animate-fade-in delay-400" style={{ backgroundImage: 'linear-gradient(to right, #8A2BE2, #BFFF00, #8A2BE2)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', filter: 'drop-shadow(0 0 20px rgba(191, 255, 0, 0.3))' }}>
+                  <span className="block bg-clip-text text-transparent mt-1 sm:mt-2  delay-400" style={{ backgroundImage: 'linear-gradient(to right, #8A2BE2, #BFFF00, #8A2BE2)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', filter: 'drop-shadow(0 0 20px rgba(191, 255, 0, 0.3))' }}>
                     Profile
                   </span>
                 </h1>
               </div>
 
               {/* Profile Card */}
-              <div className="rounded-lg backdrop-blur-sm border p-8 animate-fade-in delay-600" style={{ backgroundColor: 'rgba(10, 10, 10, 0.6)', borderColor: 'rgba(138, 43, 226, 0.3)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)' }}>
+              <div className="rounded-lg backdrop-blur-sm border p-8  delay-600" style={{ backgroundColor: 'rgba(10, 10, 10, 0.6)', borderColor: 'rgba(138, 43, 226, 0.3)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)' }}>
                 <div className="space-y-6">
                   <div className="border-b pb-6" style={{ borderColor: 'rgba(138, 43, 226, 0.2)' }}>
                     <label className="block text-sm font-medium font-body mb-2" style={{ color: '#FFFFFF', opacity: 0.7 }}>Full Name</label>

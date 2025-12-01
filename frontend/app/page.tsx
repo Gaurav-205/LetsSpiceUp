@@ -58,12 +58,12 @@ export default function LandingPage() {
         {/* Hero Section - Centered in remaining space */}
         <main className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
           <div className="max-w-5xl mx-auto text-center w-full">
-            <div className="animate-fade-in space-y-6 sm:space-y-8">
+            <div className="space-y-6 sm:space-y-8">
               {/* Main Heading */}
               <div className="space-y-2 sm:space-y-3 md:space-y-4">
                 <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-[1.1] tracking-tight font-primary">
-                  <span className="block animate-fade-in delay-200" style={{ color: '#FFFFFF', textShadow: '0 0 30px rgba(255, 255, 255, 0.3), 0 0 60px rgba(255, 255, 255, 0.1)' }}>Plan the Perfect</span>
-                  <span className="block mt-1 sm:mt-2 animate-fade-in delay-400">
+                  <span className="block" style={{ color: '#FFFFFF', textShadow: '0 0 30px rgba(255, 255, 255, 0.3), 0 0 60px rgba(255, 255, 255, 0.1)' }}>Plan the Perfect</span>
+                  <span className="block mt-1 sm:mt-2">
                     <span style={{ color: '#8A2BE2', textShadow: '0 0 20px rgba(138, 43, 226, 0.5), 0 0 40px rgba(138, 43, 226, 0.3)' }}>Prank</span>
                     <span className="ml-2 sm:ml-3" style={{ color: '#BFFF00', textShadow: '0 0 20px rgba(191, 255, 0, 0.5), 0 0 40px rgba(191, 255, 0, 0.3)' }}>Experience</span>
                   </span>
@@ -71,7 +71,7 @@ export default function LandingPage() {
               </div>
 
               {/* Subtitle */}
-              <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mx-auto leading-relaxed font-medium px-4 font-body animate-fade-in delay-600" style={{ color: '#FFFFFF', textShadow: '0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.1)', opacity: 0.95 }}>
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mx-auto leading-relaxed font-medium px-4 font-body" style={{ color: '#FFFFFF', textShadow: '0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.1)', opacity: 0.95 }}>
                 Describe your friend, and we'll craft a personalized prank plan tailored to their personality
               </p>
 
@@ -79,7 +79,7 @@ export default function LandingPage() {
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center pt-4 sm:pt-5 md:pt-6 px-4">
                 <Button
                   onClick={handleGetStarted}
-                  className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 text-sm sm:text-base font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl transform hover:scale-105 active:scale-95 border-0 min-w-[130px] sm:min-w-[150px] md:min-w-[160px] font-secondary !bg-[#BFFF00] !text-[#0A0A0A] hover:!bg-[#8A2BE2] hover:!text-[#FFFFFF] animate-fade-in delay-600"
+                  className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 text-sm sm:text-base font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl transform hover:scale-105 active:scale-95 border-0 min-w-[130px] sm:min-w-[150px] md:min-w-[160px] font-secondary !bg-[#BFFF00] !text-[#0A0A0A] hover:!bg-[#8A2BE2] hover:!text-[#FFFFFF]"
                   style={{ boxShadow: '0 8px 30px rgba(191, 255, 0, 0.4), 0 0 20px rgba(191, 255, 0, 0.2)' }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.boxShadow = '0 8px 40px rgba(138, 43, 226, 0.6), 0 0 30px rgba(138, 43, 226, 0.4)';
@@ -93,7 +93,7 @@ export default function LandingPage() {
                 <Link href="/login" className="w-full sm:w-auto">
                   <Button
                     variant="outline"
-                    className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 text-sm sm:text-base font-semibold border-2 rounded-xl transition-all duration-300 backdrop-blur-sm min-w-[130px] sm:min-w-[150px] md:min-w-[160px] font-secondary !border-[#8A2BE2] !text-[#FFFFFF] !bg-transparent hover:!bg-[#8A2BE2]/20 hover:!border-[#BFFF00] hover:!text-[#BFFF00] animate-fade-in delay-600"
+                    className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 text-sm sm:text-base font-semibold border-2 rounded-xl transition-all duration-300 backdrop-blur-sm min-w-[130px] sm:min-w-[150px] md:min-w-[160px] font-secondary !border-[#8A2BE2] !text-[#FFFFFF] !bg-transparent hover:!bg-[#8A2BE2]/20 hover:!border-[#BFFF00] hover:!text-[#BFFF00]"
                     style={{ boxShadow: '0 4px 15px rgba(138, 43, 226, 0.3)' }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.boxShadow = '0 4px 25px rgba(191, 255, 0, 0.5), 0 0 20px rgba(191, 255, 0, 0.3)';
@@ -108,7 +108,7 @@ export default function LandingPage() {
               </div>
 
               {/* Trust Indicators */}
-              <div className="pt-8 sm:pt-12 flex flex-wrap justify-center items-center gap-6 sm:gap-8 text-xs sm:text-sm font-body animate-fade-in delay-600">
+              <div className="pt-8 sm:pt-12 flex flex-wrap justify-center items-center gap-6 sm:gap-8 text-xs sm:text-sm font-body">
                 <div className="flex items-center gap-2 group cursor-default transition-all duration-300 hover:scale-110">
                   <svg className="w-4 h-4 sm:w-5 sm:h-5 transition-all duration-300 group-hover:drop-shadow-[0_0_10px_rgba(191,255,0,0.8)]" fill="currentColor" viewBox="0 0 20 20" style={{ color: '#BFFF00', filter: 'drop-shadow(0 0 5px rgba(191, 255, 0, 0.5))' }}>
                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />

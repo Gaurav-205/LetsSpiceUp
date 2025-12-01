@@ -77,7 +77,7 @@ export default function PranksPage() {
         />
 
         <main className="max-w-7xl mx-auto py-6 sm:py-8 md:py-12 px-4 sm:px-6 lg:px-8">
-          <div className="mb-8 sm:mb-10 md:mb-12 text-center animate-fade-in">
+          <div className="mb-8 sm:mb-10 md:mb-12 text-center ">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-primary mb-3 sm:mb-4">
               <span className="block" style={{ color: '#FFFFFF', textShadow: '0 0 30px rgba(255, 255, 255, 0.3), 0 0 60px rgba(255, 255, 255, 0.1)' }}>
                 My Prank
@@ -96,7 +96,7 @@ export default function PranksPage() {
               <LoadingSpinner />
             </div>
           ) : error ? (
-            <div className="rounded-lg border backdrop-blur-sm p-8 text-center animate-fade-in" style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', borderColor: 'rgba(239, 68, 68, 0.3)' }}>
+            <div className="rounded-lg border backdrop-blur-sm p-8 text-center " style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', borderColor: 'rgba(239, 68, 68, 0.3)' }}>
               <p className="font-body mb-6" style={{ color: '#FCA5A5' }}>{error}</p>
               <Button 
                 onClick={loadPranks} 
@@ -108,7 +108,7 @@ export default function PranksPage() {
               </Button>
             </div>
           ) : pranks.length === 0 ? (
-            <div className="rounded-lg backdrop-blur-sm border p-6 sm:p-8 md:p-12 text-center animate-fade-in" style={{ backgroundColor: 'rgba(10, 10, 10, 0.6)', borderColor: 'rgba(138, 43, 226, 0.3)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)' }}>
+            <div className="rounded-lg backdrop-blur-sm border p-6 sm:p-8 md:p-12 text-center " style={{ backgroundColor: 'rgba(10, 10, 10, 0.6)', borderColor: 'rgba(138, 43, 226, 0.3)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)' }}>
               <div className="text-6xl mb-6 animate-bounce-slow">🎭</div>
               <h2 className="text-2xl sm:text-3xl font-semibold font-primary mb-4" style={{ color: '#FFFFFF', textShadow: '0 0 20px rgba(255, 255, 255, 0.3)' }}>No Prank Plans Yet</h2>
               <p className="font-body mb-8" style={{ color: '#FFFFFF', opacity: 0.8 }}>Create your first prank plan to get started!</p>
@@ -122,11 +122,11 @@ export default function PranksPage() {
               </Link>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 animate-fade-in delay-200">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6  delay-200">
               {pranks.map((prank, index) => (
                 <div
                   key={prank.id}
-                  className="rounded-xl backdrop-blur-sm border p-5 sm:p-6 transition-all duration-300 hover:scale-[1.02] animate-fade-in flex flex-col"
+                  className="rounded-xl backdrop-blur-sm border p-5 sm:p-6 transition-all duration-300 hover:scale-[1.02]  flex flex-col"
                   style={{ 
                     backgroundColor: 'rgba(10, 10, 10, 0.6)', 
                     borderColor: 'rgba(138, 43, 226, 0.3)', 
