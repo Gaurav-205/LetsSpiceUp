@@ -1,0 +1,49 @@
+services:
+  - type: web
+    name: prank-wizard-backend
+    env: node
+    plan: starter
+    buildCommand: cd backend && npm install && npm run build
+    startCommand: cd backend && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: FRONTEND_URL
+        sync: false
+      - key: SESSION_SECRET
+        sync: false
+      - key: JWT_EXPIRES_IN
+        value: 7d
+      - key: ALLOWED_ORIGINS
+        sync: false
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+        optional: true
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+        optional: true
+      - key: GOOGLE_CALLBACK_URL
+        sync: false
+        optional: true
+      - key: EMAIL_HOST
+        sync: false
+        optional: true
+      - key: EMAIL_PORT
+        sync: false
+        optional: true
+      - key: EMAIL_USER
+        sync: false
+        optional: true
+      - key: EMAIL_PASS
+        sync: false
+        optional: true
+      - key: EMAIL_FROM
+        sync: false
+        optional: true
+
