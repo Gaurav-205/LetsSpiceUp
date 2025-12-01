@@ -284,6 +284,8 @@
 html, body {
   overflow-x: hidden;
   max-width: 100vw;
+  /* Prevent zooming on mobile - touch-action: manipulation prevents double-tap zoom */
+  touch-action: manipulation;
 }
 
 /* Better mobile scrolling */

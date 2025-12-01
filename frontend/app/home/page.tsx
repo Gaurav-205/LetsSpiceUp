@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import Button from '@/components/ui/Button';
 import Link from 'next/link';
 import Navbar from '@/components/Navbar';
+import Ballpit from '@/components/Ballpit';
 
 export default function HomePage() {
   const { user } = useAuth();
@@ -12,13 +13,29 @@ export default function HomePage() {
   return (
     <ProtectedRoute>
       <div className="min-h-screen h-screen relative overflow-hidden" style={{ backgroundColor: '#0A0A0A' }}>
-        <Navbar />
+        {/* Ballpit Background */}
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
+          <Ballpit
+            count={100}
+            gravity={0.01}
+            friction={0.9975}
+            wallBounce={0.95}
+            followCursor={true}
+            className="w-full h-full"
+          />
+        </div>
 
-        {/* Background gradient overlay - matching landing page */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/80 via-[#0A0A0A]/50 via-[#0A0A0A]/30 to-[#8A2BE2]/8 pointer-events-none" />
-        <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-[#8A2BE2]/3 pointer-events-none" style={{ background: 'radial-gradient(ellipse at center, transparent 0%, rgba(10, 10, 10, 0.6) 70%, rgba(138, 43, 226, 0.05) 100%)' }} />
+        {/* Gradient Overlay for better text readability - reduced opacity to show shapes */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/80 via-[#0A0A0A]/50 via-[#0A0A0A]/30 to-[#8A2BE2]/8 z-[1] pointer-events-none" />
+        
+        {/* Subtle radial gradient for depth */}
+        <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-[#8A2BE2]/3 z-[1] pointer-events-none" style={{ background: 'radial-gradient(ellipse at center, transparent 0%, rgba(10, 10, 10, 0.6) 70%, rgba(138, 43, 226, 0.05) 100%)' }} />
 
-        <main className="relative z-10 flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
+        {/* Content */}
+        <div className="relative z-10 h-full flex flex-col">
+          <Navbar />
+
+          <main className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
           <div className="max-w-5xl mx-auto w-full">
             <div className="space-y-6 sm:space-y-8">
               {/* Hero Welcome Section - Matching landing page style */}
@@ -39,11 +56,11 @@ export default function HomePage() {
               </p>
 
               {/* CTA Buttons - Matching landing page style */}
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center pt-4 sm:pt-6 px-4">
-                <Link href="/prank-wizard" className="w-full sm:w-auto">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center pt-4 sm:pt-6 px-4 relative z-20">
+                <Link href="/prank-wizard" className="w-full sm:w-auto relative z-20">
                   <Button
                     className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl transform hover:scale-105 active:scale-95 border-0 min-w-[140px] sm:min-w-[160px] font-secondary !bg-[#BFFF00] !text-[#0A0A0A] hover:!bg-[#8A2BE2] hover:!text-[#FFFFFF]"
-                    style={{ boxShadow: '0 8px 30px rgba(191, 255, 0, 0.4), 0 0 20px rgba(191, 255, 0, 0.2)' }}
+                    style={{ boxShadow: '0 8px 30px rgba(191, 255, 0, 0.4), 0 0 20px rgba(191, 255, 0, 0.2)', position: 'relative', zIndex: 20 }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.boxShadow = '0 8px 40px rgba(138, 43, 226, 0.6), 0 0 30px rgba(138, 43, 226, 0.4)';
                     }}
@@ -54,11 +71,11 @@ export default function HomePage() {
                     Plan a Prank
                   </Button>
                 </Link>
-                <Link href="/pranks" className="w-full sm:w-auto">
+                <Link href="/pranks" className="w-full sm:w-auto relative z-20">
                   <Button
                     variant="outline"
                     className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold border-2 rounded-xl transition-all duration-300 backdrop-blur-sm min-w-[140px] sm:min-w-[160px] font-secondary !border-[#8A2BE2] !text-[#FFFFFF] !bg-transparent hover:!bg-[#8A2BE2]/20 hover:!border-[#BFFF00] hover:!text-[#BFFF00]"
-                    style={{ boxShadow: '0 4px 15px rgba(138, 43, 226, 0.3)' }}
+                    style={{ boxShadow: '0 4px 15px rgba(138, 43, 226, 0.3)', position: 'relative', zIndex: 20 }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.boxShadow = '0 4px 25px rgba(191, 255, 0, 0.5), 0 0 20px rgba(191, 255, 0, 0.3)';
                     }}
@@ -90,6 +107,7 @@ export default function HomePage() {
             </div>
           </div>
         </main>
+        </div>
       </div>
     </ProtectedRoute>
   );
