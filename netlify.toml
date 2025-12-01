@@ -8,6 +8,7 @@
 [build.environment]
   NODE_VERSION = "20.9.0"
   NPM_VERSION = "9.0.0"
+  NPM_FLAGS = "--legacy-peer-deps"
 
 # Headers for security (Next.js plugin handles routing automatically)
 [[headers]]

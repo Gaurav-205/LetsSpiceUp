@@ -243,8 +243,8 @@ class X {
 
   #onIntersection(entries: IntersectionObserverEntry[]) {
     if (entries[0]) {
-      this.#isAnimating = entries[0].isIntersecting;
-      this.#isAnimating ? this.#startAnimation() : this.#stopAnimation();
+    this.#isAnimating = entries[0].isIntersecting;
+    this.#isAnimating ? this.#startAnimation() : this.#stopAnimation();
     }
   }
 
