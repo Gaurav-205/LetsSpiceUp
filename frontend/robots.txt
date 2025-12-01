@@ -1,0 +1,11 @@
+# https://www.robotstxt.org/robotstxt.html
+User-agent: *
+Allow: /
+
+# Disallow admin and API routes
+Disallow: /api/
+Disallow: /admin/
+
+# Sitemap location (update with your actual sitemap URL)
+Sitemap: https://prankwizard.com/sitemap.xml
+

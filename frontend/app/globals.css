@@ -1,0 +1,428 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Exo+2:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
+
+/* Gaming & Esports Color Palette */
+:root {
+  /* Colors */
+  --cyber-black: #0A0A0A;
+  --neon-purple: #8A2BE2;
+  --electric-lime: #BFFF00;
+
+  /* Typography */
+  --font-size-h1: 48px;      /* "🎭 Prank Wizard" */
+  --font-size-h2: 32px;      /* "Who's Planning This?" */
+  --font-size-body: 16px;    /* Form text */
+  --font-size-label: 14px;   /* Form labels */
+  --font-size-small: 12px;   /* Captions */
+
+  /* Spacing */
+  --space-4: 4px;
+  --space-8: 8px;
+  --space-12: 12px;
+  --space-16: 16px;
+  --space-24: 24px;
+  --space-32: 32px;
+  --space-60: 60px;
+
+  /* Button */
+  --btn-height: 48px;
+  --btn-padding: 12px 24px;
+  --btn-radius: 12px;
+
+  /* Form Input */
+  --input-height: 44px;
+  --input-padding: 10px 12px;
+  --input-radius: 6px;
+
+  /* Card */
+  --card-padding: 24px;
+  --card-radius: 16px;
+
+  /* Animation */
+  --transition: 200ms ease-out;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.4s ease-out;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out;
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-scale-in {
+  animation: scale-in 0.4s ease-out;
+}
+
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 3s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    text-shadow: 0 0 10px rgba(191, 255, 0, 0.5), 0 0 20px rgba(191, 255, 0, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(191, 255, 0, 0.8), 0 0 30px rgba(191, 255, 0, 0.5), 0 0 40px rgba(191, 255, 0, 0.3);
+  }
+}
+
+@keyframes glow-purple {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.5), 0 0 20px rgba(138, 43, 226, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(138, 43, 226, 0.8), 0 0 30px rgba(138, 43, 226, 0.5);
+  }
+}
+
+@keyframes glow-lime {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(191, 255, 0, 0.5), 0 0 20px rgba(191, 255, 0, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(191, 255, 0, 0.8), 0 0 30px rgba(191, 255, 0, 0.5);
+  }
+}
+
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.animate-glow-purple {
+  animation: glow-purple 2s ease-in-out infinite;
+}
+
+.animate-glow-lime {
+  animation: glow-lime 2s ease-in-out infinite;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+.delay-400 {
+  animation-delay: 400ms;
+}
+
+.delay-600 {
+  animation-delay: 600ms;
+}
+
+/* Line clamp utility */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--cyber-black);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neon-purple);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--electric-lime);
+}
+
+/* Gaming Font Classes */
+.font-primary {
+  font-family: 'Orbitron', sans-serif;
+}
+
+.font-secondary {
+  font-family: 'Rajdhani', sans-serif;
+}
+
+.font-body {
+  font-family: 'Exo 2', sans-serif;
+}
+
+/* Neon Glow Utilities */
+.neon-glow-lime {
+  text-shadow: 0 0 10px rgba(191, 255, 0, 0.5), 0 0 20px rgba(191, 255, 0, 0.3), 0 0 30px rgba(191, 255, 0, 0.2);
+}
+
+.neon-glow-purple {
+  text-shadow: 0 0 10px rgba(138, 43, 226, 0.5), 0 0 20px rgba(138, 43, 226, 0.3);
+}
+
+.box-glow-lime {
+  box-shadow: 0 0 20px rgba(191, 255, 0, 0.4), 0 0 40px rgba(191, 255, 0, 0.2);
+}
+
+.box-glow-purple {
+  box-shadow: 0 0 20px rgba(138, 43, 226, 0.4), 0 0 40px rgba(138, 43, 226, 0.2);
+}
+
+/* Smooth transitions for mobile and accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Touch-friendly tap targets on mobile */
+@media (max-width: 640px) {
+  button,
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Responsive Typography Utilities */
+@media (max-width: 640px) {
+  :root {
+    --font-size-h1: 32px;
+    --font-size-h2: 24px;
+    --font-size-body: 14px;
+    --font-size-label: 12px;
+    --font-size-small: 11px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  :root {
+    --font-size-h1: 40px;
+    --font-size-h2: 28px;
+  }
+}
+
+/* Responsive Spacing */
+@media (max-width: 640px) {
+  :root {
+    --space-60: 40px;
+    --space-32: 24px;
+    --space-24: 16px;
+    --card-padding: 16px;
+  }
+}
+
+/* Responsive Button Sizes */
+@media (max-width: 640px) {
+  :root {
+    --btn-height: 44px;
+    --btn-padding: 12px 20px;
+  }
+}
+
+/* Responsive Input Sizes */
+@media (max-width: 640px) {
+  :root {
+    --input-height: 44px;
+    --input-padding: 12px 16px;
+  }
+}
+
+/* Prevent horizontal scroll on mobile */
+html, body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Better mobile scrolling */
+@media (max-width: 768px) {
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Improved container responsiveness */
+.container-responsive {
+  width: 100%;
+  max-width: 100%;
+  padding-left: var(--space-16);
+  padding-right: var(--space-16);
+}
+
+@media (min-width: 640px) {
+  .container-responsive {
+    padding-left: var(--space-24);
+    padding-right: var(--space-24);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-responsive {
+    padding-left: var(--space-32);
+    padding-right: var(--space-32);
+  }
+}
+
+/* Responsive text utilities */
+.text-responsive-h1 {
+  font-size: var(--font-size-h1);
+  line-height: 1.1;
+}
+
+.text-responsive-h2 {
+  font-size: var(--font-size-h2);
+  line-height: 1.2;
+}
+
+.text-responsive-body {
+  font-size: var(--font-size-body);
+  line-height: 1.5;
+}
+
+.text-responsive-label {
+  font-size: var(--font-size-label);
+  line-height: 1.4;
+}
+
+.text-responsive-small {
+  font-size: var(--font-size-small);
+  line-height: 1.3;
+}
+
+/* Better form field spacing on mobile */
+@media (max-width: 640px) {
+  .form-field {
+    margin-bottom: var(--space-16);
+  }
+  
+  .form-section {
+    margin-bottom: var(--space-24);
+  }
+}
+
+/* Improved card responsiveness */
+.card-responsive {
+  padding: var(--card-padding);
+  border-radius: var(--card-radius);
+}
+
+@media (max-width: 640px) {
+  .card-responsive {
+    padding: var(--space-16);
+    border-radius: 12px;
+  }
+}
+
+/* Better button responsiveness */
+.btn-responsive {
+  height: var(--btn-height);
+  padding: var(--btn-padding);
+  border-radius: var(--btn-radius);
+  transition: var(--transition);
+  min-height: 44px; /* Touch target size */
+}
+
+@media (max-width: 640px) {
+  .btn-responsive {
+    width: 100%;
+  }
+}
+
+/* Input responsiveness */
+.input-responsive {
+  height: var(--input-height);
+  padding: var(--input-padding);
+  border-radius: var(--input-radius);
+  transition: var(--transition);
+  width: 100%;
+  min-height: 44px; /* Touch target size */
+}
+
+/* Grid responsiveness */
+.grid-responsive {
+  display: grid;
+  gap: var(--space-16);
+}
+
+@media (min-width: 640px) {
+  .grid-responsive {
+    gap: var(--space-24);
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid-responsive {
+    gap: var(--space-32);
+  }
+}
+
+/* Safe area for mobile devices with notches */
+@supports (padding: max(0px)) {
+  .safe-area-top {
+    padding-top: max(var(--space-16), env(safe-area-inset-top));
+  }
+  
+  .safe-area-bottom {
+    padding-bottom: max(var(--space-16), env(safe-area-inset-bottom));
+  }
+  
+  .safe-area-left {
+    padding-left: max(var(--space-16), env(safe-area-inset-left));
+  }
+  
+  .safe-area-right {
+    padding-right: max(var(--space-16), env(safe-area-inset-right));
+  }
+}
