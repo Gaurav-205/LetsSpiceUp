@@ -687,7 +687,19 @@ function processPointerInteraction() {
 function onTouchStart(e: TouchEvent) {
   const touch = e.touches[0];
   if (touch) {
-    e.preventDefault();
+    // Check if touch target is an interactive element (button, link, input, etc.)
+    const target = e.target as HTMLElement;
+    const isInteractive = target.tagName === 'BUTTON' || 
+                         target.tagName === 'A' || 
+                         target.tagName === 'INPUT' || 
+                         target.closest('button') !== null ||
+                         target.closest('a') !== null ||
+                         target.closest('input') !== null;
+    
+    // Only prevent default if not on an interactive element
+    if (!isInteractive) {
+      e.preventDefault();
+    }
     pointerPosition.set(touch.clientX, touch.clientY);
     for (const [elem, data] of pointerMap) {
       const rect = elem.getBoundingClientRect();
@@ -707,7 +719,19 @@ function onTouchStart(e: TouchEvent) {
 function onTouchMove(e: TouchEvent) {
   const touch = e.touches[0];
   if (touch) {
-    e.preventDefault();
+    // Check if touch target is an interactive element (button, link, input, etc.)
+    const target = e.target as HTMLElement;
+    const isInteractive = target.tagName === 'BUTTON' || 
+                         target.tagName === 'A' || 
+                         target.tagName === 'INPUT' || 
+                         target.closest('button') !== null ||
+                         target.closest('a') !== null ||
+                         target.closest('input') !== null;
+    
+    // Only prevent default if not on an interactive element
+    if (!isInteractive) {
+      e.preventDefault();
+    }
     pointerPosition.set(touch.clientX, touch.clientY);
     for (const [elem, data] of pointerMap) {
       const rect = elem.getBoundingClientRect();

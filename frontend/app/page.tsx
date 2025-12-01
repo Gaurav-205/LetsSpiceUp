@@ -76,11 +76,11 @@ export default function LandingPage() {
               </p>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center pt-4 sm:pt-5 md:pt-6 px-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center pt-4 sm:pt-5 md:pt-6 px-4 relative z-20">
                 <Button
                   onClick={handleGetStarted}
                   className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 text-sm sm:text-base font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl transform hover:scale-105 active:scale-95 border-0 min-w-[130px] sm:min-w-[150px] md:min-w-[160px] font-secondary !bg-[#BFFF00] !text-[#0A0A0A] hover:!bg-[#8A2BE2] hover:!text-[#FFFFFF]"
-                  style={{ boxShadow: '0 8px 30px rgba(191, 255, 0, 0.4), 0 0 20px rgba(191, 255, 0, 0.2)' }}
+                  style={{ boxShadow: '0 8px 30px rgba(191, 255, 0, 0.4), 0 0 20px rgba(191, 255, 0, 0.2)', position: 'relative', zIndex: 20 }}
                   onMouseEnter={(e) => {
                     e.currentTarget.style.boxShadow = '0 8px 40px rgba(138, 43, 226, 0.6), 0 0 30px rgba(138, 43, 226, 0.4)';
                   }}
@@ -90,11 +90,11 @@ export default function LandingPage() {
                 >
                   Get Started
                 </Button>
-                <Link href="/login" className="w-full sm:w-auto">
+                <Link href="/login" className="w-full sm:w-auto relative z-20">
                   <Button
                     variant="outline"
                     className="w-full sm:w-auto px-5 sm:px-6 md:px-8 py-2.5 sm:py-3 md:py-4 text-sm sm:text-base font-semibold border-2 rounded-xl transition-all duration-300 backdrop-blur-sm min-w-[130px] sm:min-w-[150px] md:min-w-[160px] font-secondary !border-[#8A2BE2] !text-[#FFFFFF] !bg-transparent hover:!bg-[#8A2BE2]/20 hover:!border-[#BFFF00] hover:!text-[#BFFF00]"
-                    style={{ boxShadow: '0 4px 15px rgba(138, 43, 226, 0.3)' }}
+                    style={{ boxShadow: '0 4px 15px rgba(138, 43, 226, 0.3)', position: 'relative', zIndex: 20 }}
                     onMouseEnter={(e) => {
                       e.currentTarget.style.boxShadow = '0 4px 25px rgba(191, 255, 0, 0.5), 0 0 20px rgba(191, 255, 0, 0.3)';
                     }}
