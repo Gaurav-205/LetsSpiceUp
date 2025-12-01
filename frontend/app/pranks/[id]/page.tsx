@@ -68,7 +68,7 @@ export default function PrankDetailPage() {
 
   return (
     <ProtectedRoute>
-      <GamingBackground fullHeight={false}>
+      <div className="h-screen flex flex-col overflow-hidden" style={{ backgroundColor: '#0A0A0A' }}>
         <Navbar 
           breadcrumbs={[
             { label: 'My Pranks', href: '/pranks' },
@@ -83,7 +83,9 @@ export default function PrankDetailPage() {
           }
         />
 
-        <main className="max-w-4xl mx-auto py-6 sm:py-8 md:py-12 px-4 sm:px-6 lg:px-8">
+        <div className="flex-1 overflow-y-auto">
+          <GamingBackground fullHeight={false}>
+            <main className="max-w-4xl mx-auto py-6 sm:py-8 md:py-12 px-4 sm:px-6 lg:px-8">
           {loading ? (
             <div className="flex items-center justify-center py-12">
               <LoadingSpinner />
@@ -248,8 +250,10 @@ export default function PrankDetailPage() {
               </div>
             </div>
           ) : null}
-        </main>
-      </GamingBackground>
+            </main>
+          </GamingBackground>
+        </div>
+      </div>
     </ProtectedRoute>
   );
 }

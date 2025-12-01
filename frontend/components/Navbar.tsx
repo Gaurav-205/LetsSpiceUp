@@ -17,7 +17,7 @@ export default function Navbar({
   rightContent 
 }: NavbarProps) {
   const router = useRouter();
-  const { isAuthenticated, logout } = useAuth();
+  const { isAuthenticated, logout, isAdmin } = useAuth();
 
   const handleLogout = () => {
     logout();
@@ -25,8 +25,8 @@ export default function Navbar({
   };
 
   return (
-    <nav className="backdrop-blur-2xl border-b transition-all duration-300 sticky top-0 z-50 relative overflow-hidden" style={{ 
-      background: 'linear-gradient(135deg, rgba(10, 10, 10, 0.7) 0%, rgba(15, 15, 15, 0.75) 30%, rgba(10, 10, 10, 0.7) 60%, rgba(5, 5, 5, 0.7) 100%)',
+    <nav className="backdrop-blur-2xl border-b transition-all duration-300 fixed top-0 left-0 right-0 z-[9999] relative overflow-hidden" style={{ 
+      background: 'linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(15, 15, 15, 0.95) 30%, rgba(10, 10, 10, 0.95) 60%, rgba(5, 5, 5, 0.95) 100%)',
       borderColor: 'rgba(138, 43, 226, 0.2)', 
       borderTopColor: 'rgba(191, 255, 0, 0.15)',
       boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05), inset 0 -1px 0 rgba(138, 43, 226, 0.15)',
@@ -117,14 +117,26 @@ export default function Navbar({
                   </>
                 )}
                 {isAuthenticated && (
-                  <Button 
-                    variant="outline" 
-                    onClick={handleLogout} 
-                    className="text-xs sm:text-sm md:text-base font-medium px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 rounded-lg backdrop-blur-sm transition-all duration-300 border whitespace-nowrap font-secondary !border-[#8A2BE2] !text-[#FFFFFF] hover:!bg-[#8A2BE2]/20 hover:!border-[#BFFF00] hover:!text-[#BFFF00]" 
-                    style={{ backgroundColor: 'transparent', textShadow: '0 0 10px rgba(255, 255, 255, 0.1)' }}
-                  >
-                    Logout
-                  </Button>
+                  <>
+                    {isAdmin && (
+                      <Link href="/admin" className="flex items-center">
+                        <Button 
+                          className="text-xs sm:text-sm md:text-base font-medium px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 rounded-lg transition-all duration-300 border whitespace-nowrap font-secondary !border-[#BFFF00] !text-[#BFFF00] hover:!bg-[#BFFF00] hover:!text-[#0A0A0A]" 
+                          style={{ backgroundColor: 'transparent', textShadow: '0 0 10px rgba(191, 255, 0, 0.5)' }}
+                        >
+                          Admin
+                        </Button>
+                      </Link>
+                    )}
+                    <Button 
+                      variant="outline" 
+                      onClick={handleLogout} 
+                      className="text-xs sm:text-sm md:text-base font-medium px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 rounded-lg backdrop-blur-sm transition-all duration-300 border whitespace-nowrap font-secondary !border-[#8A2BE2] !text-[#FFFFFF] hover:!bg-[#8A2BE2]/20 hover:!border-[#BFFF00] hover:!text-[#BFFF00]" 
+                      style={{ backgroundColor: 'transparent', textShadow: '0 0 10px rgba(255, 255, 255, 0.1)' }}
+                    >
+                      Logout
+                    </Button>
+                  </>
                 )}
               </>
             )}

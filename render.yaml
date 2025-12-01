@@ -5,6 +5,12 @@ services:
     plan: starter
     buildCommand: cd backend && npm install && npm run build
     startCommand: cd backend && npm start
+    # Auto-deploy from main branch
+    autoDeploy: true
+    # Health check configuration (prevents spin-down on free tier)
+    healthCheckPath: /health
+    # Note: Free tier may still spin down after 15 minutes of inactivity
+    # Use UptimeRobot (free) or upgrade to paid tier for true 24/7 uptime
     envVars:
       - key: NODE_ENV
         value: production

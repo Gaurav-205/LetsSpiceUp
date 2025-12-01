@@ -55,7 +55,7 @@ export default function PranksPage() {
 
   return (
     <ProtectedRoute>
-      <GamingBackground fullHeight={false}>
+      <div className="h-screen flex flex-col overflow-hidden" style={{ backgroundColor: '#0A0A0A' }}>
         <Navbar 
           breadcrumbs={[
             { label: 'My Pranks' }
@@ -76,8 +76,10 @@ export default function PranksPage() {
           }
         />
 
-        <main className="max-w-7xl mx-auto py-6 sm:py-8 md:py-12 px-4 sm:px-6 lg:px-8">
-          <div className="mb-8 sm:mb-10 md:mb-12 text-center ">
+        <div className="flex-1 overflow-y-auto">
+          <GamingBackground fullHeight={false}>
+            <main className="max-w-7xl mx-auto py-6 sm:py-8 md:py-12 px-4 sm:px-6 lg:px-8">
+          <div className="mb-8 sm:mb-10 md:mb-12 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-primary mb-3 sm:mb-4">
               <span className="block" style={{ color: '#FFFFFF', textShadow: '0 0 30px rgba(255, 255, 255, 0.3), 0 0 60px rgba(255, 255, 255, 0.1)' }}>
                 My Prank
@@ -208,8 +210,10 @@ export default function PranksPage() {
               ))}
             </div>
           )}
-        </main>
-      </GamingBackground>
+            </main>
+          </GamingBackground>
+        </div>
+      </div>
     </ProtectedRoute>
   );
 }

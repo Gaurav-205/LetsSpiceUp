@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import Link from 'next/link';
@@ -12,6 +13,13 @@ export default function LandingPage() {
   const router = useRouter();
   const { isAuthenticated, loading } = useAuth();
 
+  // Redirect to home if authenticated (use useEffect to avoid render-time state update)
+  useEffect(() => {
+    if (!loading && isAuthenticated) {
+      router.push('/home');
+    }
+  }, [isAuthenticated, loading, router]);
+
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#0A0A0A' }}>
@@ -20,9 +28,8 @@ export default function LandingPage() {
     );
   }
 
-  // If authenticated, redirect to home
+  // If authenticated, show nothing while redirecting
   if (isAuthenticated) {
-    router.push('/home');
     return null;
   }
 

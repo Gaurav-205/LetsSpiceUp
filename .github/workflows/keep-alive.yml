@@ -1,0 +1,27 @@
+name: Keep Backend Alive
+
+on:
+  schedule:
+    # Run every 14 minutes to prevent Render free tier spin-down
+    - cron: '*/14 * * * *'
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  ping-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Health Endpoint
+        run: |
+          BACKEND_URL="${{ secrets.BACKEND_URL || 'https://your-backend-url.onrender.com' }}"
+          echo "Pinging: $BACKEND_URL/health"
+          
+          response=$(curl -s -o /dev/null -w "%{http_code}" "$BACKEND_URL/health" || echo "000")
+          
+          if [ "$response" = "200" ]; then
+            echo "✅ Backend is healthy (Status: $response)"
+            exit 0
+          else
+            echo "⚠️ Backend returned status: $response"
+            exit 1
+          fi
+

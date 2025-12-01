@@ -698,7 +698,7 @@ function onTouchStart(e: TouchEvent) {
     
     // Only prevent default if not on an interactive element
     if (!isInteractive) {
-      e.preventDefault();
+    e.preventDefault();
     }
     pointerPosition.set(touch.clientX, touch.clientY);
     for (const [elem, data] of pointerMap) {
@@ -730,7 +730,7 @@ function onTouchMove(e: TouchEvent) {
     
     // Only prevent default if not on an interactive element
     if (!isInteractive) {
-      e.preventDefault();
+    e.preventDefault();
     }
     pointerPosition.set(touch.clientX, touch.clientY);
     for (const [elem, data] of pointerMap) {

@@ -14,6 +14,7 @@ interface AuthContextType {
   register: (data: RegisterData) => Promise<void>;
   logout: () => void;
   isAuthenticated: boolean;
+  isAdmin: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -231,6 +232,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // 2. Token exists (even if API call failed temporarily)
   const isAuthenticated = !!user || hasToken;
 
+  // Check if user is admin (only gauravkhandelwal205@gmail.com)
+  const ADMIN_EMAIL = 'gauravkhandelwal205@gmail.com';
+  const isAdmin = user?.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase();
+
   return (
     <AuthContext.Provider
       value={{
@@ -240,6 +245,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         register,
         logout,
         isAuthenticated,
+        isAdmin,
       }}
     >
       {children}
