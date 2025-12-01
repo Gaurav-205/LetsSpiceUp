@@ -17,12 +17,13 @@ export const generateToken = (payload: TokenPayload): string => {
     };
     // expiresIn can be a string like '7d' or a number in seconds
     // Type assertion needed because config.jwt.expiresIn is string, but jwt expects StringValue | number
+    // Using 'as any' to bypass strict type checking since we validate the format in config
     const options: SignOptions = {
-      expiresIn: config.jwt.expiresIn as SignOptions['expiresIn'],
+      expiresIn: config.jwt.expiresIn as any,
     };
     return jwt.sign(tokenPayload, config.jwt.secret, options);
   } catch (error) {
-    throw new AppError('Failed to generate token', 500, 'TOKEN_GENERATION_ERROR');
+    throw new AppError('Failed to generate token', 500, true, 'TOKEN_GENERATION_ERROR');
   }
 };
 
@@ -32,18 +33,18 @@ export const verifyToken = (token: string): TokenPayload => {
     
     // Ensure required fields are present
     if (!decoded.userId || !decoded.email) {
-      throw new AppError('Invalid token payload', 401, 'INVALID_TOKEN');
+      throw new AppError('Invalid token payload', 401, true, 'INVALID_TOKEN');
     }
     
     return decoded;
   } catch (error) {
     if (error instanceof jwt.TokenExpiredError) {
-      throw new AppError('Token expired', 401, 'TOKEN_EXPIRED');
+      throw new AppError('Token expired', 401, true, 'TOKEN_EXPIRED');
     }
     if (error instanceof jwt.JsonWebTokenError) {
-      throw new AppError('Invalid token', 401, 'INVALID_TOKEN');
+      throw new AppError('Invalid token', 401, true, 'INVALID_TOKEN');
     }
-    throw new AppError('Token verification failed', 401, 'TOKEN_VERIFICATION_ERROR');
+    throw new AppError('Token verification failed', 401, true, 'TOKEN_VERIFICATION_ERROR');
   }
 };
 

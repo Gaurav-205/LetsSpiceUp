@@ -242,8 +242,10 @@ class X {
   }
 
   #onIntersection(entries: IntersectionObserverEntry[]) {
-    this.#isAnimating = entries[0].isIntersecting;
-    this.#isAnimating ? this.#startAnimation() : this.#stopAnimation();
+    if (entries[0]) {
+      this.#isAnimating = entries[0].isIntersecting;
+      this.#isAnimating ? this.#startAnimation() : this.#stopAnimation();
+    }
   }
 
   #onVisibilityChange() {
@@ -385,7 +387,10 @@ class W {
       const pos = new Vector3().fromArray(positionData, base);
       const vel = new Vector3().fromArray(velocityData, base);
 
-      vel.y -= deltaInfo.delta * config.gravity * sizeData[idx];
+      const size = sizeData[idx];
+      if (size !== undefined) {
+        vel.y -= deltaInfo.delta * config.gravity * size;
+      }
       vel.multiplyScalar(config.friction);
       vel.clampLength(0, config.maxVelocity);
 
@@ -399,6 +404,7 @@ class W {
       const pos = new Vector3().fromArray(positionData, base);
       const vel = new Vector3().fromArray(velocityData, base);
       const radius = sizeData[idx];
+      if (radius === undefined) continue;
 
       for (let jdx = idx + 1; jdx < config.count; jdx++) {
         const otherBase = 3 * jdx;
@@ -406,7 +412,9 @@ class W {
         const otherVel = new Vector3().fromArray(velocityData, otherBase);
         const diff = new Vector3().copy(otherPos).sub(pos);
         const dist = diff.length();
-        const sumRadius = radius + sizeData[jdx];
+        const otherRadius = sizeData[jdx];
+        if (otherRadius === undefined) continue;
+        const sumRadius = radius + otherRadius;
 
         if (dist < sumRadius) {
           const overlap = sumRadius - dist;
@@ -428,7 +436,9 @@ class W {
       if (config.controlSphere0) {
         const diff = new Vector3().copy(new Vector3().fromArray(positionData, 0)).sub(pos);
         const d = diff.length();
-        const sumRadius0 = radius + sizeData[0];
+        const radius0 = sizeData[0];
+        if (radius0 === undefined) continue;
+        const sumRadius0 = radius + radius0;
 
         if (d < sumRadius0) {
           const correction = diff.normalize().multiplyScalar(sumRadius0 - d);
@@ -473,6 +483,7 @@ class Y extends MeshPhysicalMaterial {
     thicknessPower: { value: 2 },
     thicknessScale: { value: 10 }
   };
+  defines: { [key: string]: string } = {};
 
   constructor(params: any) {
     super(params);
@@ -674,9 +685,10 @@ function processPointerInteraction() {
 }
 
 function onTouchStart(e: TouchEvent) {
-  if (e.touches.length > 0) {
+  const touch = e.touches[0];
+  if (touch) {
     e.preventDefault();
-    pointerPosition.set(e.touches[0].clientX, e.touches[0].clientY);
+    pointerPosition.set(touch.clientX, touch.clientY);
     for (const [elem, data] of pointerMap) {
       const rect = elem.getBoundingClientRect();
       if (isInside(rect)) {
@@ -693,9 +705,10 @@ function onTouchStart(e: TouchEvent) {
 }
 
 function onTouchMove(e: TouchEvent) {
-  if (e.touches.length > 0) {
+  const touch = e.touches[0];
+  if (touch) {
     e.preventDefault();
-    pointerPosition.set(e.touches[0].clientX, e.touches[0].clientY);
+    pointerPosition.set(touch.clientX, touch.clientY);
     for (const [elem, data] of pointerMap) {
       const rect = elem.getBoundingClientRect();
       updatePointerData(data, rect);
@@ -780,7 +793,8 @@ class Z extends Group {
     
     // Assign random shapes to each instance
     this.shapeTypeArray = Array.from({ length: config.count }, () => {
-      return config.shapeTypes[Math.floor(Math.random() * config.shapeTypes.length)];
+      const shapeType = config.shapeTypes[Math.floor(Math.random() * config.shapeTypes.length)];
+      return shapeType ?? config.shapeTypes[0] ?? 'sphere';
     });
 
     // Group indices by shape type
@@ -839,9 +853,11 @@ class Z extends Group {
             const scaled = clamped * (baseColors.length - 1);
             const idx = Math.floor(scaled);
             const start = colorObjects[idx];
+            if (!start) return new Color();
             if (idx >= baseColors.length - 1) return start.clone();
             const alpha = scaled - idx;
             const end = colorObjects[idx + 1];
+            if (!end) return start.clone();
             out.r = start.r + alpha * (end.r - start.r);
             out.g = start.g + alpha * (end.g - start.g);
             out.b = start.b + alpha * (end.b - start.b);
@@ -893,7 +909,10 @@ class Z extends Group {
           // Update light position to follow cursor invisibly
           this.light!.position.copy(U.position);
         } else {
-          U.scale.setScalar(this.physics.sizeData[originalIdx]);
+          const size = this.physics.sizeData[originalIdx];
+          if (size !== undefined) {
+            U.scale.setScalar(size);
+          }
         }
         
         // Add slight rotation for visual interest (using time-based rotation)

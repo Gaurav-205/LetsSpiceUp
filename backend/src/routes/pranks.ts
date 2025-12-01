@@ -94,7 +94,15 @@ router.get('/:id', async (req: Request, res: Response) => {
       });
     }
 
-    const prank = await getPrankById(authReq.user.userId, req.params.id);
+    const prankId = req.params.id;
+    if (!prankId) {
+      return res.status(400).json({
+        error: {
+          message: 'Prank ID is required',
+        },
+      });
+    }
+    const prank = await getPrankById(authReq.user.userId, prankId);
     
     if (!prank) {
       return res.status(404).json({

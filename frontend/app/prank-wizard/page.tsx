@@ -326,7 +326,7 @@ export default function PrankWizardPage() {
                 />
                 <MultiSelectPills
                   label="Personality Type"
-                  options={PERSONALITY_TYPES}
+                  options={[...PERSONALITY_TYPES]}
                   selected={formData.personalityTypes}
                   onChange={(selected) => updateField('personalityTypes', selected)}
                   error={errors.personalityTypes}
@@ -348,7 +348,7 @@ export default function PrankWizardPage() {
               <div className="space-y-4">
                 <RadioButtonGroup
                   label="Prank Type"
-                  options={PRANK_TYPES}
+                  options={[...PRANK_TYPES]}
                   selected={formData.prankType}
                   onChange={(value) => updateField('prankType', value)}
                   error={errors.prankType}

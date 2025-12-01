@@ -75,11 +75,11 @@ export default function PrankDetailPage() {
             { label: 'Details' }
           ]}
           rightContent={
-            <Link href="/pranks">
+                <Link href="/pranks">
               <Button variant="outline" className="text-xs sm:text-sm md:text-base font-medium px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 rounded-lg backdrop-blur-sm transition-all duration-300 border whitespace-nowrap font-secondary !border-[#8A2BE2] !text-[#FFFFFF] hover:!bg-[#8A2BE2]/20 hover:!border-[#BFFF00] hover:!text-[#BFFF00]" style={{ backgroundColor: 'transparent', textShadow: '0 0 10px rgba(255, 255, 255, 0.1)' }}>
-                Back to List
-              </Button>
-            </Link>
+                    Back to List
+                  </Button>
+                </Link>
           }
         />
 
@@ -120,8 +120,8 @@ export default function PrankDetailPage() {
                 <span
                   className="px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium font-secondary border backdrop-blur-sm self-start sm:self-auto whitespace-nowrap"
                   style={{ 
-                    color: STATUS_LABELS[prank.status]?.color || STATUS_LABELS.pending.color,
-                    borderColor: STATUS_LABELS[prank.status]?.borderColor || 'rgba(234, 179, 8, 0.3)',
+                    color: STATUS_LABELS[prank.status]?.color || STATUS_LABELS.pending?.color || 'text-[#EAB308]',
+                    borderColor: STATUS_LABELS[prank.status]?.borderColor || STATUS_LABELS.pending?.borderColor || 'rgba(234, 179, 8, 0.3)',
                     backgroundColor: 'rgba(10, 10, 10, 0.4)'
                   }}
                 >

@@ -25,8 +25,6 @@ export default function Input({
   const isValid = hasValue && !error;
   const showIcon = showSuccessIcon && isValid;
 
-  // Determine if we should auto-format phone numbers
-  const shouldFormatPhone = type !== 'phone' && props.name === 'yourPhone';
 
   return (
     <div className="w-full">

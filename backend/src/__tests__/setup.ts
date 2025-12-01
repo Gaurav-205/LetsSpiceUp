@@ -14,16 +14,11 @@ process.env.PORT = '5000';
 const originalConsoleLog = console.log;
 const originalConsoleError = console.error;
 
-beforeAll(() => {
-  // Optionally suppress console output during tests
-  // Uncomment if you want to suppress logs:
-  // console.log = jest.fn();
-  // console.error = jest.fn();
-});
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(global as any).beforeAll = (global as any).beforeAll || (() => {});
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+(global as any).afterAll = (global as any).afterAll || (() => {});
 
-afterAll(() => {
-  // Restore original console methods
-  console.log = originalConsoleLog;
-  console.error = originalConsoleError;
-});
+// Note: Jest globals (beforeAll, afterAll) are available at runtime
+// This file is excluded from production build via tsconfig.json
 

@@ -7,14 +7,6 @@ const requiredEnvVars = [
   'NEXT_PUBLIC_API_URL',
 ] as const;
 
-const optionalEnvVars = [
-  'NEXT_PUBLIC_GOOGLE_CLIENT_ID',
-  'NEXT_PUBLIC_SITE_URL',
-] as const;
-
-type RequiredEnvVar = typeof requiredEnvVars[number];
-type OptionalEnvVar = typeof optionalEnvVars[number];
-
 interface EnvConfig {
   apiUrl: string;
   googleClientId?: string;

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import Cookies from 'js-cookie';
 import { User, LoginData, RegisterData } from '@/types/auth';
 import { authApi } from '@/lib/auth-api';
@@ -33,7 +33,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         const cookies = document.cookie.split(';');
         const tokenCookie = cookies.find(c => c.trim().startsWith('token='));
         if (tokenCookie) {
-          token = decodeURIComponent(tokenCookie.split('=')[1].trim());
+          const tokenValue = tokenCookie.split('=')[1];
+          if (tokenValue) {
+            token = decodeURIComponent(tokenValue.trim());
+          }
         }
       }
       

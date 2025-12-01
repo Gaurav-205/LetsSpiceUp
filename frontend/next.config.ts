@@ -55,9 +55,6 @@ const nextConfig: NextConfig = {
   // React strict mode for better development experience
   reactStrictMode: true,
 
-  // Optimize production builds
-  swcMinify: true,
-
   // Environment variables validation
   env: {
     NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000',

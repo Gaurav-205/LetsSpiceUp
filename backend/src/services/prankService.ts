@@ -1,4 +1,4 @@
-import Prank, { IPrank } from '../models/Prank';
+import Prank from '../models/Prank';
 import { PrankSubmissionData, PrankResponse } from '../types/prank';
 import { logger } from '../utils/logger';
 
@@ -21,7 +21,7 @@ export const createPrank = async (
 
   logger.info(`Prank created: ${prank._id} by user ${userId}`);
 
-  return {
+  const response: PrankResponse = {
     id: prank._id.toString(),
     yourName: prank.yourName,
     yourPhone: prank.yourPhone,
@@ -30,11 +30,16 @@ export const createPrank = async (
     friendAge: prank.friendAge,
     personalityTypes: prank.personalityTypes,
     prankType: prank.prankType,
-    additionalInfo: prank.additionalInfo,
     status: prank.status,
     createdAt: prank.createdAt,
     updatedAt: prank.updatedAt,
   };
+
+  if (prank.additionalInfo) {
+    response.additionalInfo = prank.additionalInfo;
+  }
+
+  return response;
 };
 
 export const getUserPranks = async (userId: string): Promise<PrankResponse[]> => {
@@ -43,20 +48,27 @@ export const getUserPranks = async (userId: string): Promise<PrankResponse[]> =>
     .select('-__v')
     .lean();
 
-  return pranks.map((prank) => ({
-    id: prank._id.toString(),
-    yourName: prank.yourName,
-    yourPhone: prank.yourPhone,
-    yourEmail: prank.yourEmail,
-    friendName: prank.friendName,
-    friendAge: prank.friendAge,
-    personalityTypes: prank.personalityTypes,
-    prankType: prank.prankType,
-    additionalInfo: prank.additionalInfo,
-    status: prank.status,
-    createdAt: prank.createdAt,
-    updatedAt: prank.updatedAt,
-  }));
+  return pranks.map((prank) => {
+    const response: PrankResponse = {
+      id: prank._id.toString(),
+      yourName: prank.yourName,
+      yourPhone: prank.yourPhone,
+      yourEmail: prank.yourEmail,
+      friendName: prank.friendName,
+      friendAge: prank.friendAge,
+      personalityTypes: prank.personalityTypes,
+      prankType: prank.prankType,
+      status: prank.status,
+      createdAt: prank.createdAt,
+      updatedAt: prank.updatedAt,
+    };
+
+    if (prank.additionalInfo) {
+      response.additionalInfo = prank.additionalInfo;
+    }
+
+    return response;
+  });
 };
 
 export const getPrankById = async (
@@ -69,7 +81,7 @@ export const getPrankById = async (
     return null;
   }
 
-  return {
+  const response: PrankResponse = {
     id: prank._id.toString(),
     yourName: prank.yourName,
     yourPhone: prank.yourPhone,
@@ -78,10 +90,15 @@ export const getPrankById = async (
     friendAge: prank.friendAge,
     personalityTypes: prank.personalityTypes,
     prankType: prank.prankType,
-    additionalInfo: prank.additionalInfo,
     status: prank.status,
     createdAt: prank.createdAt,
     updatedAt: prank.updatedAt,
   };
+
+  if (prank.additionalInfo) {
+    response.additionalInfo = prank.additionalInfo;
+  }
+
+  return response;
 };
 

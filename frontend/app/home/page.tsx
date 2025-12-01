@@ -4,17 +4,10 @@ import ProtectedRoute from '@/components/ProtectedRoute';
 import { useAuth } from '@/contexts/AuthContext';
 import Button from '@/components/ui/Button';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import Navbar from '@/components/Navbar';
 
 export default function HomePage() {
-  const { user, logout } = useAuth();
-  const router = useRouter();
-
-  const handleLogout = () => {
-    logout();
-    router.push('/');
-  };
+  const { user } = useAuth();
 
   return (
     <ProtectedRoute>

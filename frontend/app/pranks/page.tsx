@@ -61,18 +61,18 @@ export default function PranksPage() {
             { label: 'My Pranks' }
           ]}
           rightContent={
-            <div className="flex items-center gap-2 sm:gap-3">
-              <Link href="/prank-wizard">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <Link href="/prank-wizard">
                 <Button className="text-xs sm:text-sm md:text-base font-medium px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 shadow-lg hover:shadow-2xl transition-all duration-300 border-0 whitespace-nowrap font-secondary !bg-[#BFFF00] !text-[#0A0A0A] hover:!bg-[#8A2BE2] hover:!text-[#FFFFFF] rounded-lg" style={{ boxShadow: '0 4px 15px rgba(191, 255, 0, 0.4)' }}>
-                  Create New
-                </Button>
-              </Link>
-              <Link href="/home">
+                    Create New
+                  </Button>
+                </Link>
+                <Link href="/home">
                 <Button variant="outline" className="text-xs sm:text-sm md:text-base font-medium px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 rounded-lg backdrop-blur-sm transition-all duration-300 border whitespace-nowrap font-secondary !border-[#8A2BE2] !text-[#FFFFFF] hover:!bg-[#8A2BE2]/20 hover:!border-[#BFFF00] hover:!text-[#BFFF00]" style={{ backgroundColor: 'transparent', textShadow: '0 0 10px rgba(255, 255, 255, 0.1)' }}>
-                  Back to Home
-                </Button>
-              </Link>
-            </div>
+                    Back to Home
+                  </Button>
+                </Link>
+              </div>
           }
         />
 
@@ -152,8 +152,8 @@ export default function PranksPage() {
                     <span
                       className="px-2.5 sm:px-3 py-1 rounded-full text-xs font-medium font-secondary border backdrop-blur-sm whitespace-nowrap flex-shrink-0"
                       style={{ 
-                        color: STATUS_LABELS[prank.status]?.color || STATUS_LABELS.pending.color,
-                        borderColor: STATUS_LABELS[prank.status]?.borderColor || 'rgba(234, 179, 8, 0.3)',
+                        color: STATUS_LABELS[prank.status]?.color || STATUS_LABELS.pending?.color || 'text-[#EAB308]',
+                        borderColor: STATUS_LABELS[prank.status]?.borderColor || STATUS_LABELS.pending?.borderColor || 'rgba(234, 179, 8, 0.3)',
                         backgroundColor: 'rgba(10, 10, 10, 0.4)'
                       }}
                     >

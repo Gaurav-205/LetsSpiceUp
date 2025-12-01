@@ -20,6 +20,7 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
       }, 100);
       return () => clearTimeout(timer);
     }
+    return undefined;
   }, [isAuthenticated, loading, router]);
 
   // Show loading while checking auth
