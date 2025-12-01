@@ -236,187 +236,187 @@ export default function PrankWizardPage() {
       />
       <div className="flex-1 overflow-y-auto">
         <GamingBackground fullHeight={false}>
-          <div className="max-w-3xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-3xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
             <div className="rounded-xl backdrop-blur-sm border p-4 sm:p-6 md:p-8 lg:p-10 " style={{ backgroundColor: 'rgba(10, 10, 10, 0.6)', borderColor: 'rgba(138, 43, 226, 0.3)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)' }}>
-              {/* Progress Bar */}
-              <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
+          {/* Progress Bar */}
+          <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
 
-              {/* Step 1: Your Information */}
-              {currentStep === 1 && (
-                <div className="animate-slide-in">
-                  <h2 className="text-2xl sm:text-3xl font-semibold font-primary mb-2" style={{ color: '#FFFFFF', textShadow: '0 0 20px rgba(255, 255, 255, 0.2)' }}>
-                    {getStepTitle(1)}
-                  </h2>
-                  <p className="font-body text-sm mb-8" style={{ color: '#FFFFFF', opacity: 0.8 }}>{getStepDescription(1)}</p>
-                  
-                  <div className="space-y-5">
-                    <Input
-                      label="Your Name"
-                      name="yourName"
-                      value={formData.yourName}
-                      onChange={(e) => updateField('yourName', e.target.value)}
-                      placeholder="Enter your full name"
-                      error={errors.yourName}
-                      required
-                      showSuccessIcon={true}
-                    />
-                    <Input
-                      label="Phone (WhatsApp)"
-                      name="yourPhone"
-                      type="tel"
-                      value={formData.yourPhone}
-                      onChange={(e) => {
-                        const formatted = formatPhoneNumber(e.target.value);
-                        updateField('yourPhone', formatted);
-                      }}
-                      placeholder="+91 98765 43210"
-                      error={errors.yourPhone}
-                      helpText="Include country code (e.g., +91 for India)"
-                      required
-                      showSuccessIcon={true}
-                    />
-                    <Input
-                      label="Email"
-                      name="yourEmail"
-                      type="email"
-                      value={formData.yourEmail}
-                      onChange={(e) => updateField('yourEmail', e.target.value)}
-                      placeholder="your.email@example.com"
-                      error={errors.yourEmail}
-                      showSuccessIcon={true}
-                      helpText="We'll use this to send you the prank plan"
-                      required
-                    />
-                  </div>
-                </div>
-              )}
-
-              {/* Step 2: Friend's Information */}
-              {currentStep === 2 && (
-                <div className="animate-slide-in">
-                  <h2 className="text-2xl sm:text-3xl font-semibold font-primary mb-2" style={{ color: '#FFFFFF', textShadow: '0 0 20px rgba(255, 255, 255, 0.2)' }}>
-                    {getStepTitle(2)}
-                  </h2>
-                  <p className="font-body text-sm mb-8" style={{ color: '#FFFFFF', opacity: 0.8 }}>{getStepDescription(2)}</p>
-                  
-                  <div className="space-y-5">
-                    <Input
-                      label="Friend's Name"
-                      name="friendName"
-                      value={formData.friendName}
-                      onChange={(e) => updateField('friendName', e.target.value)}
-                      placeholder="Enter friend's name"
-                      error={errors.friendName}
-                      required
-                      showSuccessIcon={true}
-                    />
-                    <Select
-                      label="Age Range"
-                      name="friendAge"
-                      value={formData.friendAge}
-                      onChange={(e) => updateField('friendAge', e.target.value)}
-                      placeholder="Select age range"
-                      error={errors.friendAge}
-                      helpText="This helps us tailor the prank appropriately"
-                      options={[
-                        { value: '18-25', label: '18-25' },
-                        { value: '26-35', label: '26-35' },
-                        { value: '36-45', label: '36-45' },
-                        { value: '46+', label: '46+' },
-                      ]}
-                      required
-                    />
-                    <MultiSelectPills
-                      label="Personality Type"
-                      options={[...PERSONALITY_TYPES]}
-                      selected={formData.personalityTypes}
-                      onChange={(selected) => updateField('personalityTypes', selected)}
-                      error={errors.personalityTypes}
-                      required
-                      helpText="Select all that apply"
-                    />
-                  </div>
-                </div>
-              )}
-
-              {/* Step 3: Prank Type */}
-              {currentStep === 3 && (
-                <div className="animate-slide-in">
-                  <h2 className="text-2xl sm:text-3xl font-semibold font-primary mb-2" style={{ color: '#FFFFFF', textShadow: '0 0 20px rgba(255, 255, 255, 0.2)' }}>
-                    {getStepTitle(3)}
-                  </h2>
-                  <p className="font-body text-sm mb-8" style={{ color: '#FFFFFF', opacity: 0.8 }}>{getStepDescription(3)}</p>
-                  
-                  <div className="space-y-4">
-                    <RadioButtonGroup
-                      label="Prank Type"
-                      options={[...PRANK_TYPES]}
-                      selected={formData.prankType}
-                      onChange={(value) => updateField('prankType', value)}
-                      error={errors.prankType}
-                      required
-                    />
-                  </div>
-                </div>
-              )}
-
-              {/* Step 4: Additional Information */}
-              {currentStep === 4 && (
-                <div className="animate-slide-in">
-                  <h2 className="text-2xl sm:text-3xl font-semibold font-primary mb-2" style={{ color: '#FFFFFF', textShadow: '0 0 20px rgba(255, 255, 255, 0.2)' }}>
-                    {getStepTitle(4)}
-                  </h2>
-                  <p className="font-body text-sm mb-8" style={{ color: '#FFFFFF', opacity: 0.8 }}>{getStepDescription(4)}</p>
-                  
-                  <div className="space-y-5">
-                    <Textarea
-                      label="Additional Notes"
-                      value={formData.additionalInfo}
-                      onChange={(e) => updateField('additionalInfo', e.target.value)}
-                      placeholder="Any personality quirks, habits, fears, or specific details about your friend that might help us plan the perfect prank..."
-                      rows={8}
-                      maxLength={2000}
-                      showCharCount={true}
-                      helpText="Share any additional details that might help us create the perfect prank plan"
-                    />
-                  </div>
-                </div>
-              )}
-
-              {/* Navigation Buttons */}
-              <div className="flex justify-between mt-10 gap-4 pt-6 border-t" style={{ borderColor: 'rgba(138, 43, 226, 0.2)' }}>
-                <Button
-                  variant="outline"
-                  onClick={handleBack}
-                  disabled={currentStep === 1}
-                  className="font-secondary !border-[#8A2BE2] !text-[#FFFFFF] hover:!bg-[#8A2BE2]/20 hover:!border-[#BFFF00] hover:!text-[#BFFF00] disabled:opacity-40 disabled:cursor-not-allowed px-8 py-3 min-w-[120px] text-base backdrop-blur-sm transition-all duration-300 rounded-xl"
-                  style={{ backgroundColor: 'transparent', boxShadow: '0 4px 15px rgba(138, 43, 226, 0.3)' }}
-                >
-                  Back
-                </Button>
-                {currentStep < totalSteps ? (
-                  <Button
-                    onClick={handleNext}
-                    className="font-secondary !bg-[#BFFF00] !text-[#0A0A0A] hover:!bg-[#8A2BE2] hover:!text-[#FFFFFF] px-8 py-3 min-w-[140px] text-base shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl transform hover:scale-105"
-                    style={{ boxShadow: '0 8px 30px rgba(191, 255, 0, 0.4), 0 0 20px rgba(191, 255, 0, 0.2)' }}
-                  >
-                    Continue
-                  </Button>
-                ) : (
-                  <Button
-                    onClick={handleSubmit}
-                    isLoading={isSubmitting}
-                    disabled={isSubmitting}
-                    className="font-secondary !bg-[#BFFF00] !text-[#0A0A0A] hover:!bg-[#8A2BE2] hover:!text-[#FFFFFF] px-8 py-3 min-w-[200px] text-base shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl transform hover:scale-105"
-                    style={{ boxShadow: '0 8px 30px rgba(191, 255, 0, 0.4), 0 0 20px rgba(191, 255, 0, 0.2)' }}
-                  >
-                    {isSubmitting ? 'Creating Plan...' : 'Get Your Prank Plan'}
-                  </Button>
-                )}
+          {/* Step 1: Your Information */}
+          {currentStep === 1 && (
+            <div className="animate-slide-in">
+              <h2 className="text-2xl sm:text-3xl font-semibold font-primary mb-2" style={{ color: '#FFFFFF', textShadow: '0 0 20px rgba(255, 255, 255, 0.2)' }}>
+                {getStepTitle(1)}
+              </h2>
+              <p className="font-body text-sm mb-8" style={{ color: '#FFFFFF', opacity: 0.8 }}>{getStepDescription(1)}</p>
+              
+              <div className="space-y-5">
+                <Input
+                  label="Your Name"
+                  name="yourName"
+                  value={formData.yourName}
+                  onChange={(e) => updateField('yourName', e.target.value)}
+                  placeholder="Enter your full name"
+                  error={errors.yourName}
+                  required
+                  showSuccessIcon={true}
+                />
+                <Input
+                  label="Phone (WhatsApp)"
+                  name="yourPhone"
+                  type="tel"
+                  value={formData.yourPhone}
+                  onChange={(e) => {
+                    const formatted = formatPhoneNumber(e.target.value);
+                    updateField('yourPhone', formatted);
+                  }}
+                  placeholder="+91 98765 43210"
+                  error={errors.yourPhone}
+                  helpText="Include country code (e.g., +91 for India)"
+                  required
+                  showSuccessIcon={true}
+                />
+                <Input
+                  label="Email"
+                  name="yourEmail"
+                  type="email"
+                  value={formData.yourEmail}
+                  onChange={(e) => updateField('yourEmail', e.target.value)}
+                  placeholder="your.email@example.com"
+                  error={errors.yourEmail}
+                  showSuccessIcon={true}
+                  helpText="We'll use this to send you the prank plan"
+                  required
+                />
               </div>
             </div>
+          )}
+
+          {/* Step 2: Friend's Information */}
+          {currentStep === 2 && (
+            <div className="animate-slide-in">
+              <h2 className="text-2xl sm:text-3xl font-semibold font-primary mb-2" style={{ color: '#FFFFFF', textShadow: '0 0 20px rgba(255, 255, 255, 0.2)' }}>
+                {getStepTitle(2)}
+              </h2>
+              <p className="font-body text-sm mb-8" style={{ color: '#FFFFFF', opacity: 0.8 }}>{getStepDescription(2)}</p>
+              
+              <div className="space-y-5">
+                <Input
+                  label="Friend's Name"
+                  name="friendName"
+                  value={formData.friendName}
+                  onChange={(e) => updateField('friendName', e.target.value)}
+                  placeholder="Enter friend's name"
+                  error={errors.friendName}
+                  required
+                  showSuccessIcon={true}
+                />
+                <Select
+                  label="Age Range"
+                  name="friendAge"
+                  value={formData.friendAge}
+                  onChange={(e) => updateField('friendAge', e.target.value)}
+                  placeholder="Select age range"
+                  error={errors.friendAge}
+                  helpText="This helps us tailor the prank appropriately"
+                  options={[
+                    { value: '18-25', label: '18-25' },
+                    { value: '26-35', label: '26-35' },
+                    { value: '36-45', label: '36-45' },
+                    { value: '46+', label: '46+' },
+                  ]}
+                  required
+                />
+                <MultiSelectPills
+                  label="Personality Type"
+                  options={[...PERSONALITY_TYPES]}
+                  selected={formData.personalityTypes}
+                  onChange={(selected) => updateField('personalityTypes', selected)}
+                  error={errors.personalityTypes}
+                  required
+                  helpText="Select all that apply"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Step 3: Prank Type */}
+          {currentStep === 3 && (
+            <div className="animate-slide-in">
+              <h2 className="text-2xl sm:text-3xl font-semibold font-primary mb-2" style={{ color: '#FFFFFF', textShadow: '0 0 20px rgba(255, 255, 255, 0.2)' }}>
+                {getStepTitle(3)}
+              </h2>
+              <p className="font-body text-sm mb-8" style={{ color: '#FFFFFF', opacity: 0.8 }}>{getStepDescription(3)}</p>
+              
+              <div className="space-y-4">
+                <RadioButtonGroup
+                  label="Prank Type"
+                  options={[...PRANK_TYPES]}
+                  selected={formData.prankType}
+                  onChange={(value) => updateField('prankType', value)}
+                  error={errors.prankType}
+                  required
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Step 4: Additional Information */}
+          {currentStep === 4 && (
+            <div className="animate-slide-in">
+              <h2 className="text-2xl sm:text-3xl font-semibold font-primary mb-2" style={{ color: '#FFFFFF', textShadow: '0 0 20px rgba(255, 255, 255, 0.2)' }}>
+                {getStepTitle(4)}
+              </h2>
+              <p className="font-body text-sm mb-8" style={{ color: '#FFFFFF', opacity: 0.8 }}>{getStepDescription(4)}</p>
+              
+              <div className="space-y-5">
+                <Textarea
+                  label="Additional Notes"
+                  value={formData.additionalInfo}
+                  onChange={(e) => updateField('additionalInfo', e.target.value)}
+                  placeholder="Any personality quirks, habits, fears, or specific details about your friend that might help us plan the perfect prank..."
+                  rows={8}
+                  maxLength={2000}
+                  showCharCount={true}
+                  helpText="Share any additional details that might help us create the perfect prank plan"
+                />
+              </div>
+            </div>
+          )}
+
+          {/* Navigation Buttons */}
+          <div className="flex justify-between mt-10 gap-4 pt-6 border-t" style={{ borderColor: 'rgba(138, 43, 226, 0.2)' }}>
+            <Button
+              variant="outline"
+              onClick={handleBack}
+              disabled={currentStep === 1}
+              className="font-secondary !border-[#8A2BE2] !text-[#FFFFFF] hover:!bg-[#8A2BE2]/20 hover:!border-[#BFFF00] hover:!text-[#BFFF00] disabled:opacity-40 disabled:cursor-not-allowed px-8 py-3 min-w-[120px] text-base backdrop-blur-sm transition-all duration-300 rounded-xl"
+              style={{ backgroundColor: 'transparent', boxShadow: '0 4px 15px rgba(138, 43, 226, 0.3)' }}
+            >
+              Back
+            </Button>
+            {currentStep < totalSteps ? (
+              <Button
+                onClick={handleNext}
+                className="font-secondary !bg-[#BFFF00] !text-[#0A0A0A] hover:!bg-[#8A2BE2] hover:!text-[#FFFFFF] px-8 py-3 min-w-[140px] text-base shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl transform hover:scale-105"
+                style={{ boxShadow: '0 8px 30px rgba(191, 255, 0, 0.4), 0 0 20px rgba(191, 255, 0, 0.2)' }}
+              >
+                Continue
+              </Button>
+            ) : (
+              <Button
+                onClick={handleSubmit}
+                isLoading={isSubmitting}
+                disabled={isSubmitting}
+                className="font-secondary !bg-[#BFFF00] !text-[#0A0A0A] hover:!bg-[#8A2BE2] hover:!text-[#FFFFFF] px-8 py-3 min-w-[200px] text-base shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl transform hover:scale-105"
+                style={{ boxShadow: '0 8px 30px rgba(191, 255, 0, 0.4), 0 0 20px rgba(191, 255, 0, 0.2)' }}
+              >
+                {isSubmitting ? 'Creating Plan...' : 'Get Your Prank Plan'}
+              </Button>
+            )}
           </div>
-        </GamingBackground>
+        </div>
+      </div>
+    </GamingBackground>
       </div>
     </div>
   );

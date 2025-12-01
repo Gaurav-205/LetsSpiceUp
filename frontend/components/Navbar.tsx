@@ -1,9 +1,11 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import Button from '@/components/ui/Button';
+import MobileMenu from './MobileMenu';
 
 interface NavbarProps {
   showAuthButtons?: boolean;
@@ -18,6 +20,7 @@ export default function Navbar({
 }: NavbarProps) {
   const router = useRouter();
   const { isAuthenticated, logout, isAdmin } = useAuth();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -43,34 +46,50 @@ export default function Navbar({
         background: 'linear-gradient(90deg, transparent 0%, rgba(191, 255, 0, 0.4) 50%, transparent 100%)',
         pointerEvents: 'none'
       }}></div>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10">
         <div className="flex justify-between items-center h-14 sm:h-16 md:h-20">
-          <div className="flex items-center gap-3 sm:gap-4">
-            <Link href={isAuthenticated ? "/home" : "/"} className="flex items-center group">
-              <h1 className="text-lg sm:text-xl md:text-2xl font-bold tracking-tight transition-all duration-300 font-primary" style={{ color: '#BFFF00', letterSpacing: '0.05em', textShadow: '0 0 20px rgba(191, 255, 0, 0.5)' }}>
+          <div className="flex items-center gap-2 sm:gap-3 md:gap-4 min-w-0 flex-1">
+            {/* Mobile Menu Button - Available for all users */}
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="md:hidden p-2 rounded-lg transition-all duration-300 hover:bg-[#8A2BE2]/20 active:bg-[#8A2BE2]/30"
+              style={{ color: '#FFFFFF' }}
+              aria-label="Open menu"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+            
+            <Link href={isAuthenticated ? "/home" : "/"} className="flex items-center group min-w-0">
+              <h1 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold tracking-tight transition-all duration-300 font-primary truncate" style={{ color: '#BFFF00', letterSpacing: '0.05em', textShadow: '0 0 20px rgba(191, 255, 0, 0.5)' }}>
                 <span className="group-hover:drop-shadow-[0_0_15px_rgba(191,255,0,0.8)] transition-all duration-300">
                   Prank Wizard
                 </span>
               </h1>
             </Link>
+            
+            {/* Breadcrumbs - Hidden on mobile, shown on tablet+ */}
             {breadcrumbs && breadcrumbs.length > 0 && (
-              <>
+              <div className="hidden sm:flex items-center gap-2 md:gap-3 md:gap-4">
                 {breadcrumbs.map((crumb, index) => (
-                  <div key={index} className="flex items-center gap-3 sm:gap-4">
-                    <span className="font-body" style={{ color: '#FFFFFF', opacity: 0.5 }}>/</span>
+                  <div key={index} className="flex items-center gap-2 md:gap-3 md:gap-4">
+                    <span className="font-body text-xs md:text-sm" style={{ color: '#FFFFFF', opacity: 0.5 }}>/</span>
                     {crumb.href ? (
-                      <Link href={crumb.href} className="font-body transition-colors duration-300 hover:text-[#BFFF00]" style={{ color: '#FFFFFF', opacity: 0.8 }}>
+                      <Link href={crumb.href} className="font-body text-xs md:text-sm transition-colors duration-300 hover:text-[#BFFF00] truncate max-w-[120px] md:max-w-none" style={{ color: '#FFFFFF', opacity: 0.8 }}>
                         {crumb.label}
                       </Link>
                     ) : (
-                      <span className="font-body" style={{ color: '#FFFFFF', opacity: 0.8 }}>{crumb.label}</span>
+                      <span className="font-body text-xs md:text-sm truncate max-w-[120px] md:max-w-none" style={{ color: '#FFFFFF', opacity: 0.8 }}>{crumb.label}</span>
                     )}
                   </div>
                 ))}
-              </>
+              </div>
             )}
           </div>
-          <div className="flex items-center gap-2 sm:gap-3">
+          
+          {/* Desktop Actions - Hidden on mobile */}
+          <div className="hidden md:flex items-center gap-2 lg:gap-3">
             {rightContent ? rightContent : (
               <>
                 {showAuthButtons && !isAuthenticated && (
@@ -141,8 +160,36 @@ export default function Navbar({
               </>
             )}
           </div>
+          
+          {/* Mobile Actions - Only show for non-authenticated users on mobile */}
+          {!isAuthenticated && showAuthButtons && (
+            <div className="md:hidden flex items-center gap-2">
+              <Link href="/login" className="flex items-center">
+                <button 
+                  className="text-xs font-medium px-2.5 py-1.5 rounded-lg transition-all duration-300 font-secondary border backdrop-blur-sm"
+                  style={{ 
+                    color: '#FFFFFF', 
+                    borderColor: 'rgba(138, 43, 226, 0.4)',
+                    backgroundColor: 'rgba(10, 10, 10, 0.3)',
+                  }}
+                >
+                  Sign In
+                </button>
+              </Link>
+              <Link href="/signup" className="flex items-center">
+                <Button 
+                  className="px-3 py-1.5 text-xs font-semibold font-secondary !bg-[#8A2BE2] !text-[#FFFFFF] hover:!bg-[#BFFF00] hover:!text-[#0A0A0A] rounded-lg"
+                >
+                  Get Started
+                </Button>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
+      
+      {/* Mobile Menu */}
+      <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
     </nav>
   );
 }
