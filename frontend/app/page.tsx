@@ -54,16 +54,16 @@ export default function LandingPage() {
     <div className="min-h-screen h-screen relative overflow-hidden" style={{ backgroundColor: '#0A0A0A' }}>
       {/* Ballpit Background - Loaded after initial render */}
       {showBallpit && (
-        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
-          <Ballpit
-            count={100}
-            gravity={0.01}
-            friction={0.9975}
-            wallBounce={0.95}
-            followCursor={true}
-            className="w-full h-full"
-          />
-        </div>
+      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
+        <Ballpit
+          count={100}
+          gravity={0.01}
+          friction={0.9975}
+          wallBounce={0.95}
+          followCursor={true}
+          className="w-full h-full"
+        />
+      </div>
       )}
 
       {/* Gradient Overlay for better text readability - reduced opacity to show shapes */}

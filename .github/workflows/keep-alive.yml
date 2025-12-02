@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Ping Health Endpoint
         run: |
-          BACKEND_URL="${{ secrets.BACKEND_URL || 'https://your-backend-url.onrender.com' }}"
+          BACKEND_URL="${{ secrets.BACKEND_URL || 'https://letsspiceup.onrender.com' }}"
           echo "Pinging: $BACKEND_URL/health"
           
           response=$(curl -s -o /dev/null -w "%{http_code}" "$BACKEND_URL/health" || echo "000")
