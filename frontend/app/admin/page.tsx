@@ -28,6 +28,16 @@ export default function AdminPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeTab, usersPage, pranksPage]);
 
+  // Prevent body scrolling on mobile
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, []);
+
   const loadData = async () => {
     try {
       setLoading(true);
@@ -117,7 +127,7 @@ export default function AdminPage() {
 
   return (
     <AdminRoute>
-      <div className="h-screen flex flex-col overflow-hidden" style={{ backgroundColor: '#0A0A0A' }}>
+      <div className="h-screen h-[100dvh] flex flex-col overflow-hidden" style={{ backgroundColor: '#0A0A0A', height: '100dvh' }}>
         <Navbar />
         
         <div className="flex-1 overflow-y-auto pt-16 sm:pt-16 md:pt-20">

@@ -55,6 +55,16 @@ export default function PrankDetailPage() {
     }
   }, [params.id, loadPrank]);
 
+  // Prevent body scrolling on mobile
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, []);
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
@@ -68,7 +78,7 @@ export default function PrankDetailPage() {
 
   return (
     <ProtectedRoute>
-      <div className="h-screen flex flex-col overflow-hidden" style={{ backgroundColor: '#0A0A0A' }}>
+      <div className="h-screen h-[100dvh] flex flex-col overflow-hidden" style={{ backgroundColor: '#0A0A0A', height: '100dvh' }}>
         <Navbar 
           breadcrumbs={[
             { label: 'My Pranks', href: '/pranks' },

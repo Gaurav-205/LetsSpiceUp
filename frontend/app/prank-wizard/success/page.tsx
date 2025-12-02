@@ -1,13 +1,24 @@
 'use client';
 
+import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Button from '@/components/ui/Button';
 
 export default function SuccessPage() {
   const router = useRouter();
 
+  // Prevent body scrolling on mobile
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen h-screen relative overflow-hidden flex items-center justify-center px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#0A0A0A' }}>
+    <div className="min-h-screen h-screen h-[100dvh] relative overflow-hidden flex items-center justify-center px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#0A0A0A', height: '100dvh' }}>
       {/* Background gradient overlay - matching landing page */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/80 via-[#0A0A0A]/50 via-[#0A0A0A]/30 to-[#8A2BE2]/8 pointer-events-none" />
       <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-[#8A2BE2]/3 pointer-events-none" style={{ background: 'radial-gradient(ellipse at center, transparent 0%, rgba(10, 10, 10, 0.6) 70%, rgba(138, 43, 226, 0.05) 100%)' }} />

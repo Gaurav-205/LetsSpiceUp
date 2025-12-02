@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Input from '@/components/ui/Input';
 import Button from '@/components/ui/Button';
@@ -11,6 +11,16 @@ export default function ForgotPasswordPage() {
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  // Prevent body scrolling on mobile
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -30,7 +40,7 @@ export default function ForgotPasswordPage() {
 
   if (success) {
     return (
-      <div className="min-h-screen h-screen relative overflow-hidden flex items-center justify-center px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#0A0A0A' }}>
+      <div className="min-h-screen h-screen h-[100dvh] relative overflow-hidden flex items-center justify-center px-4 sm:px-6 lg:px-8" style={{ backgroundColor: '#0A0A0A', height: '100dvh' }}>
         {/* Background gradient overlay - matching landing page */}
         <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/80 via-[#0A0A0A]/50 via-[#0A0A0A]/30 to-[#8A2BE2]/8 pointer-events-none" />
         <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-[#8A2BE2]/3 pointer-events-none" style={{ background: 'radial-gradient(ellipse at center, transparent 0%, rgba(10, 10, 10, 0.6) 70%, rgba(138, 43, 226, 0.05) 100%)' }} />
@@ -87,15 +97,15 @@ export default function ForgotPasswordPage() {
       <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/80 via-[#0A0A0A]/50 via-[#0A0A0A]/30 to-[#8A2BE2]/8 pointer-events-none" />
       <div className="absolute inset-0 bg-radial-gradient from-transparent via-transparent to-[#8A2BE2]/3 pointer-events-none" style={{ background: 'radial-gradient(ellipse at center, transparent 0%, rgba(10, 10, 10, 0.6) 70%, rgba(138, 43, 226, 0.05) 100%)' }} />
       
-      <div className="max-w-md w-full space-y-8 relative z-10">
+      <div className="max-w-md w-full space-y-4 sm:space-y-6 relative z-10 py-2 sm:py-4">
         <div className="text-center">
-          <Link href="/" className="flex justify-center mb-8">
-            <h1 className="text-lg sm:text-xl font-bold tracking-tight transition-all duration-300 font-primary neon-glow-lime group-hover:animate-glow-pulse" style={{ color: '#BFFF00', letterSpacing: '0.05em' }}>
+          <Link href="/" className="flex justify-center mb-4 sm:mb-8">
+            <h1 className="text-base sm:text-xl font-bold tracking-tight transition-all duration-300 font-primary neon-glow-lime group-hover:animate-glow-pulse" style={{ color: '#BFFF00', letterSpacing: '0.05em' }}>
               Prank Wizard
             </h1>
           </Link>
-          <div className="space-y-3 sm:space-y-4 mb-6">
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] tracking-tight font-primary">
+          <div className="space-y-2 sm:space-y-4 mb-4 sm:mb-6">
+            <h2 className="text-3xl sm:text-5xl md:text-6xl font-extrabold leading-[1.1] tracking-tight font-primary">
               <span className="block  delay-200" style={{ color: '#FFFFFF', textShadow: '0 0 30px rgba(255, 255, 255, 0.3), 0 0 60px rgba(255, 255, 255, 0.1)' }}>
                 Forgot your
               </span>
@@ -104,11 +114,11 @@ export default function ForgotPasswordPage() {
               </span>
             </h2>
           </div>
-          <p className="text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-medium font-body  delay-600" style={{ color: '#FFFFFF', textShadow: '0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.1)', opacity: 0.95 }}>
+          <p className="text-sm sm:text-lg max-w-2xl mx-auto leading-relaxed font-medium font-body  delay-600" style={{ color: '#FFFFFF', textShadow: '0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.1)', opacity: 0.95 }}>
             Enter your email address and we&apos;ll send you a link to reset your password.
           </p>
         </div>
-        <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
+        <form className="mt-4 sm:mt-8 space-y-4 sm:space-y-6" onSubmit={handleSubmit}>
           {error && (
             <div className="px-4 py-3 rounded border backdrop-blur-sm" style={{ backgroundColor: 'rgba(239, 68, 68, 0.1)', borderColor: 'rgba(239, 68, 68, 0.3)', color: '#FCA5A5' }}>
               {error}
