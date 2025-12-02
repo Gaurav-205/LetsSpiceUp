@@ -173,12 +173,7 @@ app.get('/', (_req, res) => {
 });
 
 // Health check route (should be accessible without CORS restrictions)
-// Use a separate CORS config for health checks
-const healthCheckCors = cors({
-  origin: true, // Allow all origins for health checks
-  credentials: false,
-});
-
+// Uses the healthCheckCors defined above
 app.get('/health', healthCheckCors, async (_req, res) => {
   try {
     const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';

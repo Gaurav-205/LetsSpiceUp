@@ -31,15 +31,23 @@ export default function LandingPage() {
   // Defer Ballpit loading until after initial render to improve FCP/LCP
   // Load after user interaction or after content is visible
   useEffect(() => {
-    let idleCallbackId: number | null = null;
+    let idleCallbackId: ReturnType<typeof requestIdleCallback> | null = null;
     let fallbackTimer: NodeJS.Timeout | null = null;
+    let hasLoaded = false;
+
+    const loadBallpit = () => {
+      if (!hasLoaded) {
+        hasLoaded = true;
+        setShowBallpit(true);
+      }
+    };
 
     // Load on user interaction (scroll, mouse move, touch)
     const handleInteraction = () => {
-      setShowBallpit(true);
+      loadBallpit();
       // Clean up
       if (idleCallbackId !== null && 'cancelIdleCallback' in window) {
-        cancelIdleCallback(idleCallbackId);
+        window.cancelIdleCallback(idleCallbackId);
       }
       if (fallbackTimer) {
         clearTimeout(fallbackTimer);
@@ -54,29 +62,24 @@ export default function LandingPage() {
     window.addEventListener('mousemove', handleInteraction, { once: true, passive: true });
     window.addEventListener('touchstart', handleInteraction, { once: true, passive: true });
 
-    // Use requestIdleCallback if available, otherwise use a longer delay
+    // Use requestIdleCallback if available, otherwise use setTimeout
     if ('requestIdleCallback' in window) {
-      idleCallbackId = requestIdleCallback(
+      idleCallbackId = window.requestIdleCallback(
         () => {
-          setShowBallpit(true);
+          loadBallpit();
         },
         { timeout: 2000 }
       );
-    } else {
-      // Fallback: load after content is likely painted
-      fallbackTimer = setTimeout(() => {
-        setShowBallpit(true);
-      }, 1000);
     }
 
     // Fallback: load after 2 seconds if no interaction and idle callback hasn't fired
     fallbackTimer = setTimeout(() => {
-      setShowBallpit(true);
+      loadBallpit();
     }, 2000);
 
     return () => {
       if (idleCallbackId !== null && 'cancelIdleCallback' in window) {
-        cancelIdleCallback(idleCallbackId);
+        window.cancelIdleCallback(idleCallbackId);
       }
       if (fallbackTimer) {
         clearTimeout(fallbackTimer);

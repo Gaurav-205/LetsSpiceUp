@@ -16,11 +16,14 @@ export const generateToken = (payload: TokenPayload): string => {
       email: payload.email 
     };
     // expiresIn can be a string like '7d' or a number in seconds
-    // We validate the format in config, so we can safely cast to string
+    // We validate the format in config (matches /^\d+[smhd]$/), so it's safe
+    // jsonwebtoken accepts string patterns like '7d', '1h', etc. which match StringValue type
     const expiresIn = config.jwt.expiresIn;
-    const options: SignOptions = {
-      expiresIn: expiresIn as string | number,
-    };
+    // Use type assertion for the options object to work with exactOptionalPropertyTypes
+    // This is safe because we validate the format in config/index.ts
+    const options = {
+      expiresIn: expiresIn,
+    } as SignOptions;
     return jwt.sign(tokenPayload, config.jwt.secret, options);
   } catch (error) {
     throw new AppError('Failed to generate token', 500, true, 'TOKEN_GENERATION_ERROR');

@@ -24,6 +24,8 @@ services:
         sync: false
       - key: SESSION_SECRET
         sync: false
+      - key: ADMIN_EMAILS
+        sync: false
       - key: JWT_EXPIRES_IN
         value: 7d
       - key: ALLOWED_ORIGINS

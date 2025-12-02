@@ -114,8 +114,10 @@ const nextConfig: NextConfig = {
 
   // Webpack optimizations
   webpack: (config, { dev, isServer }) => {
-    // Optimize bundle size
+    // Optimize bundle size for client-side only
     if (!dev && !isServer) {
+      const crypto = require('crypto');
+      
       config.optimization = {
         ...config.optimization,
         moduleIds: 'deterministic',
@@ -129,16 +131,17 @@ const nextConfig: NextConfig = {
             framework: {
               name: 'framework',
               chunks: 'all',
-              test: /(?<!node_modules.*)[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types|use-subscription)[\\/]/,
+              // Simplified regex for better compatibility
+              test: /[\\/]node_modules[\\/](react|react-dom|scheduler|prop-types|use-subscription)[\\/]/,
               priority: 40,
               enforce: true,
             },
             lib: {
-              test(module: any) {
+              test(module: { size: () => number; identifier: () => string }) {
                 return module.size() > 160000 && /node_modules[/\\]/.test(module.identifier());
               },
-              name(module: any) {
-                const hash = require('crypto').createHash('sha1');
+              name(module: { identifier: () => string }) {
+                const hash = crypto.createHash('sha1');
                 hash.update(module.identifier());
                 return hash.digest('hex').substring(0, 8);
               },
@@ -152,12 +155,10 @@ const nextConfig: NextConfig = {
               priority: 20,
             },
             shared: {
-              name(module: any, chunks: any) {
-                return require('crypto')
-                  .createHash('sha1')
-                  .update(chunks.reduce((acc: string, chunk: any) => acc + chunk.name, ''))
-                  .digest('hex')
-                  .substring(0, 8);
+              name(_module: unknown, chunks: Array<{ name: string }>) {
+                const hash = crypto.createHash('sha1');
+                hash.update(chunks.reduce((acc: string, chunk: { name: string }) => acc + chunk.name, ''));
+                return hash.digest('hex').substring(0, 8);
               },
               priority: 10,
               minChunks: 2,

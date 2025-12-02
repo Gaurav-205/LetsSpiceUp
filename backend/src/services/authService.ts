@@ -144,8 +144,9 @@ export const resetPassword = async (token: string, newPassword: string) => {
 
   // Update user
   user.password = hashedPassword;
-  user.resetPasswordToken = undefined;
-  user.resetPasswordExpires = undefined;
+  // Clear reset token fields using unset to properly remove them
+  user.set('resetPasswordToken', undefined);
+  user.set('resetPasswordExpires', undefined);
   await user.save();
 
   // Generate token

@@ -100,6 +100,26 @@ export default function RootLayout({
 }>) {
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Prank Wizard",
+    "description": "Plan the perfect prank experience tailored to your friend's personality",
+    "url": siteUrl,
+    "applicationCategory": "EntertainmentApplication",
+    "operatingSystem": "Web",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "ratingCount": "1"
+    }
+  };
+  
   return (
     <html lang="en" className={`${orbitron.variable} ${rajdhani.variable} ${exo2.variable}`}>
       <head>
@@ -110,25 +130,7 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebApplication",
-              "name": "Prank Wizard",
-              "description": "Plan the perfect prank experience tailored to your friend's personality",
-              "url": siteUrl,
-              "applicationCategory": "EntertainmentApplication",
-              "operatingSystem": "Web",
-              "offers": {
-                "@type": "Offer",
-                "price": "0",
-                "priceCurrency": "USD"
-              },
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "5",
-                "ratingCount": "1"
-              }
-            }),
+            __html: JSON.stringify(structuredData),
           }}
         />
       </head>
