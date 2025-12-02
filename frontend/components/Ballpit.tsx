@@ -54,7 +54,7 @@ interface SizeData {
 
 class X {
   #config: XConfig;
-  #postprocessing: any;
+  #postprocessing: unknown;
   #resizeObserver?: ResizeObserver;
   #intersectionObserver?: IntersectionObserver;
   #resizeTimer?: number;
@@ -210,7 +210,9 @@ class X {
       const fovRad = (this.camera.fov * Math.PI) / 180;
       this.size.wHeight = 2 * Math.tan(fovRad / 2) * this.camera.position.length();
       this.size.wWidth = this.size.wHeight * this.camera.aspect;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } else if ((this.camera as any).isOrthographicCamera) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const cam = this.camera as any;
       this.size.wHeight = cam.top - cam.bottom;
       this.size.wWidth = cam.right - cam.left;
@@ -236,21 +238,29 @@ class X {
     return this.#postprocessing;
   }
 
-  set postprocessing(value: any) {
+  set postprocessing(value: unknown) {
     this.#postprocessing = value;
     this.render = value.render.bind(value);
   }
 
   #onIntersection(entries: IntersectionObserverEntry[]) {
     if (entries[0]) {
-    this.#isAnimating = entries[0].isIntersecting;
-    this.#isAnimating ? this.#startAnimation() : this.#stopAnimation();
+      this.#isAnimating = entries[0].isIntersecting;
+      if (this.#isAnimating) {
+        this.#startAnimation();
+      } else {
+        this.#stopAnimation();
+      }
     }
   }
 
   #onVisibilityChange() {
     if (this.#isAnimating) {
-      document.hidden ? this.#stopAnimation() : this.#startAnimation();
+      if (document.hidden) {
+        this.#stopAnimation();
+      } else {
+        this.#startAnimation();
+      }
     }
   }
 
@@ -286,14 +296,19 @@ class X {
 
   clear() {
     this.scene.traverse(obj => {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       if ((obj as any).isMesh && typeof (obj as any).material === 'object' && (obj as any).material !== null) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         Object.keys((obj as any).material).forEach(key => {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const matProp = (obj as any).material[key];
           if (matProp && typeof matProp === 'object' && typeof matProp.dispose === 'function') {
             matProp.dispose();
           }
         });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (obj as any).material.dispose();
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         (obj as any).geometry.dispose();
       }
     });
@@ -476,6 +491,7 @@ class W {
 }
 
 class Y extends MeshPhysicalMaterial {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   uniforms: { [key: string]: { value: any } } = {
     thicknessDistortion: { value: 0.1 },
     thicknessAmbient: { value: 0 },
@@ -485,6 +501,7 @@ class Y extends MeshPhysicalMaterial {
   };
   defines: { [key: string]: string } = {};
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(params: any) {
     super(params);
     this.defines = { USE_UV: '' };
@@ -532,6 +549,7 @@ class Y extends MeshPhysicalMaterial {
     };
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   onBeforeCompile2?: (shader: any) => void;
 }
 
@@ -915,9 +933,12 @@ class Z extends Group {
     this.physics.update(deltaInfo);
 
     // Track elapsed time for rotation
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     if (!(this as any).elapsedTime) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (this as any).elapsedTime = 0;
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (this as any).elapsedTime += deltaInfo.delta;
 
     // Update each shape mesh separately
@@ -940,6 +961,7 @@ class Z extends Group {
         }
         
         // Add slight rotation for visual interest (using time-based rotation)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const time = (this as any).elapsedTime;
         U.rotation.x = originalIdx * 0.1 + time * 0.2;
         U.rotation.y = originalIdx * 0.15 + time * 0.3;
@@ -962,6 +984,7 @@ interface CreateBallpitReturn {
   dispose: () => void;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function createBallpit(canvas: HTMLCanvasElement, config: any = {}): CreateBallpitReturn {
   const threeInstance = new X({
     canvas,
@@ -988,6 +1011,7 @@ function createBallpit(canvas: HTMLCanvasElement, config: any = {}): CreateBallp
 
   canvas.style.touchAction = 'none';
   canvas.style.userSelect = 'none';
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   (canvas.style as any).webkitUserSelect = 'none';
 
   const pointerData = createPointerData({
@@ -1004,6 +1028,7 @@ function createBallpit(canvas: HTMLCanvasElement, config: any = {}): CreateBallp
     }
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function initialize(cfg: any) {
     if (spheres) {
       threeInstance.clear();
@@ -1046,6 +1071,7 @@ function createBallpit(canvas: HTMLCanvasElement, config: any = {}): CreateBallp
 interface BallpitProps {
   className?: string;
   followCursor?: boolean;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
 

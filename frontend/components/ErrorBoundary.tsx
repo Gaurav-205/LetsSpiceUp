@@ -48,7 +48,7 @@ export class ErrorBoundary extends Component<Props, State> {
               Something went wrong
             </h1>
             <p className="mb-6" style={{ color: '#FFFFFF', opacity: 0.8 }}>
-              We're sorry, but something unexpected happened. Please try reloading the page.
+              We&apos;re sorry, but something unexpected happened. Please try reloading the page.
             </p>
             {process.env.NODE_ENV === 'development' && this.state.error && (
               <details className="mb-4 text-left max-w-2xl mx-auto">

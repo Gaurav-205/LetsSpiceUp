@@ -105,7 +105,7 @@ export default function ForgotPasswordPage() {
             </h2>
           </div>
           <p className="text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-medium font-body  delay-600" style={{ color: '#FFFFFF', textShadow: '0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.1)', opacity: 0.95 }}>
-            Enter your email address and we'll send you a link to reset your password.
+            Enter your email address and we&apos;ll send you a link to reset your password.
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import ProtectedRoute from '@/components/ProtectedRoute';
 import { prankApi } from '@/lib/prank-api';
@@ -20,13 +20,7 @@ export default function PrankDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (params.id) {
-      loadPrank(params.id as string);
-    }
-  }, [params.id]);
-
-  const loadPrank = async (id: string) => {
+  const loadPrank = useCallback(async (id: string) => {
     try {
       setLoading(true);
       setError(null);
@@ -53,7 +47,13 @@ export default function PrankDetailPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [router]);
+
+  useEffect(() => {
+    if (params.id) {
+      loadPrank(params.id as string);
+    }
+  }, [params.id, loadPrank]);
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -171,7 +171,7 @@ export default function PrankDetailPage() {
 
                 {/* Friend Information */}
                 <div className="border-b pb-6 sm:pb-8" style={{ borderColor: 'rgba(138, 43, 226, 0.2)' }}>
-                  <h2 className="text-lg sm:text-xl font-semibold font-secondary mb-4 sm:mb-5" style={{ color: '#BFFF00', textShadow: '0 0 10px rgba(191, 255, 0, 0.3)' }}>Friend's Information</h2>
+                  <h2 className="text-lg sm:text-xl font-semibold font-secondary mb-4 sm:mb-5" style={{ color: '#BFFF00', textShadow: '0 0 10px rgba(191, 255, 0, 0.3)' }}>Friend&apos;s Information</h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                     <div>
                       <span className="text-sm font-medium font-body block mb-1.5" style={{ color: '#FFFFFF', opacity: 0.7 }}>Name</span>

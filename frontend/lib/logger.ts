@@ -10,7 +10,6 @@ class Logger {
 
   private log(level: LogLevel, message: string, ...args: unknown[]): void {
     if (this.isDevelopment) {
-      // eslint-disable-next-line no-console
       console[level](`[${level.toUpperCase()}]`, message, ...args);
     }
   }
@@ -25,13 +24,11 @@ class Logger {
 
   error(message: string, ...args: unknown[]): void {
     // Always log errors, even in production (but can be filtered by log level)
-    // eslint-disable-next-line no-console
     console.error('[ERROR]', message, ...args);
   }
 
   debug(message: string, ...args: unknown[]): void {
     if (this.isDevelopment) {
-      // eslint-disable-next-line no-console
       console.log('[DEBUG]', message, ...args);
     }
   }

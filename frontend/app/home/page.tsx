@@ -52,7 +52,7 @@ export default function HomePage() {
 
               {/* Subtitle - Matching landing page */}
               <p className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-medium px-4 font-body text-center" style={{ color: '#FFFFFF', textShadow: '0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.1)', opacity: 0.95 }}>
-                Ready to craft the perfect prank? Let's create something legendary together.
+                Ready to craft the perfect prank? Let&apos;s create something legendary together.
               </p>
 
               {/* CTA Buttons - Matching landing page style */}
