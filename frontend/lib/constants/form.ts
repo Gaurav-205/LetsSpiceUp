@@ -6,6 +6,11 @@ export interface FormData {
   yourEmail: string;
   friendName: string;
   friendAge: string;
+  friendPhone: string; // Required
+  friendEmail: string;
+  relationship: string;
+  friendGender: string;
+  friendLocation: string;
   personalityTypes: string[];
   prankType: string;
   additionalInfo: string;
@@ -17,6 +22,11 @@ export const DEFAULT_FORM_DATA: FormData = {
   yourEmail: '',
   friendName: '',
   friendAge: '',
+  friendPhone: '',
+  friendEmail: '',
+  relationship: '',
+  friendGender: '',
+  friendLocation: '',
   personalityTypes: [],
   prankType: '',
   additionalInfo: '',

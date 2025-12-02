@@ -63,6 +63,10 @@ export default function SuccessPage() {
             </p>
             <Button
               variant="outline"
+              onClick={() => {
+                const discordLink = process.env.NEXT_PUBLIC_DISCORD_INVITE_LINK || 'https://discord.gg/A4ptUUEr';
+                window.open(discordLink, '_blank', 'noopener,noreferrer');
+              }}
               className="font-secondary !border-[#8A2BE2] !text-[#FFFFFF] hover:!bg-[#8A2BE2]/20 hover:!border-[#BFFF00] hover:!text-[#BFFF00] px-8 sm:px-10 py-4 sm:py-5 text-base sm:text-lg backdrop-blur-sm transition-all duration-300 rounded-xl"
               style={{ backgroundColor: 'transparent', boxShadow: '0 4px 15px rgba(138, 43, 226, 0.3)' }}
             >

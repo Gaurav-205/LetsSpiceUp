@@ -22,6 +22,8 @@ export default function AdminPage() {
   const [pranksTotal, setPranksTotal] = useState(0);
   const [deletingUserId, setDeletingUserId] = useState<string | null>(null);
   const [deletingPrankId, setDeletingPrankId] = useState<string | null>(null);
+  const [selectedPrank, setSelectedPrank] = useState<Prank | null>(null);
+  const [showPrankModal, setShowPrankModal] = useState(false);
 
   useEffect(() => {
     loadData();
@@ -87,6 +89,21 @@ export default function AdminPage() {
       showToast('Failed to delete prank', 'error');
     } finally {
       setDeletingPrankId(null);
+    }
+  };
+
+  const handleViewPrankDetails = async (prankId: string) => {
+    try {
+      const response = await adminApi.getPrank(prankId);
+      setSelectedPrank(response.prank);
+      setShowPrankModal(true);
+    } catch (error: unknown) {
+      const err = error as { response?: { status?: number }; message?: string };
+      if (err.response?.status === 404) {
+        showToast('Prank not found', 'error');
+      } else {
+        showToast('Failed to load prank details', 'error');
+      }
     }
   };
 
@@ -339,7 +356,7 @@ export default function AdminPage() {
                                 <td className="p-4">
                                   <div className="flex gap-2">
                                     <Button
-                                      onClick={() => router.push(`/pranks/${prank._id}`)}
+                                      onClick={() => handleViewPrankDetails(prank._id)}
                                       className="px-3 py-1 text-xs font-secondary !bg-[#8A2BE2] hover:!bg-[#9B3DF3] !text-white"
                                     >
                                       Details
@@ -389,6 +406,153 @@ export default function AdminPage() {
           </div>
         </div>
       </div>
+
+      {/* Prank Details Modal */}
+      {showPrankModal && selectedPrank && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          onClick={() => setShowPrankModal(false)}
+        >
+          <div 
+            className="rounded-xl backdrop-blur-sm border p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto"
+            style={{ backgroundColor: 'rgba(10, 10, 10, 0.95)', borderColor: 'rgba(138, 43, 226, 0.5)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5)' }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex justify-between items-start mb-6">
+              <h2 className="text-2xl font-bold font-primary" style={{ color: '#FFFFFF' }}>Prank Details</h2>
+              <Button
+                onClick={() => setShowPrankModal(false)}
+                variant="outline"
+                className="px-3 py-1 text-sm font-secondary !border-[#8A2BE2] !text-[#FFFFFF] hover:!bg-[#8A2BE2]/20"
+              >
+                ✕ Close
+              </Button>
+            </div>
+
+            <div className="space-y-6">
+              {/* Planner Info */}
+              <div>
+                <h3 className="text-lg font-semibold font-secondary mb-3" style={{ color: '#BFFF00' }}>Planner Information</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <span className="text-sm font-medium font-body block mb-1" style={{ color: '#FFFFFF', opacity: 0.7 }}>Name</span>
+                    <p className="font-body" style={{ color: '#FFFFFF' }}>{selectedPrank.yourName}</p>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium font-body block mb-1" style={{ color: '#FFFFFF', opacity: 0.7 }}>Phone</span>
+                    <p className="font-body" style={{ color: '#FFFFFF' }}>{selectedPrank.yourPhone}</p>
+                  </div>
+                  <div className="sm:col-span-2">
+                    <span className="text-sm font-medium font-body block mb-1" style={{ color: '#FFFFFF', opacity: 0.7 }}>Email</span>
+                    <p className="font-body break-all" style={{ color: '#FFFFFF' }}>{selectedPrank.yourEmail}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Target Info */}
+              <div>
+                <h3 className="text-lg font-semibold font-secondary mb-3" style={{ color: '#BFFF00' }}>Target Information</h3>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <span className="text-sm font-medium font-body block mb-1" style={{ color: '#FFFFFF', opacity: 0.7 }}>Name</span>
+                    <p className="font-body" style={{ color: '#FFFFFF' }}>{selectedPrank.friendName}</p>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium font-body block mb-1" style={{ color: '#FFFFFF', opacity: 0.7 }}>Age Range</span>
+                    <p className="font-body" style={{ color: '#FFFFFF' }}>{selectedPrank.friendAge}</p>
+                  </div>
+                  {selectedPrank.friendPhone && (
+                    <div>
+                      <span className="text-sm font-medium font-body block mb-1" style={{ color: '#FFFFFF', opacity: 0.7 }}>Phone</span>
+                      <p className="font-body" style={{ color: '#FFFFFF' }}>{selectedPrank.friendPhone}</p>
+                    </div>
+                  )}
+                  {selectedPrank.friendEmail && (
+                    <div>
+                      <span className="text-sm font-medium font-body block mb-1" style={{ color: '#FFFFFF', opacity: 0.7 }}>Email</span>
+                      <p className="font-body break-all" style={{ color: '#FFFFFF' }}>{selectedPrank.friendEmail}</p>
+                    </div>
+                  )}
+                  {selectedPrank.relationship && (
+                    <div>
+                      <span className="text-sm font-medium font-body block mb-1" style={{ color: '#FFFFFF', opacity: 0.7 }}>Relationship</span>
+                      <p className="font-body capitalize" style={{ color: '#FFFFFF' }}>{selectedPrank.relationship}</p>
+                    </div>
+                  )}
+                  {selectedPrank.friendGender && (
+                    <div>
+                      <span className="text-sm font-medium font-body block mb-1" style={{ color: '#FFFFFF', opacity: 0.7 }}>Gender</span>
+                      <p className="font-body capitalize" style={{ color: '#FFFFFF' }}>{selectedPrank.friendGender}</p>
+                    </div>
+                  )}
+                  {selectedPrank.friendLocation && (
+                    <div className="sm:col-span-2">
+                      <span className="text-sm font-medium font-body block mb-1" style={{ color: '#FFFFFF', opacity: 0.7 }}>Location</span>
+                      <p className="font-body" style={{ color: '#FFFFFF' }}>{selectedPrank.friendLocation}</p>
+                    </div>
+                  )}
+                </div>
+                <div className="mt-4">
+                  <span className="text-sm font-medium font-body block mb-2" style={{ color: '#FFFFFF', opacity: 0.7 }}>Personality Types</span>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedPrank.personalityTypes.map((type) => (
+                      <span
+                        key={type}
+                        className="px-3 py-1 rounded-full text-sm font-body border"
+                        style={{ 
+                          color: '#BFFF00',
+                          borderColor: 'rgba(191, 255, 0, 0.3)',
+                          backgroundColor: 'rgba(10, 10, 10, 0.4)'
+                        }}
+                      >
+                        {type}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Prank Details */}
+              <div>
+                <h3 className="text-lg font-semibold font-secondary mb-3" style={{ color: '#BFFF00' }}>Prank Details</h3>
+                <div className="space-y-2">
+                  <div>
+                    <span className="text-sm font-medium font-body block mb-1" style={{ color: '#FFFFFF', opacity: 0.7 }}>Type</span>
+                    <p className="font-body capitalize" style={{ color: '#FFFFFF' }}>{selectedPrank.prankType}</p>
+                  </div>
+                  <div>
+                    <span className="text-sm font-medium font-body block mb-1" style={{ color: '#FFFFFF', opacity: 0.7 }}>Status</span>
+                    <span className={`px-2 py-1 rounded text-xs font-medium capitalize inline-block ${
+                      selectedPrank.status === 'completed' ? 'bg-green-500/20 text-green-400' :
+                      selectedPrank.status === 'processing' ? 'bg-blue-500/20 text-blue-400' :
+                      selectedPrank.status === 'cancelled' ? 'bg-red-500/20 text-red-400' :
+                      'bg-yellow-500/20 text-yellow-400'
+                    }`}>
+                      {selectedPrank.status}
+                    </span>
+                  </div>
+                  {selectedPrank.additionalInfo && (
+                    <div>
+                      <span className="text-sm font-medium font-body block mb-1" style={{ color: '#FFFFFF', opacity: 0.7 }}>Additional Notes</span>
+                      <p className="font-body whitespace-pre-wrap p-3 rounded-lg" style={{ 
+                        color: '#FFFFFF', 
+                        backgroundColor: 'rgba(10, 10, 10, 0.4)',
+                        borderColor: 'rgba(138, 43, 226, 0.2)'
+                      }}>
+                        {selectedPrank.additionalInfo}
+                      </p>
+                    </div>
+                  )}
+                  <div>
+                    <span className="text-sm font-medium font-body block mb-1" style={{ color: '#FFFFFF', opacity: 0.7 }}>Created</span>
+                    <p className="font-body text-sm" style={{ color: '#FFFFFF', opacity: 0.7 }}>{formatDate(selectedPrank.createdAt)}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </AdminRoute>
   );
 }

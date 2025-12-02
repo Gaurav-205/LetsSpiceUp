@@ -31,6 +31,11 @@ export interface Prank {
   yourEmail: string;
   friendName: string;
   friendAge: string;
+  friendPhone?: string;
+  friendEmail?: string;
+  relationship?: string;
+  friendGender?: string;
+  friendLocation?: string;
   personalityTypes: string[];
   prankType: string;
   additionalInfo?: string;
@@ -82,6 +87,12 @@ export const adminApi = {
   // Delete user
   deleteUser: async (userId: string): Promise<{ message: string }> => {
     const response = await apiClient.delete(`/admin/users/${userId}`);
+    return response.data;
+  },
+
+  // Get prank by ID (admin can view any prank)
+  getPrank: async (prankId: string): Promise<{ prank: Prank }> => {
+    const response = await apiClient.get(`/admin/pranks/${prankId}`);
     return response.data;
   },
 

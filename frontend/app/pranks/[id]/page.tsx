@@ -169,9 +169,9 @@ export default function PrankDetailPage() {
                   </div>
                 </div>
 
-                {/* Friend Information */}
+                {/* Target Information */}
                 <div className="border-b pb-6 sm:pb-8" style={{ borderColor: 'rgba(138, 43, 226, 0.2)' }}>
-                  <h2 className="text-lg sm:text-xl font-semibold font-secondary mb-4 sm:mb-5" style={{ color: '#BFFF00', textShadow: '0 0 10px rgba(191, 255, 0, 0.3)' }}>Friend&apos;s Information</h2>
+                  <h2 className="text-lg sm:text-xl font-semibold font-secondary mb-4 sm:mb-5" style={{ color: '#BFFF00', textShadow: '0 0 10px rgba(191, 255, 0, 0.3)' }}>Target&apos;s Information</h2>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
                     <div>
                       <span className="text-sm font-medium font-body block mb-1.5" style={{ color: '#FFFFFF', opacity: 0.7 }}>Name</span>
@@ -181,6 +181,36 @@ export default function PrankDetailPage() {
                       <span className="text-sm font-medium font-body block mb-1.5" style={{ color: '#FFFFFF', opacity: 0.7 }}>Age Range</span>
                       <p className="font-body text-base sm:text-lg" style={{ color: '#FFFFFF' }}>{prank.friendAge}</p>
                     </div>
+                    {prank.friendGender && (
+                      <div>
+                        <span className="text-sm font-medium font-body block mb-1.5" style={{ color: '#FFFFFF', opacity: 0.7 }}>Gender</span>
+                        <p className="font-body text-base sm:text-lg capitalize" style={{ color: '#FFFFFF' }}>{prank.friendGender}</p>
+                      </div>
+                    )}
+                    {prank.relationship && (
+                      <div>
+                        <span className="text-sm font-medium font-body block mb-1.5" style={{ color: '#FFFFFF', opacity: 0.7 }}>Relationship</span>
+                        <p className="font-body text-base sm:text-lg capitalize" style={{ color: '#FFFFFF' }}>{prank.relationship}</p>
+                      </div>
+                    )}
+                    {prank.friendPhone && (
+                      <div>
+                        <span className="text-sm font-medium font-body block mb-1.5" style={{ color: '#FFFFFF', opacity: 0.7 }}>Phone</span>
+                        <p className="font-body text-base sm:text-lg" style={{ color: '#FFFFFF' }}>{prank.friendPhone}</p>
+                      </div>
+                    )}
+                    {prank.friendEmail && (
+                      <div>
+                        <span className="text-sm font-medium font-body block mb-1.5" style={{ color: '#FFFFFF', opacity: 0.7 }}>Email</span>
+                        <p className="font-body text-base sm:text-lg break-all" style={{ color: '#FFFFFF' }}>{prank.friendEmail}</p>
+                      </div>
+                    )}
+                    {prank.friendLocation && (
+                      <div className="sm:col-span-2">
+                        <span className="text-sm font-medium font-body block mb-1.5" style={{ color: '#FFFFFF', opacity: 0.7 }}>Location</span>
+                        <p className="font-body text-base sm:text-lg" style={{ color: '#FFFFFF' }}>{prank.friendLocation}</p>
+                      </div>
+                    )}
                   </div>
                   <div>
                     <span className="text-sm font-medium font-body block mb-3" style={{ color: '#FFFFFF', opacity: 0.7 }}>Personality Types</span>

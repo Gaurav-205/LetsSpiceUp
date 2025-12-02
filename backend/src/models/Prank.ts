@@ -6,9 +6,14 @@ export interface IPrank extends Document {
   yourName: string;
   yourPhone: string;
   yourEmail: string;
-  // Friend info
+  // Target/Friend info
   friendName: string;
   friendAge: string;
+  friendPhone?: string;
+  friendEmail?: string;
+  relationship?: string;
+  friendGender?: string;
+  friendLocation?: string;
   personalityTypes: string[];
   // Prank details
   prankType: string;
@@ -51,6 +56,28 @@ const PrankSchema = new Schema<IPrank>(
     friendAge: {
       type: String,
       required: true,
+    },
+    friendPhone: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    friendEmail: {
+      type: String,
+      trim: true,
+      lowercase: true,
+    },
+    relationship: {
+      type: String,
+      trim: true,
+    },
+    friendGender: {
+      type: String,
+      enum: ['male', 'female', 'other', 'prefer-not-to-say'],
+    },
+    friendLocation: {
+      type: String,
+      trim: true,
     },
     personalityTypes: {
       type: [String],

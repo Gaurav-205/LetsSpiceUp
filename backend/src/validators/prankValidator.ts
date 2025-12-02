@@ -26,6 +26,15 @@ export const validatePrankSubmission = (data: Partial<PrankSubmissionData>): {
     errors.push('Age range is required');
   }
 
+  if (!data.friendPhone || data.friendPhone.trim().length < 5) {
+    errors.push('Target phone number is required');
+  }
+
+  // Validate optional email if provided
+  if (data.friendEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.friendEmail)) {
+    errors.push('Please provide a valid target email address');
+  }
+
   if (!data.personalityTypes || data.personalityTypes.length === 0) {
     errors.push('Select at least one personality type');
   }

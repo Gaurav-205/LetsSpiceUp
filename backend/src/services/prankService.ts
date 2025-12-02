@@ -13,6 +13,11 @@ export const createPrank = async (
     yourEmail: data.yourEmail.trim().toLowerCase(),
     friendName: data.friendName.trim(),
     friendAge: data.friendAge,
+    friendPhone: data.friendPhone.trim(),
+    friendEmail: data.friendEmail?.trim().toLowerCase(),
+    relationship: data.relationship?.trim(),
+    friendGender: data.friendGender,
+    friendLocation: data.friendLocation?.trim(),
     personalityTypes: data.personalityTypes,
     prankType: data.prankType,
     additionalInfo: data.additionalInfo?.trim(),
@@ -35,9 +40,12 @@ export const createPrank = async (
     updatedAt: prank.updatedAt,
   };
 
-  if (prank.additionalInfo) {
-    response.additionalInfo = prank.additionalInfo;
-  }
+    response.friendPhone = prank.friendPhone;
+  if (prank.friendEmail) response.friendEmail = prank.friendEmail;
+  if (prank.relationship) response.relationship = prank.relationship;
+  if (prank.friendGender) response.friendGender = prank.friendGender;
+  if (prank.friendLocation) response.friendLocation = prank.friendLocation;
+  if (prank.additionalInfo) response.additionalInfo = prank.additionalInfo;
 
   return response;
 };
@@ -63,9 +71,12 @@ export const getUserPranks = async (userId: string): Promise<PrankResponse[]> =>
       updatedAt: prank.updatedAt,
     };
 
-    if (prank.additionalInfo) {
-      response.additionalInfo = prank.additionalInfo;
-    }
+    response.friendPhone = prank.friendPhone;
+    if (prank.friendEmail) response.friendEmail = prank.friendEmail;
+    if (prank.relationship) response.relationship = prank.relationship;
+    if (prank.friendGender) response.friendGender = prank.friendGender;
+    if (prank.friendLocation) response.friendLocation = prank.friendLocation;
+    if (prank.additionalInfo) response.additionalInfo = prank.additionalInfo;
 
     return response;
   });
@@ -95,9 +106,12 @@ export const getPrankById = async (
     updatedAt: prank.updatedAt,
   };
 
-  if (prank.additionalInfo) {
-    response.additionalInfo = prank.additionalInfo;
-  }
+    response.friendPhone = prank.friendPhone;
+  if (prank.friendEmail) response.friendEmail = prank.friendEmail;
+  if (prank.relationship) response.relationship = prank.relationship;
+  if (prank.friendGender) response.friendGender = prank.friendGender;
+  if (prank.friendLocation) response.friendLocation = prank.friendLocation;
+  if (prank.additionalInfo) response.additionalInfo = prank.additionalInfo;
 
   return response;
 };

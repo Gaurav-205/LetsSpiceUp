@@ -227,6 +227,68 @@ router.delete('/users/:id', async (req: Request, res: Response) => {
   }
 });
 
+// Get prank by ID (admin can view any prank)
+router.get('/pranks/:id', async (req: Request, res: Response) => {
+  try {
+    const prankId = req.params.id;
+    
+    // Validate MongoDB ObjectId format
+    if (!prankId || !prankId.match(/^[0-9a-fA-F]{24}$/)) {
+      return res.status(400).json({
+        error: {
+          message: 'Invalid prank ID format',
+        },
+      });
+    }
+
+    const prank = await Prank.findById(prankId)
+      .populate('userId', 'name email')
+      .lean();
+
+    if (!prank) {
+      return res.status(404).json({
+        error: {
+          message: 'Prank not found',
+        },
+      });
+    }
+
+    // Format response similar to prankService
+    const response = {
+      id: prank._id.toString(),
+      yourName: prank.yourName,
+      yourPhone: prank.yourPhone,
+      yourEmail: prank.yourEmail,
+      friendName: prank.friendName,
+      friendAge: prank.friendAge,
+      friendPhone: prank.friendPhone,
+      friendEmail: prank.friendEmail,
+      relationship: prank.relationship,
+      friendGender: prank.friendGender,
+      friendLocation: prank.friendLocation,
+      personalityTypes: prank.personalityTypes,
+      prankType: prank.prankType,
+      additionalInfo: prank.additionalInfo,
+      status: prank.status,
+      createdAt: prank.createdAt,
+      updatedAt: prank.updatedAt,
+      userId: prank.userId,
+    };
+
+    return res.status(200).json({
+      prank: response,
+    });
+  } catch (error: unknown) {
+    const err = error as Error;
+    logger.error('Admin get prank error:', err);
+    return res.status(500).json({
+      error: {
+        message: 'Failed to fetch prank',
+      },
+    });
+  }
+});
+
 // Delete prank
 router.delete('/pranks/:id', async (req: Request, res: Response) => {
   try {

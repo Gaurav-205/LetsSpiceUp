@@ -83,11 +83,20 @@ export default function PrankWizardPage() {
         newErrors.yourEmail = 'Please enter a valid email';
       }
     } else if (step === 2) {
-      // Validate Friend's Information
-      if (!formData.friendName.trim()) newErrors.friendName = "Friend's name is required";
+      // Validate Target's Information
+      if (!formData.friendName.trim()) newErrors.friendName = "Target's name is required";
       if (!formData.friendAge) newErrors.friendAge = 'Age range is required';
+      if (!formData.friendPhone.trim()) {
+        newErrors.friendPhone = "Target's phone number is required";
+      } else if (formData.friendPhone.trim().length < 5) {
+        newErrors.friendPhone = 'Please enter a valid phone number';
+      }
       if (formData.personalityTypes.length === 0) {
         newErrors.personalityTypes = 'Select at least one personality type';
+      }
+      // Optional field validations
+      if (formData.friendEmail && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.friendEmail)) {
+        newErrors.friendEmail = 'Please enter a valid email';
       }
     } else if (step === 3) {
       // Validate Prank Type
@@ -158,6 +167,11 @@ export default function PrankWizardPage() {
         yourEmail: formData.yourEmail,
         friendName: formData.friendName,
         friendAge: formData.friendAge,
+        friendPhone: formData.friendPhone,
+        friendEmail: formData.friendEmail || undefined,
+        relationship: formData.relationship || undefined,
+        friendGender: formData.friendGender || undefined,
+        friendLocation: formData.friendLocation || undefined,
         personalityTypes: formData.personalityTypes,
         prankType: formData.prankType,
         additionalInfo: formData.additionalInfo || undefined,
@@ -210,7 +224,7 @@ export default function PrankWizardPage() {
   const getStepTitle = (step: number): string => {
     switch (step) {
       case 1: return 'Your Information';
-      case 2: return "Friend's Information";
+      case 2: return "Target's Information";
       case 3: return 'Prank Type';
       case 4: return 'Additional Details';
       default: return '';
@@ -220,7 +234,7 @@ export default function PrankWizardPage() {
   const getStepDescription = (step: number): string => {
     switch (step) {
       case 1: return 'Tell us about yourself so we can reach you';
-      case 2: return "Help us understand who we're pranking";
+      case 2: return "Help us understand the target - the person on whom we'll execute the prank";
       case 3: return 'What kind of prank are you planning?';
       case 4: return 'Any extra details that might help? (Optional)';
       default: return '';
@@ -291,7 +305,7 @@ export default function PrankWizardPage() {
                 </div>
               )}
 
-              {/* Step 2: Friend's Information */}
+              {/* Step 2: Target's Information */}
               {currentStep === 2 && (
                 <div className="animate-slide-in">
                   <h2 className="text-2xl sm:text-3xl font-semibold font-primary mb-2" style={{ color: '#FFFFFF', textShadow: '0 0 20px rgba(255, 255, 255, 0.2)' }}>
@@ -301,31 +315,106 @@ export default function PrankWizardPage() {
                   
                   <div className="space-y-5">
                     <Input
-                      label="Friend's Name"
+                      label="Target's Name"
                       name="friendName"
                       value={formData.friendName}
                       onChange={(e) => updateField('friendName', e.target.value)}
-                      placeholder="Enter friend's name"
+                      placeholder="Enter target's name"
                       error={errors.friendName}
                       required
                       showSuccessIcon={true}
+                      helpText="The person on whom the prank will be executed"
                     />
-                    <Select
-                      label="Age Range"
-                      name="friendAge"
-                      value={formData.friendAge}
-                      onChange={(e) => updateField('friendAge', e.target.value)}
-                      placeholder="Select age range"
-                      error={errors.friendAge}
-                      helpText="This helps us tailor the prank appropriately"
-                      options={[
-                        { value: '18-25', label: '18-25' },
-                        { value: '26-35', label: '26-35' },
-                        { value: '36-45', label: '36-45' },
-                        { value: '46+', label: '46+' },
-                      ]}
-                      required
-                    />
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <Select
+                        label="Age Range"
+                        name="friendAge"
+                        value={formData.friendAge}
+                        onChange={(e) => updateField('friendAge', e.target.value)}
+                        placeholder="Select age range"
+                        error={errors.friendAge}
+                        helpText="This helps us tailor the prank appropriately"
+                        options={[
+                          { value: '18-25', label: '18-25' },
+                          { value: '26-35', label: '26-35' },
+                          { value: '36-45', label: '36-45' },
+                          { value: '46+', label: '46+' },
+                        ]}
+                        required
+                      />
+                      <Select
+                        label="Gender"
+                        name="friendGender"
+                        value={formData.friendGender}
+                        onChange={(e) => updateField('friendGender', e.target.value)}
+                        placeholder="Select gender (optional)"
+                        error={errors.friendGender}
+                        options={[
+                          { value: '', label: 'Prefer not to say' },
+                          { value: 'male', label: 'Male' },
+                          { value: 'female', label: 'Female' },
+                          { value: 'other', label: 'Other' },
+                        ]}
+                      />
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <Input
+                        label="Target's Phone"
+                        name="friendPhone"
+                        type="tel"
+                        value={formData.friendPhone}
+                        onChange={(e) => {
+                          const formatted = formatPhoneNumber(e.target.value);
+                          updateField('friendPhone', formatted);
+                        }}
+                        placeholder="+91 98765 43210"
+                        error={errors.friendPhone}
+                        helpText="Include country code (e.g., +91 for India)"
+                        required
+                        showSuccessIcon={true}
+                      />
+                      <Input
+                        label="Target's Email (Optional)"
+                        name="friendEmail"
+                        type="email"
+                        value={formData.friendEmail}
+                        onChange={(e) => updateField('friendEmail', e.target.value)}
+                        placeholder="target.email@example.com"
+                        error={errors.friendEmail}
+                        showSuccessIcon={true}
+                      />
+                    </div>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                      <Select
+                        label="Relationship"
+                        name="relationship"
+                        value={formData.relationship}
+                        onChange={(e) => updateField('relationship', e.target.value)}
+                        placeholder="Select relationship (optional)"
+                        error={errors.relationship}
+                        helpText="Your relationship with the target"
+                        options={[
+                          { value: '', label: 'Select relationship' },
+                          { value: 'friend', label: 'Friend' },
+                          { value: 'colleague', label: 'Colleague' },
+                          { value: 'family', label: 'Family Member' },
+                          { value: 'roommate', label: 'Roommate' },
+                          { value: 'classmate', label: 'Classmate' },
+                          { value: 'neighbor', label: 'Neighbor' },
+                          { value: 'other', label: 'Other' },
+                        ]}
+                      />
+                      <Input
+                        label="Location/City (Optional)"
+                        name="friendLocation"
+                        value={formData.friendLocation}
+                        onChange={(e) => updateField('friendLocation', e.target.value)}
+                        placeholder="e.g., Mumbai, India"
+                        error={errors.friendLocation}
+                        helpText="Where the prank will take place"
+                        showSuccessIcon={true}
+                      />
+                    </div>
                     <MultiSelectPills
                       label="Personality Type"
                       options={[...PERSONALITY_TYPES]}
@@ -333,7 +422,7 @@ export default function PrankWizardPage() {
                       onChange={(selected) => updateField('personalityTypes', selected)}
                       error={errors.personalityTypes}
                       required
-                      helpText="Select all that apply"
+                      helpText="Select all that apply - helps us understand the target better"
                     />
                   </div>
                 </div>
