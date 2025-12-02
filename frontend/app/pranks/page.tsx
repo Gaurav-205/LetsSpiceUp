@@ -86,7 +86,7 @@ export default function PranksPage() {
 
         <div className="flex-1 overflow-y-auto">
           <GamingBackground fullHeight={false}>
-            <main className="max-w-7xl mx-auto py-6 sm:py-8 md:py-12 px-4 sm:px-6 lg:px-8" style={{ paddingTop: 'max(56px, calc(56px + env(safe-area-inset-top, 0px)))' }}>
+            <main className="max-w-7xl mx-auto py-6 sm:py-8 md:py-12 px-4 sm:px-6 lg:px-8 pt-14 sm:pt-16 md:pt-20" style={{ paddingTop: 'max(calc(3.5rem + env(safe-area-inset-top, 0px)), calc(56px + env(safe-area-inset-top, 0px)))' }}>
           <div className="mb-8 sm:mb-10 md:mb-12 text-center">
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-primary mb-3 sm:mb-4">
               <span className="block" style={{ color: '#FFFFFF', textShadow: '0 0 30px rgba(255, 255, 255, 0.3), 0 0 60px rgba(255, 255, 255, 0.1)' }}>

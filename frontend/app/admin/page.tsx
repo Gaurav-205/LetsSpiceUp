@@ -131,7 +131,7 @@ export default function AdminPage() {
         {/* Navigation */}
         <Navbar />
         
-        <div className="flex-1 overflow-y-auto" style={{ paddingTop: 'max(56px, calc(56px + env(safe-area-inset-top, 0px)))' }}>
+        <div className="flex-1 overflow-y-auto pt-14 sm:pt-16 md:pt-20" style={{ paddingTop: 'max(calc(3.5rem + env(safe-area-inset-top, 0px)), calc(56px + env(safe-area-inset-top, 0px)))' }}>
           <div className="container mx-auto px-4 py-8 max-w-7xl">
             <div className="mb-8">
               <h1 className="text-4xl font-bold mb-2 font-primary" style={{ color: '#FFFFFF' }}>
@@ -419,8 +419,8 @@ export default function AdminPage() {
       {/* Prank Details Modal */}
       {showPrankModal && selectedPrank && (
         <div 
-          className="fixed inset-0 z-50 flex items-start justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto"
-          style={{ paddingTop: 'max(56px, calc(56px + env(safe-area-inset-top, 0px)))' }}
+          className="fixed inset-0 z-50 flex items-start justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto pt-14 sm:pt-16 md:pt-20"
+          style={{ paddingTop: 'max(calc(3.5rem + env(safe-area-inset-top, 0px)), calc(56px + env(safe-area-inset-top, 0px)))' }}
           onClick={() => setShowPrankModal(false)}
         >
           <div 

@@ -141,7 +141,7 @@ export default function LandingPage() {
         <Navbar showAuthButtons={true} />
 
         {/* Hero Section - Centered in remaining space */}
-        <main className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-4 sm:py-8 lg:py-12" style={{ paddingTop: 'max(56px, calc(56px + env(safe-area-inset-top, 0px)))' }}>
+        <main className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-4 sm:py-8 lg:py-12 pt-14 sm:pt-16 md:pt-20" style={{ paddingTop: 'max(calc(3.5rem + env(safe-area-inset-top, 0px)), calc(56px + env(safe-area-inset-top, 0px)))' }}>
           <div className="max-w-5xl mx-auto text-center w-full">
             <div className="space-y-4 sm:space-y-6 md:space-y-8">
               {/* Main Heading */}
