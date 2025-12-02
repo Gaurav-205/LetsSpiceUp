@@ -38,16 +38,21 @@ export default function Navbar({
 
   // Close mobile menu when clicking outside
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      const handleClickOutside = (e: MouseEvent) => {
-        const target = e.target as HTMLElement;
-        if (!target.closest('nav')) {
-          setIsMobileMenuOpen(false);
-        }
-      };
-      document.addEventListener('click', handleClickOutside);
-      return () => document.removeEventListener('click', handleClickOutside);
+    if (!isMobileMenuOpen) {
+      return;
     }
+
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest('nav')) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
   }, [isMobileMenuOpen]);
 
   const handleLogout = () => {
