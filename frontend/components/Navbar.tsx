@@ -62,14 +62,18 @@ export default function Navbar({
   };
 
   return (
-    <nav className="backdrop-blur-2xl border-b transition-all duration-300 fixed top-0 left-0 right-0 z-[9999] relative overflow-hidden" style={{ 
-      background: 'linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(15, 15, 15, 0.95) 30%, rgba(10, 10, 10, 0.95) 60%, rgba(5, 5, 5, 0.95) 100%)',
-      borderColor: 'rgba(138, 43, 226, 0.2)', 
-      borderTopColor: 'rgba(191, 255, 0, 0.15)',
-      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05), inset 0 -1px 0 rgba(138, 43, 226, 0.15)',
-      WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-      backdropFilter: 'blur(20px) saturate(180%)'
-    }}>
+    <nav 
+      className="backdrop-blur-2xl border-b transition-all duration-300 fixed top-0 left-0 right-0 z-[9999]" 
+      style={{ 
+        background: 'linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(15, 15, 15, 0.95) 30%, rgba(10, 10, 10, 0.95) 60%, rgba(5, 5, 5, 0.95) 100%)',
+        borderColor: 'rgba(138, 43, 226, 0.2)', 
+        borderTopColor: 'rgba(191, 255, 0, 0.15)',
+        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05), inset 0 -1px 0 rgba(138, 43, 226, 0.15)',
+        WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+        backdropFilter: 'blur(20px) saturate(180%)',
+        overflow: 'visible'
+      }}
+    >
       {/* Glass reflection effect */}
       <div className="absolute inset-0 opacity-10" style={{
         background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%, rgba(0, 0, 0, 0.2) 100%)',
@@ -119,9 +123,13 @@ export default function Navbar({
             )}
           </div>
 
-          {/* Right side - Desktop Actions */}
+          {/* Right side - Desktop Actions (hidden on mobile, shown in hamburger menu) */}
           <div className="hidden md:flex items-center gap-2 lg:gap-3 flex-shrink-0">
-            {rightContent ? rightContent : (
+            {rightContent ? (
+              <div className="flex items-center gap-2 lg:gap-3">
+                {rightContent}
+              </div>
+            ) : (
               <>
                 {showAuthButtons && !isAuthenticated && (
                   <>
@@ -267,8 +275,8 @@ export default function Navbar({
         {/* Mobile Menu Dropdown - Enhanced */}
         {isMobile && (
           <div 
-            className={`md:hidden overflow-hidden transition-all duration-500 ease-out ${
-              isMobileMenuOpen ? 'max-h-[600px] opacity-100' : 'max-h-0 opacity-0'
+            className={`md:hidden transition-all duration-500 ease-out ${
+              isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
             }`}
             style={{ 
               borderTop: '1px solid rgba(138, 43, 226, 0.3)',
@@ -278,13 +286,23 @@ export default function Navbar({
               backdropFilter: isMobileMenuOpen ? 'blur(20px) saturate(180%)' : 'none',
               boxShadow: isMobileMenuOpen 
                 ? '0 10px 40px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(138, 43, 226, 0.2)' 
-                : 'none'
+                : 'none',
+              maxHeight: isMobileMenuOpen ? 'calc(100dvh - 56px)' : '0',
+              overflowY: isMobileMenuOpen ? 'auto' : 'hidden',
+              overflowX: 'hidden',
+              WebkitOverflowScrolling: 'touch',
+              position: 'relative',
+              zIndex: 10000
             }}
           >
             <div 
               className={`py-4 px-4 space-y-2 transition-all duration-500 ${
                 isMobileMenuOpen ? 'translate-y-0 opacity-100' : '-translate-y-4 opacity-0'
               }`}
+              style={{ 
+                paddingBottom: 'max(48px, calc(32px + env(safe-area-inset-bottom, 0px)))',
+                minHeight: 'fit-content'
+              }}
             >
               {/* Mobile Breadcrumbs - Enhanced */}
               {breadcrumbs && breadcrumbs.length > 0 && (
@@ -329,11 +347,34 @@ export default function Navbar({
               )}
 
               {/* Mobile Right Content */}
-              {rightContent ? (
-                <div onClick={() => setIsMobileMenuOpen(false)}>
-                  {rightContent}
+              {rightContent && (
+                <div 
+                  className="pb-3 mb-3 border-b transition-all duration-500"
+                  style={{ 
+                    borderColor: 'rgba(138, 43, 226, 0.3)',
+                    animationDelay: '100ms'
+                  }}
+                >
+                  <div 
+                    className="flex flex-col gap-2 w-full"
+                    onClick={(e) => {
+                      // Only close menu if clicking on a link, not the container
+                      const target = e.target as HTMLElement;
+                      if (target.closest('a') || target.closest('button')) {
+                        setIsMobileMenuOpen(false);
+                      }
+                    }}
+                  >
+                    {/* Style rightContent buttons for mobile - make them full width and stack vertically */}
+                    <div className="w-full space-y-2 [&>*]:w-full [&>a]:block [&>a]:w-full [&>button]:w-full [&>div]:flex [&>div]:flex-col [&>div]:gap-2 [&>div>*]:w-full [&>div>a]:block [&>div>a]:w-full [&>div>button]:w-full [&>div>a>button]:w-full">
+                      {rightContent}
+                    </div>
+                  </div>
                 </div>
-              ) : (
+              )}
+              
+              {/* Default Navigation Items */}
+              {!rightContent && (
                 <>
                   {showAuthButtons && !isAuthenticated && (
                     <div className="space-y-3">
