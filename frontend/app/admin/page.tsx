@@ -64,7 +64,7 @@ export default function AdminPage() {
       await adminApi.deleteUser(userId);
       showToast('User deleted successfully', 'success');
       loadData();
-    } catch (error) {
+    } catch (_error) {
       showToast('Failed to delete user', 'error');
     } finally {
       setDeletingUserId(null);
@@ -81,7 +81,7 @@ export default function AdminPage() {
       await adminApi.deletePrank(prankId);
       showToast('Prank deleted successfully', 'success');
       loadData();
-    } catch (error) {
+    } catch (_error) {
       showToast('Failed to delete prank', 'error');
     } finally {
       setDeletingPrankId(null);

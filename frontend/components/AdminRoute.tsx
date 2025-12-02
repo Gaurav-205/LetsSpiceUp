@@ -33,7 +33,7 @@ export default function AdminRoute({ children }: { children: React.ReactNode }) 
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4" style={{ color: '#FFFFFF' }}>Access Denied</h1>
           <p className="text-lg" style={{ color: '#FFFFFF', opacity: 0.8 }}>
-            You don't have permission to access this page.
+            You don&apos;t have permission to access this page.
           </p>
         </div>
       </div>

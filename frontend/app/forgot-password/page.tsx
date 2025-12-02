@@ -56,13 +56,13 @@ export default function ForgotPasswordPage() {
               </span>
             </h2>
             <p className="mt-6 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-medium font-body  delay-600" style={{ color: '#FFFFFF', textShadow: '0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.1)', opacity: 0.95 }}>
-              We've sent a password reset link to <strong style={{ color: '#BFFF00' }}>{email}</strong>
+              We&apos;ve sent a password reset link to <strong style={{ color: '#BFFF00' }}>{email}</strong>
             </p>
             <p className="mt-4 text-sm font-body  delay-600" style={{ color: '#FFFFFF', opacity: 0.8 }}>
               Please check your inbox and click the link to reset your password.
             </p>
             <p className="mt-2 text-xs font-body  delay-600" style={{ color: '#FFFFFF', opacity: 0.6 }}>
-              The link will expire in 1 hour. If you don't see the email, check your spam folder.
+              The link will expire in 1 hour. If you don&apos;t see the email, check your spam folder.
             </p>
             <div className="mt-8  delay-600">
               <Link href="/login">

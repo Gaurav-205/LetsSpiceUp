@@ -26,7 +26,7 @@ export default function SuccessPage() {
             </span>
           </h1>
           <p className="text-base sm:text-lg font-body mb-8  delay-600" style={{ color: '#FFFFFF', opacity: 0.8, textShadow: '0 2px 10px rgba(0, 0, 0, 0.5)' }}>
-            Your perfect prank plan is being generated. You'll receive it shortly!
+            Your perfect prank plan is being generated. You&apos;ll receive it shortly!
           </p>
 
           {/* Action Buttons */}

@@ -75,7 +75,7 @@ export default function LandingPage() {
 
               {/* Subtitle */}
               <p className="text-sm sm:text-base md:text-lg lg:text-xl max-w-2xl mx-auto leading-relaxed font-medium px-4 font-body" style={{ color: '#FFFFFF', textShadow: '0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.1)', opacity: 0.95 }}>
-                Describe your friend, and we'll craft a personalized prank plan tailored to their personality
+                Describe your friend, and we&apos;ll craft a personalized prank plan tailored to their personality
               </p>
 
               {/* CTA Buttons */}
