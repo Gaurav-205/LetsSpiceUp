@@ -66,7 +66,7 @@ export default function PasswordInput({
             backgroundColor: error ? 'rgba(239, 68, 68, 0.1)' : 'rgba(10, 10, 10, 0.6)',
             borderColor: error ? 'rgba(239, 68, 68, 0.5)' : 'rgba(138, 43, 226, 0.3)',
             color: '#FFFFFF',
-            fontSize: 'var(--font-size-body, 16px)',
+            fontSize: '16px', // Always 16px to prevent iOS auto-zoom
           }}
           onFocus={(e) => {
             if (!error) {

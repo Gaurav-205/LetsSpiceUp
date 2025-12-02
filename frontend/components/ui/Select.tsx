@@ -50,7 +50,7 @@ export default function Select({
                 ? '#BFFF00' 
                 : 'rgba(138, 43, 226, 0.3)',
             color: hasValue ? '#FFFFFF' : 'rgba(255, 255, 255, 0.5)',
-            fontSize: 'var(--font-size-body, 16px)',
+            fontSize: '16px', // Always 16px to prevent iOS auto-zoom
             boxShadow: isFocused && !error ? '0 0 0 2px rgba(191, 255, 0, 0.2)' : 'none',
           }}
           onFocus={(e) => {
