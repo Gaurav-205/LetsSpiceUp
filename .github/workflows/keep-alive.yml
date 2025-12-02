@@ -15,13 +15,22 @@ jobs:
           BACKEND_URL="${{ secrets.BACKEND_URL || 'https://letsspiceup.onrender.com' }}"
           echo "Pinging: $BACKEND_URL/health"
           
-          response=$(curl -s -o /dev/null -w "%{http_code}" "$BACKEND_URL/health" || echo "000")
+          # Get both status code and response body for debugging
+          status_code=$(curl -s -o /tmp/health_response.json -w "%{http_code}" "$BACKEND_URL/health" || echo "000")
+          response_body=$(cat /tmp/health_response.json 2>/dev/null || echo "")
           
-          if [ "$response" = "200" ]; then
-            echo "✅ Backend is healthy (Status: $response)"
+          echo "Status Code: $status_code"
+          if [ -n "$response_body" ]; then
+            echo "Response: $response_body"
+          fi
+          
+          # Accept 200 as healthy (server is running)
+          if [ "$status_code" = "200" ]; then
+            echo "✅ Backend is healthy (Status: $status_code)"
             exit 0
           else
-            echo "⚠️ Backend returned status: $response"
+            echo "⚠️ Backend returned status: $status_code"
+            echo "This may indicate the server is down or experiencing issues."
             exit 1
           fi
 
