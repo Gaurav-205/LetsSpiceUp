@@ -129,12 +129,7 @@ export default function AdminPage() {
     <AdminRoute>
       <div className="h-screen h-[100dvh] flex flex-col overflow-hidden" style={{ backgroundColor: '#0A0A0A', height: '100dvh' }}>
         {/* Navigation */}
-        <Navbar 
-          breadcrumbs={[
-            { label: 'Home', href: '/home' },
-            { label: 'Admin' }
-          ]}
-        />
+        <Navbar />
         
         <div className="flex-1 overflow-y-auto" style={{ paddingTop: 'max(56px, calc(56px + env(safe-area-inset-top, 0px)))' }}>
           <div className="container mx-auto px-4 py-8 max-w-7xl">

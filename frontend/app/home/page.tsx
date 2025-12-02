@@ -64,11 +64,7 @@ export default function HomePage() {
         {/* Content */}
         <div className="relative z-10 h-full flex flex-col">
           {/* Navigation */}
-          <Navbar 
-            breadcrumbs={[
-              { label: 'Home' }
-            ]}
-          />
+          <Navbar />
 
           {/* Hero Section - Centered in remaining space */}
           <main className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-4 sm:py-8 lg:py-12" style={{ paddingTop: 'max(56px, calc(56px + env(safe-area-inset-top, 0px)))' }}>

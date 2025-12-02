@@ -68,10 +68,6 @@ export default function PranksPage() {
       <div className="h-screen h-[100dvh] flex flex-col overflow-hidden" style={{ backgroundColor: '#0A0A0A', height: '100dvh' }}>
         {/* Navigation */}
         <Navbar 
-          breadcrumbs={[
-            { label: 'Home', href: '/home' },
-            { label: 'My Pranks' }
-          ]}
           rightContent={
               <div className="flex items-center gap-2 sm:gap-3">
                 <Link href="/prank-wizard">

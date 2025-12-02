@@ -25,10 +25,6 @@ export default function ProfilePage() {
       <div className="h-screen h-[100dvh] relative overflow-hidden" style={{ backgroundColor: '#0A0A0A', height: '100dvh' }}>
         {/* Navigation */}
         <Navbar 
-          breadcrumbs={[
-            { label: 'Home', href: '/home' },
-            { label: 'Profile' }
-          ]}
           rightContent={
                 <Link href="/home">
               <Button variant="outline" className="text-xs sm:text-sm md:text-base font-medium px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 rounded-lg backdrop-blur-sm transition-all duration-300 border whitespace-nowrap font-secondary !border-[#8A2BE2] !text-[#FFFFFF] hover:!bg-[#8A2BE2]/20 hover:!border-[#BFFF00] hover:!text-[#BFFF00]" style={{ backgroundColor: 'transparent', textShadow: '0 0 10px rgba(255, 255, 255, 0.1)' }}>

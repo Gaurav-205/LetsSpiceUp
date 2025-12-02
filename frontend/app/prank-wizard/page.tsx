@@ -254,12 +254,7 @@ export default function PrankWizardPage() {
   return (
     <div className="h-screen h-[100dvh] flex flex-col overflow-hidden" style={{ backgroundColor: '#0A0A0A', height: '100dvh' }}>
       {/* Navigation */}
-      <Navbar 
-        breadcrumbs={[
-          { label: 'Home', href: '/home' },
-          { label: 'Prank Wizard' }
-        ]}
-      />
+      <Navbar />
       <div className="flex-1 overflow-y-auto">
         <GamingBackground fullHeight={false}>
           <div className="max-w-3xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8" style={{ paddingTop: 'max(56px, calc(56px + env(safe-area-inset-top, 0px)))' }}>

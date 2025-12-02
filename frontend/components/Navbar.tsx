@@ -65,11 +65,11 @@ export default function Navbar({
     <nav 
       className="backdrop-blur-2xl border-b transition-all duration-300 fixed top-0 left-0 right-0 z-[9999]" 
       style={{ 
-        background: 'linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(15, 15, 15, 0.95) 30%, rgba(10, 10, 10, 0.95) 60%, rgba(5, 5, 5, 0.95) 100%)',
-        borderColor: 'rgba(138, 43, 226, 0.2)', 
-        borderTopColor: 'rgba(191, 255, 0, 0.15)',
-        boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05), inset 0 -1px 0 rgba(138, 43, 226, 0.15)',
-        WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+      background: 'linear-gradient(135deg, rgba(10, 10, 10, 0.95) 0%, rgba(15, 15, 15, 0.95) 30%, rgba(10, 10, 10, 0.95) 60%, rgba(5, 5, 5, 0.95) 100%)',
+      borderColor: 'rgba(138, 43, 226, 0.2)', 
+      borderTopColor: 'rgba(191, 255, 0, 0.15)',
+      boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05), inset 0 -1px 0 rgba(138, 43, 226, 0.15)',
+      WebkitBackdropFilter: 'blur(20px) saturate(180%)',
         backdropFilter: 'blur(20px) saturate(180%)',
         overflow: 'visible'
       }}
