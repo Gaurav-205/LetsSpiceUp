@@ -1,8 +1,32 @@
 import type { Metadata } from "next";
+import { Orbitron, Rajdhani, Exo_2 } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "@/contexts/AuthContext";
 import ToastProvider from "@/components/ToastProvider";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
+
+// Optimize Google Fonts with Next.js font optimization
+// This self-hosts fonts and eliminates render-blocking requests
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  display: "swap",
+  variable: "--font-orbitron",
+});
+
+const rajdhani = Rajdhani({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-rajdhani",
+});
+
+const exo2 = Exo_2({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+  variable: "--font-exo2",
+});
 
 export const metadata: Metadata = {
   title: {
@@ -59,12 +83,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        {/* Preconnect to Google Fonts for faster font loading - saves ~110ms on LCP */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-      </head>
+    <html lang="en" className={`${orbitron.variable} ${rajdhani.variable} ${exo2.variable}`}>
       <body className="antialiased font-body" style={{ backgroundColor: '#0A0A0A', color: '#FFFFFF' }}>
         <ErrorBoundary>
           <AuthProvider>

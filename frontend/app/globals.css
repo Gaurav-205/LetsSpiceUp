@@ -1,5 +1,5 @@
-/* Preconnect is handled in layout.tsx, using display=swap for better LCP */
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Exo+2:wght@300;400;500;600;700&display=swap');
+/* Fonts are now loaded via Next.js font optimization in layout.tsx */
+/* This eliminates render-blocking requests and improves LCP */
 @import "tailwindcss";
 
 /* Gaming & Esports Color Palette */
@@ -188,16 +188,17 @@
 }
 
 /* Gaming Font Classes */
+/* Using CSS variables from Next.js font optimization */
 .font-primary {
-  font-family: 'Orbitron', sans-serif;
+  font-family: var(--font-orbitron), sans-serif;
 }
 
 .font-secondary {
-  font-family: 'Rajdhani', sans-serif;
+  font-family: var(--font-rajdhani), sans-serif;
 }
 
 .font-body {
-  font-family: 'Exo 2', sans-serif;
+  font-family: var(--font-exo2), sans-serif;
 }
 
 /* Neon Glow Utilities */
