@@ -64,6 +64,12 @@ const nextConfig: NextConfig = {
   experimental: {
     optimizePackageImports: ['axios', 'three'],
   },
+
+  // Turbopack configuration (Next.js 16 uses Turbopack by default)
+  turbopack: {
+    // Empty config to use Turbopack with default settings
+    // Browserslist and TypeScript target will handle modern browser targeting
+  },
 };
 
 export default nextConfig;
