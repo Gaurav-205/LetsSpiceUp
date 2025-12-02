@@ -90,9 +90,9 @@ export default function PrankDetailPage() {
           }
         />
 
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto pt-14 sm:pt-16 md:pt-20" style={{ paddingTop: 'max(calc(3.5rem + env(safe-area-inset-top, 0px)), calc(56px + env(safe-area-inset-top, 0px)))' }}>
           <GamingBackground fullHeight={false}>
-        <main className="max-w-4xl mx-auto py-6 sm:py-8 md:py-12 px-4 sm:px-6 lg:px-8 pt-14 sm:pt-16 md:pt-20" style={{ paddingTop: 'max(calc(3.5rem + env(safe-area-inset-top, 0px)), calc(56px + env(safe-area-inset-top, 0px)))' }}>
+        <main className="max-w-4xl mx-auto py-6 sm:py-8 md:py-12 px-4 sm:px-6 lg:px-8">
           {loading ? (
             <div className="flex items-center justify-center py-12">
               <LoadingSpinner />
