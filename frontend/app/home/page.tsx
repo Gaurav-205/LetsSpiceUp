@@ -28,9 +28,19 @@ export default function HomePage() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Prevent body scrolling on mobile
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, []);
+
   return (
     <ProtectedRoute>
-      <div className="min-h-screen h-screen relative overflow-hidden" style={{ backgroundColor: '#0A0A0A' }}>
+      <div className="min-h-screen h-screen h-[100dvh] relative overflow-hidden" style={{ backgroundColor: '#0A0A0A', height: '100dvh' }}>
         {/* Ballpit Background - Loaded after initial render */}
         {showBallpit && (
           <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
@@ -55,12 +65,12 @@ export default function HomePage() {
         <div className="relative z-10 h-full flex flex-col">
         <Navbar />
 
-          <main className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8 sm:py-12 lg:py-16">
+          <main className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 py-4 sm:py-8 lg:py-12">
           <div className="max-w-5xl mx-auto w-full">
-            <div className="space-y-6 sm:space-y-8">
+            <div className="space-y-4 sm:space-y-6 md:space-y-8">
               {/* Hero Welcome Section - Matching landing page style */}
-              <div className="space-y-3 sm:space-y-4 text-center">
-                <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight font-primary">
+              <div className="space-y-2 sm:space-y-3 md:space-y-4 text-center">
+                <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight font-primary">
                   <span className="block" style={{ color: '#FFFFFF', textShadow: '0 0 30px rgba(255, 255, 255, 0.3), 0 0 60px rgba(255, 255, 255, 0.1)' }}>
                     Welcome back,
                   </span>
@@ -71,12 +81,12 @@ export default function HomePage() {
               </div>
 
               {/* Subtitle - Matching landing page */}
-              <p className="text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-medium px-4 font-body text-center" style={{ color: '#FFFFFF', textShadow: '0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.1)', opacity: 0.95 }}>
+              <p className="text-sm sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed font-medium px-2 sm:px-4 font-body text-center" style={{ color: '#FFFFFF', textShadow: '0 2px 10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.1)', opacity: 0.95 }}>
                 Ready to craft the perfect prank? Let&apos;s create something legendary together.
               </p>
 
               {/* CTA Buttons - Matching landing page style */}
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center pt-4 sm:pt-6 px-4 relative z-20">
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 justify-center items-center pt-2 sm:pt-4 md:pt-6 px-2 sm:px-4 relative z-20">
                 <Link href="/prank-wizard" className="w-full sm:w-auto relative z-20">
                   <Button
                     className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 rounded-xl transform hover:scale-105 active:scale-95 border-0 min-w-[140px] sm:min-w-[160px] font-secondary !bg-[#BFFF00] !text-[#0A0A0A] hover:!bg-[#8A2BE2] hover:!text-[#FFFFFF]"
@@ -109,7 +119,7 @@ export default function HomePage() {
               </div>
 
               {/* Account Information - Styled as trust indicators */}
-              <div className="pt-8 sm:pt-12 flex flex-wrap justify-center items-center gap-6 sm:gap-8 text-xs sm:text-sm font-body">
+              <div className="pt-4 sm:pt-8 md:pt-12 flex flex-wrap justify-center items-center gap-4 sm:gap-6 md:gap-8 text-xs sm:text-sm font-body">
                 <div className="flex items-center gap-2 group cursor-default transition-all duration-300 hover:scale-110">
                   <svg className="w-4 h-4 sm:w-5 sm:h-5 transition-all duration-300 group-hover:drop-shadow-[0_0_10px_rgba(191,255,0,0.8)]" fill="currentColor" viewBox="0 0 20 20" style={{ color: '#BFFF00', filter: 'drop-shadow(0 0 5px rgba(191, 255, 0, 0.5))' }}>
                     <path fillRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clipRule="evenodd" />
