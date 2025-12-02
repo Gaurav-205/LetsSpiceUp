@@ -38,7 +38,7 @@ export default function LandingPage() {
     const loadBallpit = () => {
       if (!hasLoaded) {
         hasLoaded = true;
-        setShowBallpit(true);
+      setShowBallpit(true);
       }
     };
 
