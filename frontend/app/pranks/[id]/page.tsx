@@ -95,7 +95,7 @@ export default function PrankDetailPage() {
 
         <div className="flex-1 overflow-y-auto">
           <GamingBackground fullHeight={false}>
-        <main className="max-w-4xl mx-auto py-6 sm:py-8 md:py-12 px-4 sm:px-6 lg:px-8">
+        <main className="max-w-4xl mx-auto py-6 sm:py-8 md:py-12 px-4 sm:px-6 lg:px-8" style={{ paddingTop: 'max(56px, calc(56px + env(safe-area-inset-top, 0px)))' }}>
           {loading ? (
             <div className="flex items-center justify-center py-12">
               <LoadingSpinner />

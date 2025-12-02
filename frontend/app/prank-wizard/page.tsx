@@ -260,7 +260,7 @@ export default function PrankWizardPage() {
       />
       <div className="flex-1 overflow-y-auto">
         <GamingBackground fullHeight={false}>
-          <div className="max-w-3xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-3xl mx-auto py-8 sm:py-12 px-4 sm:px-6 lg:px-8" style={{ paddingTop: 'max(56px, calc(56px + env(safe-area-inset-top, 0px)))' }}>
             <div className="rounded-xl backdrop-blur-sm border p-4 sm:p-6 md:p-8 lg:p-10 " style={{ backgroundColor: 'rgba(10, 10, 10, 0.6)', borderColor: 'rgba(138, 43, 226, 0.3)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)' }}>
               {/* Progress Bar */}
               <ProgressBar currentStep={currentStep} totalSteps={totalSteps} />
