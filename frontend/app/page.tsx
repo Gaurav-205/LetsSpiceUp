@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import Link from 'next/link';
 import Button from '@/components/ui/Button';
-import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import GlobalLoadingScreen from '@/components/ui/GlobalLoadingScreen';
 import Ballpit from '@/components/Ballpit';
 import Navbar from '@/components/Navbar';
 
@@ -21,11 +21,7 @@ export default function LandingPage() {
   }, [isAuthenticated, loading, router]);
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#0A0A0A' }}>
-        <LoadingSpinner />
-      </div>
-    );
+    return <GlobalLoadingScreen />;
   }
 
   // If authenticated, show nothing while redirecting

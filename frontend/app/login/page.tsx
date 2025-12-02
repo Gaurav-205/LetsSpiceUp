@@ -8,6 +8,7 @@ import Input from '@/components/ui/Input';
 import PasswordInput from '@/components/ui/PasswordInput';
 import Button from '@/components/ui/Button';
 import { redirectToGoogleAuth } from '@/lib/auth-utils';
+import GlobalLoadingScreen from '@/components/ui/GlobalLoadingScreen';
 
 function LoginPageContent() {
   const router = useRouter();
@@ -220,13 +221,7 @@ function LoginPageContent() {
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#0A0A0A' }}>
-        <div className="relative">
-          <div className="animate-spin rounded-full h-16 w-16 border-4 border-transparent border-t-[#8A2BE2] border-r-[#BFFF00]" style={{ boxShadow: '0 0 20px rgba(138, 43, 226, 0.5)' }}></div>
-        </div>
-      </div>
-    }>
+    <Suspense fallback={<GlobalLoadingScreen />}>
       <LoginPageContent />
     </Suspense>
   );

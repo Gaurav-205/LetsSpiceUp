@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import GlobalLoadingScreen from '@/components/ui/GlobalLoadingScreen';
 
 export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, loading } = useAuth();
@@ -25,11 +26,7 @@ export default function ProtectedRoute({ children }: { children: React.ReactNode
 
   // Show loading while checking auth
   if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600"></div>
-      </div>
-    );
+    return <GlobalLoadingScreen />;
   }
 
   // If not authenticated after check, show nothing (redirect will happen)

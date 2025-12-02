@@ -3,8 +3,7 @@
 import { Suspense, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Cookies from 'js-cookie';
-import LoadingSpinner from '@/components/ui/LoadingSpinner';
-import GamingBackground from '@/components/ui/GamingBackground';
+import GlobalLoadingScreen from '@/components/ui/GlobalLoadingScreen';
 
 function AuthCallbackContent() {
   const router = useRouter();
@@ -32,26 +31,12 @@ function AuthCallbackContent() {
     }
   }, [router, searchParams]);
 
-  return (
-    <GamingBackground>
-      <div className="min-h-screen flex items-center justify-center">
-        <LoadingSpinner message="Completing authentication..." />
-      </div>
-    </GamingBackground>
-  );
+  return <GlobalLoadingScreen />;
 }
 
 export default function AuthCallbackPage() {
   return (
-    <Suspense
-      fallback={
-        <GamingBackground>
-          <div className="min-h-screen flex items-center justify-center">
-            <LoadingSpinner />
-          </div>
-        </GamingBackground>
-      }
-    >
+    <Suspense fallback={<GlobalLoadingScreen />}>
       <AuthCallbackContent />
     </Suspense>
   );

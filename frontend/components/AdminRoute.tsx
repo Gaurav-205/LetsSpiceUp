@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
-import LoadingSpinner from '@/components/ui/LoadingSpinner';
+import GlobalLoadingScreen from '@/components/ui/GlobalLoadingScreen';
 
 export default function AdminRoute({ children }: { children: React.ReactNode }) {
   const { isAuthenticated, isAdmin, loading } = useAuth();
@@ -20,11 +20,7 @@ export default function AdminRoute({ children }: { children: React.ReactNode }) 
   }, [isAuthenticated, isAdmin, loading, router]);
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#0A0A0A' }}>
-        <LoadingSpinner />
-      </div>
-    );
+    return <GlobalLoadingScreen />;
   }
 
   if (!isAuthenticated) {
