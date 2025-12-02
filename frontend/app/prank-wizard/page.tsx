@@ -326,22 +326,22 @@ export default function PrankWizardPage() {
                       helpText="The person on whom the prank will be executed"
                     />
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <Select
-                        label="Age Range"
-                        name="friendAge"
-                        value={formData.friendAge}
-                        onChange={(e) => updateField('friendAge', e.target.value)}
-                        placeholder="Select age range"
-                        error={errors.friendAge}
-                        helpText="This helps us tailor the prank appropriately"
-                        options={[
-                          { value: '18-25', label: '18-25' },
-                          { value: '26-35', label: '26-35' },
-                          { value: '36-45', label: '36-45' },
-                          { value: '46+', label: '46+' },
-                        ]}
-                        required
-                      />
+                    <Select
+                      label="Age Range"
+                      name="friendAge"
+                      value={formData.friendAge}
+                      onChange={(e) => updateField('friendAge', e.target.value)}
+                      placeholder="Select age range"
+                      error={errors.friendAge}
+                      helpText="This helps us tailor the prank appropriately"
+                      options={[
+                        { value: '18-25', label: '18-25' },
+                        { value: '26-35', label: '26-35' },
+                        { value: '36-45', label: '36-45' },
+                        { value: '46+', label: '46+' },
+                      ]}
+                      required
+                    />
                       <Select
                         label="Gender"
                         name="friendGender"

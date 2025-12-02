@@ -120,7 +120,7 @@ export default function AdminPage() {
       <div className="h-screen flex flex-col overflow-hidden" style={{ backgroundColor: '#0A0A0A' }}>
         <Navbar />
         
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 overflow-y-auto pt-16 sm:pt-16 md:pt-20">
           <div className="container mx-auto px-4 py-8 max-w-7xl">
             <div className="mb-8">
               <h1 className="text-4xl font-bold mb-2 font-primary" style={{ color: '#FFFFFF' }}>
@@ -408,12 +408,17 @@ export default function AdminPage() {
       {/* Prank Details Modal */}
       {showPrankModal && selectedPrank && (
         <div 
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          className="fixed inset-0 z-50 flex items-start justify-center p-4 bg-black/80 backdrop-blur-sm overflow-y-auto pt-16 sm:pt-16 md:pt-20"
           onClick={() => setShowPrankModal(false)}
         >
           <div 
-            className="rounded-xl backdrop-blur-sm border p-6 max-w-3xl w-full max-h-[90vh] overflow-y-auto"
-            style={{ backgroundColor: 'rgba(10, 10, 10, 0.95)', borderColor: 'rgba(138, 43, 226, 0.5)', boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5)' }}
+            className="rounded-xl backdrop-blur-sm border p-6 max-w-3xl w-full my-4 overflow-y-auto"
+            style={{ 
+              backgroundColor: 'rgba(10, 10, 10, 0.95)', 
+              borderColor: 'rgba(138, 43, 226, 0.5)', 
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.5)',
+              maxHeight: 'calc(100vh - 120px)' // Account for navbar + padding
+            }}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-between items-start mb-6">

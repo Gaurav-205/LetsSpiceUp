@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { logger } from '../utils/logger';
 import { AppError } from '../types/errors';
 import { RequestWithId } from './requestId';
+import mongoose from 'mongoose';
 
 export interface CustomError extends Error {
   statusCode?: number;
@@ -20,7 +21,6 @@ export const errorHandler = (
     try {
       let dbStatus = 'unknown';
       try {
-        const mongoose = require('mongoose');
         if (mongoose.connection && typeof mongoose.connection.readyState === 'number') {
           const readyState = mongoose.connection.readyState;
           dbStatus = readyState === 1 ? 'connected' : 
