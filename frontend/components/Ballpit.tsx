@@ -221,7 +221,11 @@ class X {
 
   #updateRenderer() {
     this.renderer.setSize(this.size.width, this.size.height);
-    this.#postprocessing?.setSize(this.size.width, this.size.height);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (this.#postprocessing && typeof (this.#postprocessing as any).setSize === 'function') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (this.#postprocessing as any).setSize(this.size.width, this.size.height);
+    }
 
     let pr = window.devicePixelRatio;
     if (this.maxPixelRatio && pr > this.maxPixelRatio) {
@@ -240,7 +244,11 @@ class X {
 
   set postprocessing(value: unknown) {
     this.#postprocessing = value;
-    this.render = value.render.bind(value);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (value && typeof (value as any).render === 'function') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      this.render = (value as any).render.bind(value);
+    }
   }
 
   #onIntersection(entries: IntersectionObserverEntry[]) {
@@ -320,7 +328,11 @@ class X {
     this.#onResizeCleanup();
     this.#stopAnimation();
     this.clear();
-    this.#postprocessing?.dispose();
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    if (this.#postprocessing && typeof (this.#postprocessing as any).dispose === 'function') {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (this.#postprocessing as any).dispose();
+    }
     this.renderer.dispose();
     this.isDisposed = true;
   }
