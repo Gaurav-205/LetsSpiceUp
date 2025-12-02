@@ -2,9 +2,22 @@ import { Request, Response, NextFunction } from 'express';
 import { AuthRequest } from './auth';
 import { AppError } from '../types/errors';
 
-// Admin email - only this user can access admin routes
-// Can be overridden with ADMIN_EMAIL environment variable
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'gauravkhandelwal205@gmail.com';
+// Admin emails - users with these emails can access admin routes
+// Can be overridden with ADMIN_EMAILS environment variable (comma-separated)
+// Default admins: gauravkhandelwal205@gmail.com and ananykoranne0@gmail.com
+const getAdminEmails = (): string[] => {
+  if (process.env.ADMIN_EMAILS) {
+    // Support comma-separated list from environment variable
+    return process.env.ADMIN_EMAILS.split(',').map(email => email.trim().toLowerCase());
+  }
+  // Default admin emails
+  return [
+    'gauravkhandelwal205@gmail.com',
+    'ananykoranne0@gmail.com'
+  ];
+};
+
+const ADMIN_EMAILS = getAdminEmails();
 
 /**
  * Middleware to check if the authenticated user is an admin
@@ -28,8 +41,9 @@ export const requireAdmin = (
       return;
     }
 
-    // Check if user email matches admin email
-    if (authReq.user.email.toLowerCase() !== ADMIN_EMAIL.toLowerCase()) {
+    // Check if user email matches any admin email
+    const userEmail = authReq.user.email.toLowerCase();
+    if (!ADMIN_EMAILS.includes(userEmail)) {
       res.status(403).json({
         error: {
           message: 'Access denied. Admin privileges required.',

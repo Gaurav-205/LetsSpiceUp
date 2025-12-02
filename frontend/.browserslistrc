@@ -1,8 +1,14 @@
 # Target modern browsers to reduce polyfills
+# This configuration tells Next.js/SWC to not transpile modern JavaScript features
+# that are supported by these browsers, reducing bundle size significantly
 last 2 Chrome versions
 last 2 Firefox versions
 last 2 Safari versions
 last 2 Edge versions
+Chrome >= 90
+Firefox >= 88
+Safari >= 14
+Edge >= 90
 not dead
 not op_mini all
 
