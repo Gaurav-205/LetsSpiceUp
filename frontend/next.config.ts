@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import crypto from "crypto";
 
 const nextConfig: NextConfig = {
   // Production optimizations
@@ -116,7 +117,6 @@ const nextConfig: NextConfig = {
   webpack: (config, { dev, isServer }) => {
     // Optimize bundle size for client-side only
     if (!dev && !isServer) {
-      const crypto = require('crypto');
       
       config.optimization = {
         ...config.optimization,

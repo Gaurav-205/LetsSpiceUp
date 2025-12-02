@@ -33,6 +33,7 @@ export const createPrank = async (
     yourEmail: prank.yourEmail,
     friendName: prank.friendName,
     friendAge: prank.friendAge,
+    friendPhone: prank.friendPhone || '',
     personalityTypes: prank.personalityTypes,
     prankType: prank.prankType,
     status: prank.status,
@@ -40,7 +41,6 @@ export const createPrank = async (
     updatedAt: prank.updatedAt,
   };
 
-    response.friendPhone = prank.friendPhone;
   if (prank.friendEmail) response.friendEmail = prank.friendEmail;
   if (prank.relationship) response.relationship = prank.relationship;
   if (prank.friendGender) response.friendGender = prank.friendGender;
@@ -64,6 +64,7 @@ export const getUserPranks = async (userId: string): Promise<PrankResponse[]> =>
       yourEmail: prank.yourEmail,
       friendName: prank.friendName,
       friendAge: prank.friendAge,
+      friendPhone: prank.friendPhone || '',
       personalityTypes: prank.personalityTypes,
       prankType: prank.prankType,
       status: prank.status,
@@ -71,7 +72,6 @@ export const getUserPranks = async (userId: string): Promise<PrankResponse[]> =>
       updatedAt: prank.updatedAt,
     };
 
-    response.friendPhone = prank.friendPhone;
     if (prank.friendEmail) response.friendEmail = prank.friendEmail;
     if (prank.relationship) response.relationship = prank.relationship;
     if (prank.friendGender) response.friendGender = prank.friendGender;
@@ -99,6 +99,7 @@ export const getPrankById = async (
     yourEmail: prank.yourEmail,
     friendName: prank.friendName,
     friendAge: prank.friendAge,
+    friendPhone: prank.friendPhone || '',
     personalityTypes: prank.personalityTypes,
     prankType: prank.prankType,
     status: prank.status,
@@ -106,7 +107,6 @@ export const getPrankById = async (
     updatedAt: prank.updatedAt,
   };
 
-    response.friendPhone = prank.friendPhone;
   if (prank.friendEmail) response.friendEmail = prank.friendEmail;
   if (prank.relationship) response.relationship = prank.relationship;
   if (prank.friendGender) response.friendGender = prank.friendGender;

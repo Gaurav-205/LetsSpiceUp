@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import AdminRoute from '@/components/AdminRoute';
 import Navbar from '@/components/Navbar';
 import { adminApi, AdminStats, User, Prank } from '@/lib/admin-api';
@@ -10,7 +9,6 @@ import Button from '@/components/ui/Button';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 export default function AdminPage() {
-  const router = useRouter();
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [users, setUsers] = useState<User[]>([]);
   const [pranks, setPranks] = useState<Prank[]>([]);
