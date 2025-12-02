@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import AdminRoute from '@/components/AdminRoute';
 import Navbar from '@/components/Navbar';
 import { adminApi, AdminStats, User, Prank } from '@/lib/admin-api';
@@ -9,6 +10,7 @@ import Button from '@/components/ui/Button';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 
 export default function AdminPage() {
+  const router = useRouter();
   const [stats, setStats] = useState<AdminStats | null>(null);
   const [users, setUsers] = useState<User[]>([]);
   const [pranks, setPranks] = useState<Prank[]>([]);
@@ -335,13 +337,21 @@ export default function AdminPage() {
                                   {formatDate(prank.createdAt)}
                                 </td>
                                 <td className="p-4">
-                                  <Button
-                                    onClick={() => handleDeletePrank(prank._id)}
-                                    disabled={deletingPrankId === prank._id}
-                                    className="px-3 py-1 text-xs font-secondary !bg-red-600 hover:!bg-red-700 !text-white disabled:opacity-50 disabled:cursor-not-allowed"
-                                  >
-                                    {deletingPrankId === prank._id ? 'Deleting...' : 'Delete'}
-                                  </Button>
+                                  <div className="flex gap-2">
+                                    <Button
+                                      onClick={() => router.push(`/pranks/${prank._id}`)}
+                                      className="px-3 py-1 text-xs font-secondary !bg-[#8A2BE2] hover:!bg-[#9B3DF3] !text-white"
+                                    >
+                                      Details
+                                    </Button>
+                                    <Button
+                                      onClick={() => handleDeletePrank(prank._id)}
+                                      disabled={deletingPrankId === prank._id}
+                                      className="px-3 py-1 text-xs font-secondary !bg-red-600 hover:!bg-red-700 !text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                      {deletingPrankId === prank._id ? 'Deleting...' : 'Delete'}
+                                    </Button>
+                                  </div>
                                 </td>
                               </tr>
                             );
