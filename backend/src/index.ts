@@ -32,10 +32,80 @@ const app: Express = express();
 // This enables Express to correctly identify the client's IP address
 app.set('trust proxy', 1);
 
+// Separate CORS config for health checks (allows all origins)
+// Defined early so health endpoint can use it
+const healthCheckCors = cors({
+  origin: true, // Allow all origins for health checks
+  credentials: false,
+});
+
 // Connect to database (required for authentication)
+// Note: Health endpoint is registered before this, so it works even if DB connection fails
 connectDatabase().catch((error) => {
   logger.error('Failed to connect to database', error);
   process.exit(1);
+});
+
+// Health check routes (placed VERY early, before all middleware)
+// These should always return 200 if the server is running, even if DB is down
+// This endpoint must be registered before any middleware that could throw errors
+
+// Health check GET endpoint
+app.get('/health', healthCheckCors, (_req, res) => {
+  try {
+    let dbStatus = 'unknown';
+    try {
+      // Safely check mongoose connection state
+      if (mongoose.connection && typeof mongoose.connection.readyState === 'number') {
+        const readyState = mongoose.connection.readyState;
+        // 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting
+        dbStatus = readyState === 1 ? 'connected' : 
+                   readyState === 2 ? 'connecting' : 
+                   readyState === 3 ? 'disconnecting' : 'disconnected';
+      } else {
+        dbStatus = 'not_initialized';
+      }
+    } catch (dbError) {
+      // If checking DB status fails, mark as error but don't fail the health check
+      dbStatus = 'error';
+      logger.debug('Health check: Database status check failed', dbError);
+    }
+
+    const health = {
+      status: 'ok', // Always return 'ok' if server is running
+      timestamp: new Date().toISOString(),
+      database: dbStatus,
+      uptime: process.uptime(),
+      version: process.env.npm_package_version || '1.0.0',
+    };
+
+    // Always return 200 - the server is running
+    // Database status is informational only
+    res.status(200).json(health);
+  } catch (error) {
+    // Even if something unexpected happens, return 200 with error status
+    // This ensures the server is considered "up" for load balancers
+    logger.error('Health check error:', error);
+    res.status(200).json({
+      status: 'error',
+      timestamp: new Date().toISOString(),
+      database: 'unknown',
+      error: 'Health check failed',
+    });
+  }
+});
+
+// Health check HEAD endpoint (for load balancers and monitoring)
+// Always returns 200 if server is running (database status doesn't affect this)
+app.head('/health', healthCheckCors, (_req, res) => {
+  try {
+    // Always return 200 for HEAD requests - server is up
+    res.status(200).end();
+  } catch (error) {
+    // Even on error, return 200 to indicate server is running
+    logger.error('Health check HEAD error:', error);
+    res.status(200).end();
+  }
 });
 
 // Request ID middleware (must be early to track all requests)
@@ -81,12 +151,6 @@ const allowedOrigins = [
   // Add additional allowed origins for production if needed
   ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim()) : [])
 ].filter(Boolean); // Remove any empty strings
-
-// Separate CORS config for health checks (allows all origins)
-const healthCheckCors = cors({
-  origin: true, // Allow all origins for health checks
-  credentials: false,
-});
 
 // Main CORS middleware for API routes
 app.use(cors({
@@ -163,67 +227,6 @@ app.use(session(sessionConfig));
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Health check routes (placed early to avoid middleware issues)
-// These should always return 200 if the server is running, even if DB is down
-// Uses the healthCheckCors defined above to allow all origins
-
-// Health check GET endpoint
-app.get('/health', healthCheckCors, (_req, res) => {
-  try {
-    let dbStatus = 'unknown';
-    try {
-      // Safely check mongoose connection state
-      if (mongoose.connection && typeof mongoose.connection.readyState === 'number') {
-        const readyState = mongoose.connection.readyState;
-        // 0 = disconnected, 1 = connected, 2 = connecting, 3 = disconnecting
-        dbStatus = readyState === 1 ? 'connected' : 
-                   readyState === 2 ? 'connecting' : 
-                   readyState === 3 ? 'disconnecting' : 'disconnected';
-      } else {
-        dbStatus = 'not_initialized';
-      }
-    } catch (dbError) {
-      // If checking DB status fails, mark as error but don't fail the health check
-      dbStatus = 'error';
-      logger.debug('Health check: Database status check failed', dbError);
-    }
-
-    const health = {
-      status: 'ok', // Always return 'ok' if server is running
-      timestamp: new Date().toISOString(),
-      database: dbStatus,
-      uptime: process.uptime(),
-      version: process.env.npm_package_version || '1.0.0',
-    };
-
-    // Always return 200 - the server is running
-    // Database status is informational only
-    res.status(200).json(health);
-  } catch (error) {
-    // Even if something unexpected happens, return 200 with error status
-    // This ensures the server is considered "up" for load balancers
-    logger.error('Health check error:', error);
-    res.status(200).json({
-      status: 'error',
-      timestamp: new Date().toISOString(),
-      database: 'unknown',
-      error: 'Health check failed',
-    });
-  }
-});
-
-// Health check HEAD endpoint (for load balancers and monitoring)
-// Always returns 200 if server is running (database status doesn't affect this)
-app.head('/health', healthCheckCors, (_req, res) => {
-  try {
-    // Always return 200 for HEAD requests - server is up
-    res.status(200).end();
-  } catch (error) {
-    // Even on error, return 200 to indicate server is running
-    logger.error('Health check HEAD error:', error);
-    res.status(200).end();
-  }
-});
 
 // Basic route
 app.get('/', (_req, res) => {
