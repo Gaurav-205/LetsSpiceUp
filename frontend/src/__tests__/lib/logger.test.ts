@@ -8,13 +8,22 @@ describe('Logger', () => {
   const originalEnv = process.env.NODE_ENV;
 
   afterEach(() => {
-    process.env.NODE_ENV = originalEnv;
+    // Use Object.defineProperty to bypass readonly restriction in tests
+    Object.defineProperty(process.env, 'NODE_ENV', {
+      value: originalEnv,
+      writable: true,
+      configurable: true,
+    });
     jest.clearAllMocks();
   });
 
   describe('in development', () => {
     beforeEach(() => {
-      process.env.NODE_ENV = 'development';
+      Object.defineProperty(process.env, 'NODE_ENV', {
+        value: 'development',
+        writable: true,
+        configurable: true,
+      });
     });
 
     it('should log info messages', () => {
@@ -34,7 +43,11 @@ describe('Logger', () => {
 
   describe('in production', () => {
     beforeEach(() => {
-      process.env.NODE_ENV = 'production';
+      Object.defineProperty(process.env, 'NODE_ENV', {
+        value: 'production',
+        writable: true,
+        configurable: true,
+      });
     });
 
     it('should always log errors', () => {
