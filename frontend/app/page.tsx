@@ -1,17 +1,25 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import Link from 'next/link';
 import Button from '@/components/ui/Button';
 import GlobalLoadingScreen from '@/components/ui/GlobalLoadingScreen';
-import Ballpit from '@/components/Ballpit';
+import dynamic from 'next/dynamic';
 import Navbar from '@/components/Navbar';
+
+// Lazy load Ballpit to reduce initial JavaScript bundle size
+// This component uses Three.js which is heavy (~500KB+)
+const Ballpit = dynamic(() => import('@/components/Ballpit'), {
+  ssr: false, // Disable SSR for Three.js component
+  loading: () => null, // Don't show loading state, just render nothing until loaded
+});
 
 export default function LandingPage() {
   const router = useRouter();
   const { isAuthenticated, loading } = useAuth();
+  const [showBallpit, setShowBallpit] = useState(false);
 
   // Redirect to home if authenticated (use useEffect to avoid render-time state update)
   useEffect(() => {
@@ -19,6 +27,15 @@ export default function LandingPage() {
       router.push('/home');
     }
   }, [isAuthenticated, loading, router]);
+
+  // Defer Ballpit loading until after initial render to improve FCP/LCP
+  useEffect(() => {
+    // Load Ballpit after a short delay to prioritize content rendering
+    const timer = setTimeout(() => {
+      setShowBallpit(true);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   if (loading) {
     return <GlobalLoadingScreen />;
@@ -35,17 +52,19 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen h-screen relative overflow-hidden" style={{ backgroundColor: '#0A0A0A' }}>
-      {/* Ballpit Background */}
-      <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
-        <Ballpit
-          count={100}
-          gravity={0.01}
-          friction={0.9975}
-          wallBounce={0.95}
-          followCursor={true}
-          className="w-full h-full"
-        />
-      </div>
+      {/* Ballpit Background - Loaded after initial render */}
+      {showBallpit && (
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0 }}>
+          <Ballpit
+            count={100}
+            gravity={0.01}
+            friction={0.9975}
+            wallBounce={0.95}
+            followCursor={true}
+            className="w-full h-full"
+          />
+        </div>
+      )}
 
       {/* Gradient Overlay for better text readability - reduced opacity to show shapes */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0A]/80 via-[#0A0A0A]/50 via-[#0A0A0A]/30 to-[#8A2BE2]/8 z-[1] pointer-events-none" />
