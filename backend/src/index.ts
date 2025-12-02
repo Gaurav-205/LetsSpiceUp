@@ -82,17 +82,24 @@ const allowedOrigins = [
   ...(process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim()) : [])
 ].filter(Boolean); // Remove any empty strings
 
+// Separate CORS config for health checks (allows all origins)
+const healthCheckCors = cors({
+  origin: true, // Allow all origins for health checks
+  credentials: false,
+});
+
+// Main CORS middleware for API routes
 app.use(cors({
   origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-    // Allow requests with no origin in development (for testing with Postman, curl, etc.)
+    // Allow requests with no origin only in development
     if (!origin) {
       if (config.nodeEnv === 'development') {
+        // In development, allow for testing with Postman, curl, etc.
         return callback(null, true);
       }
-      // In production, allow requests without origin only for health checks and similar endpoints
-      // This is needed for monitoring services, health checks, etc.
-      // The actual API endpoints will still be protected by proper authentication
-      return callback(null, true);
+      // In production, reject requests without origin (except health checks which use separate CORS)
+      logger.warn('CORS: Blocked request without origin in production');
+      return callback(new Error('Not allowed by CORS'));
     }
     
     // Check if origin is in allowed list
@@ -166,7 +173,13 @@ app.get('/', (_req, res) => {
 });
 
 // Health check route (should be accessible without CORS restrictions)
-app.get('/health', async (_req, res) => {
+// Use a separate CORS config for health checks
+const healthCheckCors = cors({
+  origin: true, // Allow all origins for health checks
+  credentials: false,
+});
+
+app.get('/health', healthCheckCors, async (_req, res) => {
   try {
     const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
     const health = {
@@ -188,7 +201,7 @@ app.get('/health', async (_req, res) => {
 });
 
 // Health check HEAD endpoint (for load balancers and monitoring)
-app.head('/health', async (_req, res) => {
+app.head('/health', healthCheckCors, async (_req, res) => {
   const dbStatus = mongoose.connection.readyState === 1 ? 'connected' : 'disconnected';
   const statusCode = dbStatus === 'connected' ? 200 : 503;
   res.status(statusCode).end();

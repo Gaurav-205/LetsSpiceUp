@@ -231,6 +231,17 @@ export const config = {
   },
   
   session: {
-    secret: (process.env.SESSION_SECRET || process.env.JWT_SECRET!).trim(),
+    secret: (() => {
+      const sessionSecret = process.env.SESSION_SECRET?.trim();
+      if (sessionSecret) {
+        return sessionSecret;
+      }
+      // In production, require separate SESSION_SECRET
+      if (process.env.NODE_ENV === 'production') {
+        throw new Error('SESSION_SECRET environment variable is required in production. Do not use JWT_SECRET for sessions.');
+      }
+      // Development fallback
+      return process.env.JWT_SECRET!.trim();
+    })(),
   },
 };

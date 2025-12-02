@@ -29,12 +29,62 @@ export default function LandingPage() {
   }, [isAuthenticated, loading, router]);
 
   // Defer Ballpit loading until after initial render to improve FCP/LCP
+  // Load after user interaction or after content is visible
   useEffect(() => {
-    // Load Ballpit after a short delay to prioritize content rendering
-    const timer = setTimeout(() => {
+    let idleCallbackId: number | null = null;
+    let fallbackTimer: NodeJS.Timeout | null = null;
+
+    // Load on user interaction (scroll, mouse move, touch)
+    const handleInteraction = () => {
       setShowBallpit(true);
-    }, 100);
-    return () => clearTimeout(timer);
+      // Clean up
+      if (idleCallbackId !== null && 'cancelIdleCallback' in window) {
+        cancelIdleCallback(idleCallbackId);
+      }
+      if (fallbackTimer) {
+        clearTimeout(fallbackTimer);
+      }
+      window.removeEventListener('scroll', handleInteraction);
+      window.removeEventListener('mousemove', handleInteraction);
+      window.removeEventListener('touchstart', handleInteraction);
+    };
+
+    // Set up interaction listeners
+    window.addEventListener('scroll', handleInteraction, { once: true, passive: true });
+    window.addEventListener('mousemove', handleInteraction, { once: true, passive: true });
+    window.addEventListener('touchstart', handleInteraction, { once: true, passive: true });
+
+    // Use requestIdleCallback if available, otherwise use a longer delay
+    if ('requestIdleCallback' in window) {
+      idleCallbackId = requestIdleCallback(
+        () => {
+          setShowBallpit(true);
+        },
+        { timeout: 2000 }
+      );
+    } else {
+      // Fallback: load after content is likely painted
+      fallbackTimer = setTimeout(() => {
+        setShowBallpit(true);
+      }, 1000);
+    }
+
+    // Fallback: load after 2 seconds if no interaction and idle callback hasn't fired
+    fallbackTimer = setTimeout(() => {
+      setShowBallpit(true);
+    }, 2000);
+
+    return () => {
+      if (idleCallbackId !== null && 'cancelIdleCallback' in window) {
+        cancelIdleCallback(idleCallbackId);
+      }
+      if (fallbackTimer) {
+        clearTimeout(fallbackTimer);
+      }
+      window.removeEventListener('scroll', handleInteraction);
+      window.removeEventListener('mousemove', handleInteraction);
+      window.removeEventListener('touchstart', handleInteraction);
+    };
   }, []);
 
   if (loading) {

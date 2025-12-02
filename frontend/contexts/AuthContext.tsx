@@ -232,9 +232,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // 2. Token exists (even if API call failed temporarily)
   const isAuthenticated = !!user || hasToken;
 
-  // Check if user is admin (only gauravkhandelwal205@gmail.com)
-  const ADMIN_EMAIL = 'gauravkhandelwal205@gmail.com';
-  const isAdmin = user?.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase();
+  // Check if user is admin
+  // Admin emails should be managed server-side, this is just for UI display
+  // The actual authorization is handled by the backend
+  const ADMIN_EMAILS = process.env.NEXT_PUBLIC_ADMIN_EMAILS 
+    ? process.env.NEXT_PUBLIC_ADMIN_EMAILS.split(',').map(e => e.trim().toLowerCase())
+    : [];
+  const isAdmin = user?.email 
+    ? ADMIN_EMAILS.includes(user.email.toLowerCase())
+    : false;
 
   return (
     <AuthContext.Provider

@@ -16,10 +16,10 @@ export const generateToken = (payload: TokenPayload): string => {
       email: payload.email 
     };
     // expiresIn can be a string like '7d' or a number in seconds
-    // Type assertion needed because config.jwt.expiresIn is string, but jwt expects StringValue | number
-    // Using 'as any' to bypass strict type checking since we validate the format in config
+    // We validate the format in config, so we can safely cast to string
+    const expiresIn = config.jwt.expiresIn;
     const options: SignOptions = {
-      expiresIn: config.jwt.expiresIn as any,
+      expiresIn: expiresIn as string | number,
     };
     return jwt.sign(tokenPayload, config.jwt.secret, options);
   } catch (error) {

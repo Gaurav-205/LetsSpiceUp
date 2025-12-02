@@ -3,14 +3,32 @@ import { AuthRequest } from './auth';
 import { AppError } from '../types/errors';
 
 // Admin emails - users with these emails can access admin routes
-// Can be overridden with ADMIN_EMAILS environment variable (comma-separated)
-// Default admins: gauravkhandelwal205@gmail.com and ananykoranne0@gmail.com
+// MUST be set via ADMIN_EMAILS environment variable (comma-separated)
+// In production, this MUST be configured via environment variables
 const getAdminEmails = (): string[] => {
   if (process.env.ADMIN_EMAILS) {
     // Support comma-separated list from environment variable
-    return process.env.ADMIN_EMAILS.split(',').map(email => email.trim().toLowerCase());
+    const emails = process.env.ADMIN_EMAILS.split(',')
+      .map(email => email.trim().toLowerCase())
+      .filter(email => {
+        // Validate email format
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+      });
+    
+    if (emails.length === 0) {
+      throw new Error('ADMIN_EMAILS environment variable must contain at least one valid email address');
+    }
+    
+    return emails;
   }
-  // Default admin emails
+  
+  // In production, require ADMIN_EMAILS to be set
+  if (process.env.NODE_ENV === 'production') {
+    throw new Error('ADMIN_EMAILS environment variable is required in production');
+  }
+  
+  // Development fallback (for local development only)
   return [
     'gauravkhandelwal205@gmail.com',
     'ananykoranne0@gmail.com'

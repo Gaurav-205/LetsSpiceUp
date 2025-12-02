@@ -7,25 +7,29 @@ import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 // Optimize Google Fonts with Next.js font optimization
 // This self-hosts fonts and eliminates render-blocking requests
+// Optimize font loading - only load weights actually used
 const orbitron = Orbitron({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["400", "600", "700", "800"], // Reduced from 6 to 4 weights
   display: "swap",
   variable: "--font-orbitron",
+  preload: true,
 });
 
 const rajdhani = Rajdhani({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"], // Reduced from 5 to 4 weights
   display: "swap",
   variable: "--font-rajdhani",
+  preload: false, // Not critical for initial render
 });
 
 const exo2 = Exo_2({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600"], // Reduced from 5 to 3 weights
   display: "swap",
   variable: "--font-exo2",
+  preload: false, // Not critical for initial render
 });
 
 export const metadata: Metadata = {
@@ -34,7 +38,7 @@ export const metadata: Metadata = {
     template: "%s | Prank Wizard",
   },
   description: "Describe your friend, and we'll craft a personalized prank plan tailored to their personality. Free, secure, and personalized prank planning.",
-  keywords: ["prank", "prank planning", "prank wizard", "prank ideas", "personalized pranks"],
+  keywords: ["prank", "prank planning", "prank wizard", "prank ideas", "personalized pranks", "prank generator", "prank planner"],
   authors: [{ name: "Prank Wizard" }],
   creator: "Prank Wizard",
   publisher: "Prank Wizard",
@@ -56,11 +60,23 @@ export const metadata: Metadata = {
     siteName: "Prank Wizard",
     title: "Prank Wizard - Plan the Perfect Prank Experience",
     description: "Describe your friend, and we'll craft a personalized prank plan tailored to their personality.",
+    images: [
+      {
+        url: '/og-image.png', // Add this image to public folder
+        width: 1200,
+        height: 630,
+        alt: 'Prank Wizard - Plan the Perfect Prank Experience',
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Prank Wizard - Plan the Perfect Prank Experience",
     description: "Describe your friend, and we'll craft a personalized prank plan tailored to their personality.",
+    images: ['/og-image.png'],
+  },
+  alternates: {
+    canonical: process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000",
   },
   verification: {
     // Add your verification codes here when available
@@ -73,8 +89,8 @@ export const metadata: Metadata = {
 export const viewport = {
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
-  userScalable: false,
+  maximumScale: 5,
+  userScalable: true,
 };
 
 export default function RootLayout({
@@ -82,8 +98,40 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  
   return (
     <html lang="en" className={`${orbitron.variable} ${rajdhani.variable} ${exo2.variable}`}>
+      <head>
+        {/* Preconnect to external domains for performance */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        {/* Structured Data for SEO */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebApplication",
+              "name": "Prank Wizard",
+              "description": "Plan the perfect prank experience tailored to your friend's personality",
+              "url": siteUrl,
+              "applicationCategory": "EntertainmentApplication",
+              "operatingSystem": "Web",
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+              },
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "5",
+                "ratingCount": "1"
+              }
+            }),
+          }}
+        />
+      </head>
       <body className="antialiased font-body" style={{ backgroundColor: '#0A0A0A', color: '#FFFFFF' }}>
         <ErrorBoundary>
           <AuthProvider>
