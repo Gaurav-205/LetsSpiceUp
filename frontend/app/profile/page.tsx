@@ -22,9 +22,11 @@ export default function ProfilePage() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen h-screen h-[100dvh] relative overflow-hidden" style={{ backgroundColor: '#0A0A0A', height: '100dvh' }}>
+      <div className="h-screen h-[100dvh] relative overflow-hidden" style={{ backgroundColor: '#0A0A0A', height: '100dvh' }}>
+        {/* Navigation */}
         <Navbar 
           breadcrumbs={[
+            { label: 'Home', href: '/home' },
             { label: 'Profile' }
           ]}
           rightContent={

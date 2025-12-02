@@ -253,8 +253,10 @@ export default function PrankWizardPage() {
 
   return (
     <div className="h-screen h-[100dvh] flex flex-col overflow-hidden" style={{ backgroundColor: '#0A0A0A', height: '100dvh' }}>
+      {/* Navigation */}
       <Navbar 
         breadcrumbs={[
+          { label: 'Home', href: '/home' },
           { label: 'Prank Wizard' }
         ]}
       />
