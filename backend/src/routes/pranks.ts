@@ -95,10 +95,11 @@ router.get('/:id', async (req: Request, res: Response) => {
     }
 
     const prankId = req.params.id;
-    if (!prankId) {
+    // Invalid ObjectId would throw a CastError and surface as a 500
+    if (!prankId || !prankId.match(/^[0-9a-fA-F]{24}$/)) {
       return res.status(400).json({
         error: {
-          message: 'Prank ID is required',
+          message: 'Invalid prank ID format',
         },
       });
     }
