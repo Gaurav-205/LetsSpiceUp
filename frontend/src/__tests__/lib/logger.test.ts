@@ -27,7 +27,7 @@ describe('Logger', () => {
     });
 
     it('should log info messages', () => {
-      const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
+      const consoleSpy = jest.spyOn(console, 'info').mockImplementation();
       logger.info('Test info message');
       expect(consoleSpy).toHaveBeenCalled();
       consoleSpy.mockRestore();

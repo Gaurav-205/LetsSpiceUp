@@ -6,7 +6,9 @@
 type LogLevel = 'log' | 'warn' | 'error' | 'info';
 
 class Logger {
-  private isDevelopment = process.env.NODE_ENV === 'development';
+  private get isDevelopment(): boolean {
+    return process.env.NODE_ENV === 'development';
+  }
 
   private log(level: LogLevel, message: string, ...args: unknown[]): void {
     if (this.isDevelopment) {
