@@ -155,15 +155,10 @@ const allowedOrigins = [
 // Main CORS middleware for API routes
 app.use(cors({
   origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
-    // Allow requests with no origin only in development
+    // Allow requests with no origin: browsers omit Origin on top-level GET navigations
+    // (e.g. /api/auth/google and Google's OAuth callback redirect), and CORS never protects non-browser clients
     if (!origin) {
-      if (config.nodeEnv === 'development') {
-        // In development, allow for testing with Postman, curl, etc.
-        return callback(null, true);
-      }
-      // In production, reject requests without origin (except health checks which use separate CORS)
-      logger.warn('CORS: Blocked request without origin in production');
-      return callback(new Error('Not allowed by CORS'));
+      return callback(null, true);
     }
     
     // Check if origin is in allowed list
