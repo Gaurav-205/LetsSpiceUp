@@ -60,7 +60,7 @@ EMAIL_FROM=gauravkhandelwal205@gmail.com
 
 ## Step 6: Test
 
-1. Go to your frontend: `https://loginsignuptemp.netlify.app/forgot-password`
+1. Go to your frontend: `https://letsspiceup.vercel.app/forgot-password`
 2. Enter your email address
 3. Click "Send reset link"
 4. Check your email inbox for the password reset email

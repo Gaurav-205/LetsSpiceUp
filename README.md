@@ -97,7 +97,7 @@ A full-stack web application for planning and managing personalized pranks. Buil
 - **Validation**: Custom validators with express-validator patterns
 
 ### DevOps & Deployment
-- **Frontend Hosting**: Netlify
+- **Frontend Hosting**: Vercel
 - **Backend Hosting**: Render
 - **Containerization**: Docker & Docker Compose
 - **CI/CD**: GitHub Actions
@@ -311,7 +311,6 @@ Visit **http://localhost:3000** to see the application.
 ├── docs/                    # Documentation
 ├── docker-compose.yml       # Docker Compose configuration
 ├── Dockerfile              # Multi-stage Docker build
-├── netlify.toml            # Netlify deployment config
 └── render.yaml             # Render deployment config
 ```
 
@@ -319,7 +318,6 @@ Visit **http://localhost:3000** to see the application.
 
 - **[Setup Guide](SETUP_GUIDE.md)** - Detailed setup instructions
 - **[Quick Deploy](QUICK_DEPLOY.md)** - Fast deployment checklist
-- **[Deployment Guide](DEPLOYMENT_NETLIFY_RENDER.md)** - Complete Netlify + Render deployment
 - **[Production Deployment](PRODUCTION_DEPLOYMENT.md)** - Production deployment best practices
 - **[Project Structure](PROJECT_STRUCTURE.md)** - Detailed project organization
 - **[Production Checklist](PRODUCTION_CHECKLIST.md)** - Pre-deployment checklist
@@ -404,13 +402,11 @@ docker run -p 3000:3000 --env-file frontend/.env.local prank-wizard-frontend
 
 ## ☁️ Cloud Deployment
 
-### Netlify (Frontend) + Render (Backend)
-
-See **[DEPLOYMENT_NETLIFY_RENDER.md](DEPLOYMENT_NETLIFY_RENDER.md)** for complete instructions.
+### Vercel (Frontend) + Render (Backend)
 
 **Quick Steps:**
 1. Deploy backend to Render (see `render.yaml`)
-2. Deploy frontend to Netlify (see `netlify.toml`)
+2. Deploy frontend to Vercel (project root directory `frontend`, see `frontend/vercel.json`)
 3. Configure environment variables in both platforms
 4. Set up MongoDB Atlas
 5. Update CORS settings in backend

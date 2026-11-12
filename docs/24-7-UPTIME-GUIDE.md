@@ -4,7 +4,7 @@ This guide explains how to keep your Prank Wizard website running 24/7.
 
 ## Current Setup
 
-- **Frontend**: Netlify (always-on, free tier available)
+- **Frontend**: Vercel (always-on, free tier available)
 - **Backend**: Render (free tier spins down after 15 min inactivity)
 - **Database**: MongoDB Atlas (recommended for 24/7) or Render MongoDB
 
@@ -173,7 +173,7 @@ curl https://your-backend-url.onrender.com/health
 ### Frontend Can't Connect to Backend
 
 **Solution**:
-- Verify `NEXT_PUBLIC_API_URL` in Netlify environment variables
+- Verify `NEXT_PUBLIC_API_URL` in Vercel environment variables
 - Check CORS settings in backend
 - Verify backend is running (check Render dashboard)
 
